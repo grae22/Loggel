@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loggel", "Loggel\Loggel.csproj", "{C78F49F8-E0D7-4428-8B0C-0FD85AD0C27F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loggella", "Loggella\Loggella.csproj", "{4C700711-731E-422E-98C0-C5E502716DD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loggel_Test", "Loggel_Test\Loggel_Test.csproj", "{ADAAE5F1-3053-46BC-B5D3-F3565778992C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C78F49F8-E0D7-4428-8B0C-0FD85AD0C27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C78F49F8-E0D7-4428-8B0C-0FD85AD0C27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C78F49F8-E0D7-4428-8B0C-0FD85AD0C27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C78F49F8-E0D7-4428-8B0C-0FD85AD0C27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C700711-731E-422E-98C0-C5E502716DD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C700711-731E-422E-98C0-C5E502716DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C700711-731E-422E-98C0-C5E502716DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C700711-731E-422E-98C0-C5E502716DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADAAE5F1-3053-46BC-B5D3-F3565778992C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAAE5F1-3053-46BC-B5D3-F3565778992C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAAE5F1-3053-46BC-B5D3-F3565778992C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADAAE5F1-3053-46BC-B5D3-F3565778992C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
