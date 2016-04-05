@@ -6,7 +6,7 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    public Wire WireIn { get; set; }
+    public Wire ConnectedWire { get; set; }
 
     //-------------------------------------------------------------------------
 
@@ -16,9 +16,9 @@ namespace Loggel
       {
         bool isLive = false;
 
-        if( WireIn != null )
+        if( ConnectedWire != null )
         {
-          isLive = WireIn.IsLive;
+          isLive = ConnectedWire.IsLive;
         }
 
         return isLive;

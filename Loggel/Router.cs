@@ -135,8 +135,8 @@ namespace Loggel
       bool inRangeResult = false;
       int compareResult = Circuit.Value.CompareTo( ComparisonValue );
 
-      if( OutSocket_InRange.Wire != null ||
-          OutSocket_NotInRange.Wire != null )
+      if( OutSocket_InRange.ConnectedWire != null ||
+          OutSocket_NotInRange.ConnectedWire != null )
       {
         // We're in-range if the value is equal to the range min or max OR
         // if the value is between the range min and max.
@@ -151,36 +151,36 @@ namespace Loggel
 
       // In-range.
       if( inRangeResult &&
-          OutSocket_InRange.Wire != null )
+          OutSocket_InRange.ConnectedWire != null )
       {
         OutSocket_InRange.IsLive = true;
       }
       // Not in-range.
       else if( inRangeResult == false &&
-               OutSocket_NotInRange.Wire != null )
+               OutSocket_NotInRange.ConnectedWire != null )
       {
         OutSocket_NotInRange.IsLive = true;
       }            
       // Equal.
       else if( compareResult == 0 &&
-               OutSocket_Equal.Wire != null )
+               OutSocket_Equal.ConnectedWire != null )
       {
         OutSocket_Equal.IsLive = true;
       }
       // Greater.
       else if( compareResult > 0 &&
-               OutSocket_Greater.Wire != null )
+               OutSocket_Greater.ConnectedWire != null )
       {
         OutSocket_Greater.IsLive = true;
       }
       // Lesser.
       else if( compareResult < 0 &&
-               OutSocket_Lesser.Wire != null )
+               OutSocket_Lesser.ConnectedWire != null )
       {
         OutSocket_Lesser.IsLive = true;
       }
       // Not equal.
-      else if( OutSocket_NotEqual.Wire != null )
+      else if( OutSocket_NotEqual.ConnectedWire != null )
       {
         OutSocket_NotEqual.IsLive = true;
       }

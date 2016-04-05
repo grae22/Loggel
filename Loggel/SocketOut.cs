@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Loggel
+﻿namespace Loggel
 {
   public class SocketOut
   {
@@ -8,7 +6,7 @@ namespace Loggel
 
     // The wire that is connected to this socket.
     // NOTE: May be null.
-    public Wire Wire { get; set; }
+    public Wire ConnectedWire { get; set; }
       
     // TODO: Shouldn't store the state! That's why we're resetting it after a get.
     private bool m_isLive;

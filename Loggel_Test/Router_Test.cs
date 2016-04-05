@@ -15,7 +15,7 @@ namespace Loggel_Test
       Router<int> router = new Router<int>( signal );
       Wire wire = new Wire();
 
-      router.OutSocket_Equal.Wire = wire;
+      router.OutSocket_Equal.ConnectedWire = wire;
       router.ComparisonValue = 0;
       router.Update();
 
@@ -36,7 +36,7 @@ namespace Loggel_Test
       Router<int> router = new Router<int>( signal );
       Wire wire = new Wire();
 
-      router.OutSocket_NotEqual.Wire = wire;
+      router.OutSocket_NotEqual.ConnectedWire = wire;
       router.ComparisonValue = 1;
       router.Update();
 
@@ -57,7 +57,7 @@ namespace Loggel_Test
       Router<int> router = new Router<int>( signal );
       Wire wire = new Wire();
 
-      router.OutSocket_Greater.Wire = wire;
+      router.OutSocket_Greater.ConnectedWire = wire;
       router.ComparisonValue = 0;
       router.Update();
 
@@ -78,7 +78,7 @@ namespace Loggel_Test
       Router<int> router = new Router<int>( signal );
       Wire wire = new Wire();
 
-      router.OutSocket_Lesser.Wire = wire;
+      router.OutSocket_Lesser.ConnectedWire = wire;
       router.ComparisonValue = 1;
       router.Update();
 
@@ -99,7 +99,7 @@ namespace Loggel_Test
       Router<int> router = new Router<int>( signal );
       Wire wire = new Wire();
 
-      router.OutSocket_InRange.Wire = wire;
+      router.OutSocket_InRange.ConnectedWire = wire;
       router.ComparisonValue = 0;
       router.RangeMin = 0;
       router.RangeMin = 10;
@@ -122,7 +122,7 @@ namespace Loggel_Test
       Router<int> router = new Router<int>( signal );
       Wire wire = new Wire();
 
-      router.OutSocket_NotInRange.Wire = wire;
+      router.OutSocket_NotInRange.ConnectedWire = wire;
       router.ComparisonValue = 0;
       router.RangeMin = 0;
       router.RangeMin = 10;
