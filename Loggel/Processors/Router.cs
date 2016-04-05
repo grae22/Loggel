@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Loggel
+namespace Loggel.Processors
 {
-  public class Router<T> where T : IComparable
+  public class Router<T> : Processor<T>
+    where T : IComparable
   {
     //-------------------------------------------------------------------------
     /*
@@ -33,53 +34,40 @@ namespace Loggel
     public Circuit<T> Circuit_RangeMax { get; set; }
 
     //-- Output sockets.
-    public SocketOut OutSocket_Equal { get; private set; }
-    public SocketOut OutSocket_NotEqual { get; private set; }
-    public SocketOut OutSocket_Greater { get; private set; }
-    public SocketOut OutSocket_Lesser { get; private set; }
-    public SocketOut OutSocket_InRange { get; private set; }
-    public SocketOut OutSocket_NotInRange { get; private set; }
+    public Socket<T> OutSocket_Equal { get; private set; }
+    public Socket<T> OutSocket_NotEqual { get; private set; }
+    public Socket<T> OutSocket_Greater { get; private set; }
+    public Socket<T> OutSocket_Lesser { get; private set; }
+    public Socket<T> OutSocket_InRange { get; private set; }
+    public Socket<T> OutSocket_NotInRange { get; private set; }
 
     //-- General.
     public T ComparisonValue { get; set; }
     public T RangeMin { get; set; }
     public T RangeMax { get; set; }
 
-    //-- Private members.
-    private Circuit<T> Circuit { get; set; }
-    private List<SocketOut> OutSockets { get; set; }
-
     //-------------------------------------------------------------------------
 
-    public Router( Circuit<T> circuit )
+    public Router()
     {
-      Circuit = circuit;
-
       // Create the output sockets.
-      OutSocket_Equal = new SocketOut();
-      OutSocket_NotEqual = new SocketOut();
-      OutSocket_Greater = new SocketOut();
-      OutSocket_Lesser = new SocketOut();
-      OutSocket_InRange = new SocketOut();
-      OutSocket_NotInRange = new SocketOut();
-
-      OutSockets = new List<SocketOut>();
-      OutSockets.Add( OutSocket_Equal );
-      OutSockets.Add( OutSocket_NotEqual );
-      OutSockets.Add( OutSocket_Greater );
-      OutSockets.Add( OutSocket_Lesser );
-      OutSockets.Add( OutSocket_InRange );
-      OutSockets.Add( OutSocket_NotInRange );
+      OutSocket_Equal = AddOutputSocket( "Equal", "Circuit and Comparison values are equal." );
+      OutSocket_NotEqual = AddOutputSocket( "NotEqual", "Circuit and Comparison values are not equal." );
+      OutSocket_Greater = AddOutputSocket( "Greater", "Circuit value is greater than Comparison value." );
+      OutSocket_Lesser = AddOutputSocket( "Lesser", "Circuit value is smaller than Comparison value." );
+      OutSocket_InRange = AddOutputSocket( "InRange", "Circuit value falls within (inclusive) specified range." );
+      OutSocket_NotInRange = AddOutputSocket( "NotInRange", "Circuit value falls outside (exclusive) specified range." );
     }
 
     //-------------------------------------------------------------------------
 
-    public void Update()
+    public override Processor<T> Process( Circuit<T>.CircuitContext context )
     {
       UpdateComparisonValue();
       UpdateRangeMin();
       UpdateRangeMax();
-      UpdateOutSockets();
+
+      return IdentifyOutputSocketToProcess( context );
     }
     
     //-------------------------------------------------------------------------
@@ -119,29 +107,26 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // Update each output socket's 'live' state by comparing the circuit value
-    // with the comparison-value.
+    // Evaluates conditions and passes processing onto the relevant connected
     // Only ONE output socket can be live at any one time.
 
-    private void UpdateOutSockets()
+    private Processor<T> IdentifyOutputSocketToProcess( Circuit<T>.CircuitContext context )
     {
-      //-- Reset all sockets' live states.
-      SetOutSocketsLiveState( false );
-
       //-- Check if any of the conditions are met for an output socket to be live.
       //-- A socket can only be live if it is connected to a wire.
+      Processor<T> nextProcessor = null;
       
       // Order is important and range sockets take precendence.
       bool inRangeResult = false;
-      int compareResult = Circuit.Value.CompareTo( ComparisonValue );
+      int compareResult = context.Value.CompareTo( ComparisonValue );
 
-      if( OutSocket_InRange.ConnectedWire != null ||
-          OutSocket_NotInRange.ConnectedWire != null )
+      if( OutSocket_InRange.IsConnected ||
+          OutSocket_NotInRange.IsConnected )
       {
         // We're in-range if the value is equal to the range min or max OR
         // if the value is between the range min and max.
-        int rangeResultMin = Circuit.Value.CompareTo( RangeMin );
-        int rangeResultMax = Circuit.Value.CompareTo( RangeMax );
+        int rangeResultMin = context.Value.CompareTo( RangeMin );
+        int rangeResultMax = context.Value.CompareTo( RangeMax );
 
         inRangeResult =
           rangeResultMin == 0 ||
@@ -151,49 +136,41 @@ namespace Loggel
 
       // In-range.
       if( inRangeResult &&
-          OutSocket_InRange.ConnectedWire != null )
+          OutSocket_InRange.IsConnected )
       {
-        OutSocket_InRange.IsLive = true;
+        nextProcessor = OutSocket_Equal.ConnectedProcessor;
       }
       // Not in-range.
       else if( inRangeResult == false &&
-               OutSocket_NotInRange.ConnectedWire != null )
+               OutSocket_NotInRange.IsConnected )
       {
-        OutSocket_NotInRange.IsLive = true;
+        nextProcessor = OutSocket_NotInRange.ConnectedProcessor;
       }            
       // Equal.
       else if( compareResult == 0 &&
-               OutSocket_Equal.ConnectedWire != null )
+               OutSocket_Equal.IsConnected )
       {
-        OutSocket_Equal.IsLive = true;
+        nextProcessor = OutSocket_Equal.ConnectedProcessor;
       }
       // Greater.
       else if( compareResult > 0 &&
-               OutSocket_Greater.ConnectedWire != null )
+               OutSocket_Greater.IsConnected )
       {
-        OutSocket_Greater.IsLive = true;
+        nextProcessor = OutSocket_Greater.ConnectedProcessor;
       }
       // Lesser.
       else if( compareResult < 0 &&
-               OutSocket_Lesser.ConnectedWire != null )
+               OutSocket_Lesser.IsConnected )
       {
-        OutSocket_Lesser.IsLive = true;
+        nextProcessor = OutSocket_Lesser.ConnectedProcessor;
       }
       // Not equal.
-      else if( OutSocket_NotEqual.ConnectedWire != null )
+      else if( OutSocket_NotEqual.IsConnected )
       {
-        OutSocket_NotEqual.IsLive = true;
+        nextProcessor = OutSocket_NotEqual.ConnectedProcessor;
       }
-    }
 
-    //-------------------------------------------------------------------------
-
-    private void SetOutSocketsLiveState( bool state )
-    {
-      foreach( SocketOut socket in OutSockets )
-      {
-        socket.IsLive = state;
-      }
+      return nextProcessor;
     }
 
     //-------------------------------------------------------------------------

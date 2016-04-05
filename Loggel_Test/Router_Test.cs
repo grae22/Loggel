@@ -3,7 +3,7 @@ using Loggel;
 
 namespace Loggel_Test
 {
-  [TestClass]
+/*  [TestClass]
   public class Router_Test
   {
     //-------------------------------------------------------------------------
@@ -137,5 +137,5 @@ namespace Loggel_Test
     }
 
     //-------------------------------------------------------------------------
-  }
+  }*/
 }

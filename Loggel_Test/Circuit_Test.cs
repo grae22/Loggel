@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Loggel;
+using Loggel.Processors;
 
 namespace Loggel_Test
 {
@@ -12,10 +13,15 @@ namespace Loggel_Test
     [TestMethod]
     public void ValueSet()
     {
-      Circuit<bool> signal = new Circuit<bool>( false );
-      signal.Value = true;
+      Circuit<double> deltaTime = new Circuit<double>( 1.0 );
+      Circuit<double> timeCheck = new Circuit<double>( 0.0 );
+      Router<double> processor = new Router<double>();
+      timeCheck.EntryProcessor = processor;
+      processor.Circuit_ComparisonValue = deltaTime;
 
-      Assert.AreEqual( signal.Value, true );
+      timeCheck.Process();
+
+      //Assert.AreEqual(  )
     }
 
     //-------------------------------------------------------------------------

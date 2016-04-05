@@ -1,28 +1,26 @@
 ﻿using System;
+using Loggel;
 
-namespace Loggel
+namespace Loggel.Processors
 {
-  public class SocketIn
+  class Maths<T> : Processor<T>
+    where T : IComparable
   {
     //-------------------------------------------------------------------------
 
-    public Wire ConnectedWire { get; set; }
+    //public enum
 
     //-------------------------------------------------------------------------
 
-    public bool IsLive
+    public override Processor<T> Process( Circuit<T>.CircuitContext context )
     {
-      get
+      if( context.Value is int )
       {
-        bool isLive = false;
-
-        if( ConnectedWire != null )
-        {
-          isLive = ConnectedWire.IsLive;
-        }
-
-        return isLive;
+        
       }
+
+
+      return null;
     }
 
     //-------------------------------------------------------------------------
