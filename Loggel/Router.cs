@@ -129,13 +129,14 @@ namespace Loggel
       SetOutSocketsLiveState( false );
 
       //-- Check if any of the conditions are met for an output socket to be live.
+      //-- A socket can only be live if it is connected to a wire.
       
       // Order is important and range sockets take precendence.
-      bool useRange = ( RangeMin.CompareTo( RangeMax ) != 0 );
       bool inRangeResult = false;
       int compareResult = Circuit.Value.CompareTo( ComparisonValue );
 
-      if( useRange )
+      if( OutSocket_InRange.Wire != null ||
+          OutSocket_NotInRange.Wire != null )
       {
         // We're in-range if the value is equal to the range min or max OR
         // if the value is between the range min and max.
@@ -150,33 +151,36 @@ namespace Loggel
 
       // In-range.
       if( inRangeResult &&
-          useRange )
+          OutSocket_InRange.Wire != null )
       {
         OutSocket_InRange.IsLive = true;
       }
       // Not in-range.
       else if( inRangeResult == false &&
-               useRange )
+               OutSocket_NotInRange.Wire != null )
       {
         OutSocket_NotInRange.IsLive = true;
       }            
       // Equal.
-      else if( compareResult == 0 )
+      else if( compareResult == 0 &&
+               OutSocket_Equal.Wire != null )
       {
         OutSocket_Equal.IsLive = true;
       }
       // Greater.
-      else if( compareResult > 0 )
+      else if( compareResult > 0 &&
+               OutSocket_Greater.Wire != null )
       {
         OutSocket_Greater.IsLive = true;
       }
       // Lesser.
-      else if( compareResult < 0 )
+      else if( compareResult < 0 &&
+               OutSocket_Lesser.Wire != null )
       {
         OutSocket_Lesser.IsLive = true;
       }
       // Not equal.
-      else
+      else if( OutSocket_NotEqual.Wire != null )
       {
         OutSocket_NotEqual.IsLive = true;
       }
