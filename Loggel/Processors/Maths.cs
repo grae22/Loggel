@@ -10,13 +10,15 @@ namespace Loggel.Processors
 
     public char Operator { get; set; }
     public T Value2 { get; set; }
+    public Socket<T> OutputSocket { get; set; }
 
     //-------------------------------------------------------------------------
     // METHODS.
 
     public Maths()
     {
-
+      OutputSocket =
+        AddOutputSocket( "Result", "Result of mathematical operation." );
     }
 
     //-------------------------------------------------------------------------
@@ -68,7 +70,15 @@ namespace Loggel.Processors
         }
       }
 
-      return null;
+      // Return the next processor if we have one.
+      Processor<T> nextProcessor = null;
+
+      if( OutputSocket.ConnectedProcessor != null )
+      {
+        nextProcessor = OutputSocket.ConnectedProcessor;
+      }
+
+      return nextProcessor;
     }
 
     //-------------------------------------------------------------------------
