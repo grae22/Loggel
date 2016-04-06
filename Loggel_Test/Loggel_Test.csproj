@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Processors\Or_Test.cs" />
     <Compile Include="Processors\Maths_Test.cs" />
     <Compile Include="Processors\And_Test.cs" />
     <Compile Include="System\Circuit_Test.cs" />
