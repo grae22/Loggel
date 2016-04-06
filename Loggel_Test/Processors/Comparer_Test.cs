@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Loggel;
+using Loggel.System;
 using Loggel.Processors;
 
 namespace Loggel_Test
@@ -9,8 +9,8 @@ namespace Loggel_Test
   {
     //-------------------------------------------------------------------------
 
-    private Circuit<int> circuit;
-    private Comparer<int> comparer;
+    private Circuit circuit;
+    private Comparer comparer;
     private const int c_inRangeValue = 1;
     private const int c_notInRangeValue = 2;
     private const int c_equalValue = 3;
@@ -26,31 +26,31 @@ namespace Loggel_Test
     [TestInitialize]
     public void Initialise()
     {
-      Maths<int> mathsInRange = new Maths<int>();
+      Maths mathsInRange = new Maths();
       mathsInRange.Operator = '=';
       mathsInRange.Value2 = c_inRangeValue;
 
-      Maths<int> mathsNotInRange = new Maths<int>();
+      Maths mathsNotInRange = new Maths();
       mathsNotInRange.Operator = '=';
       mathsNotInRange.Value2 = c_notInRangeValue;
 
-      Maths<int> mathsEqual = new Maths<int>();
+      Maths mathsEqual = new Maths();
       mathsEqual.Operator = '=';
       mathsEqual.Value2 = c_equalValue;
 
-      Maths<int> mathsGreater = new Maths<int>();
+      Maths mathsGreater = new Maths();
       mathsGreater.Operator = '=';
       mathsGreater.Value2 = c_greaterValue;
 
-      Maths<int> mathsLesser = new Maths<int>();
+      Maths mathsLesser = new Maths();
       mathsLesser.Operator = '=';
       mathsLesser.Value2 = c_lesserValue;
 
-      Maths<int> mathsNotEqual = new Maths<int>();
+      Maths mathsNotEqual = new Maths();
       mathsNotEqual.Operator = '=';
       mathsNotEqual.Value2 = c_notEqualValue;
 
-      comparer = new Comparer<int>();
+      comparer = new Comparer();
       comparer.OutputSocket_InRange.ConnectedProcessor = mathsInRange;
       comparer.OutputSocket_NotInRange.ConnectedProcessor = mathsNotInRange;
       comparer.OutputSocket_Equal.ConnectedProcessor = mathsEqual;
@@ -58,7 +58,7 @@ namespace Loggel_Test
       comparer.OutputSocket_Lesser.ConnectedProcessor = mathsLesser;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsNotEqual;
 
-      circuit = new Circuit<int>( 0 );
+      circuit = new Circuit( 0 );
       circuit.EntryProcessor = comparer;
     }
 

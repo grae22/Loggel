@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Loggel;
+using Loggel.System;
 using Loggel.Processors;
 
 namespace Loggel_Test
@@ -13,17 +13,17 @@ namespace Loggel_Test
     public void Integer()
     {
       // Create a circuit.
-      Maths<int> maths = new Maths<int>();
-      Maths<int> maths2 = new Maths<int>();
+      Maths maths = new Maths();
+      Maths maths2 = new Maths();
 
-      Circuit<int> comparisonValue = new Circuit<int>( 1 );
+      Circuit comparisonValue = new Circuit( 1 );
 
-      Comparer<int> comparer = new Comparer<int>();
+      Comparer comparer = new Comparer();
       comparer.Circuit_ComparisonValue = comparisonValue;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
 
-      Circuit<int> valueManipulator = new Circuit<int>( 0 );
+      Circuit valueManipulator = new Circuit( 0 );
       valueManipulator.EntryProcessor = comparer;
 
       // Simple addition test.
@@ -48,7 +48,7 @@ namespace Loggel_Test
       maths.Operator = '-';
       maths.Value2 = 5;
       valueManipulator.Process();
-      Assert.AreEqual( 0.0, valueManipulator.Value, "Subtraction failed." );
+      Assert.AreEqual( 0, valueManipulator.Value, "Subtraction failed." );
 
       // Add an additional maths processor after the existing one, check
       // that the chain produces the correct result.
@@ -67,17 +67,17 @@ namespace Loggel_Test
     public void Double()
     {
       // Create a circuit.
-      Maths<double> maths = new Maths<double>();
-      Maths<double> maths2 = new Maths<double>();
+      Maths maths = new Maths();
+      Maths maths2 = new Maths();
 
-      Circuit<double> comparisonValue = new Circuit<double>( 1.0 );
+      Circuit comparisonValue = new Circuit( 1.0 );
 
-      Comparer<double> comparer = new Comparer<double>();
+      Comparer comparer = new Comparer();
       comparer.Circuit_ComparisonValue = comparisonValue;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
 
-      Circuit<double> valueManipulator = new Circuit<double>( 0.0 );
+      Circuit valueManipulator = new Circuit( 0.0 );
       valueManipulator.EntryProcessor = comparer;
 
       // Simple addition test.

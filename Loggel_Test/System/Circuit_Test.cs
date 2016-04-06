@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Loggel;
+using Loggel.System;
 using Loggel.Processors;
 
 namespace Loggel_Test
@@ -13,26 +13,26 @@ namespace Loggel_Test
     public void Routing()
     {
       // Maths processor for adding 1 to the valueManipulator circuit value.
-      Maths<double> mathsAdd = new Maths<double>();
+      Maths mathsAdd = new Maths();
       mathsAdd.Operator = '+';
       mathsAdd.Value2 = 1.0;
 
       // Maths processor for subtracting 1 to the valueManipulator circuit value.
-      Maths<double> mathsSub = new Maths<double>();
+      Maths mathsSub = new Maths();
       mathsSub.Operator = '-';
       mathsSub.Value2 = 1.0;
 
       // Circuit which produces the comparison value we will use.
-      Circuit<double> comparisonValue = new Circuit<double>( 1.0 );
+      Circuit comparisonValue = new Circuit( 1.0 );
 
       // Comparer processor for valueManipulator circuit.
-      Comparer<double> comparer = new Comparer<double>();
+      Comparer comparer = new Comparer();
       comparer.Circuit_ComparisonValue = comparisonValue;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsAdd;
       comparer.OutputSocket_Equal.ConnectedProcessor = mathsSub;
 
       // Circuit whose value is manipulated.
-      Circuit<double> valueManipulator = new Circuit<double>( 0.0 );
+      Circuit valueManipulator = new Circuit( 0.0 );
       valueManipulator.EntryProcessor = comparer;
 
       // Process circuit:

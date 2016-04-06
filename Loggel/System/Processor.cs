@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Loggel
+namespace Loggel.System
 {
-  public abstract class Processor<T> : BasicCircuitEntity
-    where T : IComparable
+  public abstract class Processor : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
     // PROPERTIES.
 
     // List of this processor's output sockets.
-    public List<Socket<T>> OutputSockets { get; set; } = new List<Socket<T>>();
+    public List<Socket> OutputSockets { get; set; } = new List<Socket>();
 
     //-------------------------------------------------------------------------
     // METHODS.
 
-    protected Socket<T> AddOutputSocket(
+    protected Socket AddOutputSocket(
       string name,
       string description )
     {
-      Socket<T> socket = new Socket<T>();
+      Socket socket = new Socket();
       socket.Name = name;
       socket.Description = description;
 
@@ -36,7 +35,7 @@ namespace Loggel
     // The return value should be the next processor whose logic must be
     // performed. A return value of null indicates processing is complete for
     // this circuit pass.
-    public abstract Processor<T> Process( Circuit<T>.CircuitContext context );
+    public abstract Processor Process( Circuit.CircuitContext context );
 
     //-------------------------------------------------------------------------
   }

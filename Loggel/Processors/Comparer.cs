@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Loggel.System;
 
 namespace Loggel.Processors
 {
-  public class Comparer<T> : Processor<T>
-    where T : IComparable
+  public class Comparer : Processor
   {
     //-------------------------------------------------------------------------
     /*
@@ -22,28 +21,28 @@ namespace Loggel.Processors
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // comparison value (if a dynamic comparison value is desired).
-    public Circuit<T> Circuit_ComparisonValue { get; set; }
+    public Circuit Circuit_ComparisonValue { get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // range min value (if a dynamic range min value is desired).
-    public Circuit<T> Circuit_RangeMin { get; set; }
+    public Circuit Circuit_RangeMin { get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // range max value (if a dynamic range max value is desired).
-    public Circuit<T> Circuit_RangeMax { get; set; }
+    public Circuit Circuit_RangeMax { get; set; }
 
     //-- Output sockets.
-    public Socket<T> OutputSocket_Equal { get; private set; }
-    public Socket<T> OutputSocket_NotEqual { get; private set; }
-    public Socket<T> OutputSocket_Greater { get; private set; }
-    public Socket<T> OutputSocket_Lesser { get; private set; }
-    public Socket<T> OutputSocket_InRange { get; private set; }
-    public Socket<T> OutputSocket_NotInRange { get; private set; }
+    public Socket OutputSocket_Equal { get; private set; }
+    public Socket OutputSocket_NotEqual { get; private set; }
+    public Socket OutputSocket_Greater { get; private set; }
+    public Socket OutputSocket_Lesser { get; private set; }
+    public Socket OutputSocket_InRange { get; private set; }
+    public Socket OutputSocket_NotInRange { get; private set; }
 
     //-- General.
-    public T ComparisonValue { get; set; }
-    public T RangeMin { get; set; }
-    public T RangeMax { get; set; }
+    public dynamic ComparisonValue { get; set; }
+    public dynamic RangeMin { get; set; }
+    public dynamic RangeMax { get; set; }
 
     //-------------------------------------------------------------------------
 
@@ -60,7 +59,7 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public override Processor<T> Process( Circuit<T>.CircuitContext context )
+    public override Processor Process( Circuit.CircuitContext context )
     {
       UpdateComparisonValue();
       UpdateRangeMin();
@@ -109,28 +108,21 @@ namespace Loggel.Processors
     // Evaluates conditions and passes processing onto the relevant connected
     // Only ONE output socket can be live at any one time.
 
-    private Processor<T> IdentifyOutputSocketToProcess( Circuit<T>.CircuitContext context )
+    private Processor IdentifyOutputSocketToProcess( Circuit.CircuitContext context )
     {
       //-- Check if any of the conditions are met for an output socket to be live.
       //-- A socket can only be live if it is connected to a wire.
-      Processor<T> nextProcessor = null;
+      Processor nextProcessor = null;
       
       // Order is important and range sockets take precendence.
       bool inRangeResult = false;
-      int compareResult = context.Value.CompareTo( ComparisonValue );
 
       if( OutputSocket_InRange.IsConnected ||
           OutputSocket_NotInRange.IsConnected )
       {
-        // We're in-range if the value is equal to the range min or max OR
-        // if the value is between the range min and max.
-        int rangeResultMin = context.Value.CompareTo( RangeMin );
-        int rangeResultMax = context.Value.CompareTo( RangeMax );
-
         inRangeResult =
-          rangeResultMin == 0 ||
-          rangeResultMax == 0 ||
-          ( rangeResultMin > 0 && rangeResultMax < 0 );
+          RangeMin <= context.Value &&
+          RangeMax >= context.Value;
       }
 
       // In-range.
@@ -146,19 +138,19 @@ namespace Loggel.Processors
         nextProcessor = OutputSocket_NotInRange.ConnectedProcessor;
       }            
       // Equal.
-      else if( compareResult == 0 &&
+      else if( context.Value == ComparisonValue &&
                OutputSocket_Equal.IsConnected )
       {
         nextProcessor = OutputSocket_Equal.ConnectedProcessor;
       }
       // Greater.
-      else if( compareResult > 0 &&
+      else if( context.Value > ComparisonValue &&
                OutputSocket_Greater.IsConnected )
       {
         nextProcessor = OutputSocket_Greater.ConnectedProcessor;
       }
       // Lesser.
-      else if( compareResult < 0 &&
+      else if( context.Value < ComparisonValue &&
                OutputSocket_Lesser.IsConnected )
       {
         nextProcessor = OutputSocket_Lesser.ConnectedProcessor;

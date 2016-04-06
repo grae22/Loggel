@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Nang\NangCircuitBuilder.cs" />
+    <Compile Include="Processors\And.cs" />
     <Compile Include="System\BasicCircuitEntity.cs" />
     <Compile Include="System\Processor.cs" />
     <Compile Include="Processors\Maths.cs" />

@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace Loggel
+namespace Loggel.System
 {
-  public class Socket<T> : BasicCircuitEntity
-    where T : IComparable
+  public class Socket : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
     // PROPERTIES.
 
-    public Processor<T> ConnectedProcessor { get; set; } = null;
+    public Processor ConnectedProcessor { get; set; } = null;
 
     //-------------------------------------------------------------------------
 
@@ -23,7 +22,7 @@ namespace Loggel
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public void Process( Circuit<T>.CircuitContext context )
+    public void Process( Circuit.CircuitContext context )
     {
       if( ConnectedProcessor != null )
       {

@@ -1,9 +1,8 @@
 using System;
 
-namespace Loggel
+namespace Loggel.System
 {
-  public class Circuit<T> : BasicCircuitEntity
-    where T : IComparable
+  public class Circuit : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
     // TYPES.
@@ -12,7 +11,7 @@ namespace Loggel
     public class CircuitContext
     {
       // The curent value of this circuit.
-      public T Value { get; set; }
+      public dynamic Value { get; set; }
     }
 
     //-------------------------------------------------------------------------
@@ -23,11 +22,11 @@ namespace Loggel
 
     // The processor whose Process() method will be called to kick-off
     // processing of this circuit.
-    public Processor<T> EntryProcessor { get; set; } = null;
+    public Processor EntryProcessor { get; set; } = null;
 
     //-------------------------------------------------------------------------
 
-    public T Value
+    public dynamic Value
     {
       get
       {
@@ -38,7 +37,7 @@ namespace Loggel
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public Circuit( T initialValue )
+    public Circuit( dynamic initialValue )
     {
       Context.Value = initialValue;
     }
@@ -49,7 +48,7 @@ namespace Loggel
     {
       // Each processor will return the next processor to process, continue
       // until there isn't one.
-      Processor<T> processorToProcess = EntryProcessor;
+      Processor processorToProcess = EntryProcessor;
 
       while( processorToProcess != null )
       {

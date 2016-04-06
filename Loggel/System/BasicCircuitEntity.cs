@@ -1,4 +1,4 @@
-﻿namespace Loggel
+﻿namespace Loggel.System
 {
   public class BasicCircuitEntity
   {
