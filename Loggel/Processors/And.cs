@@ -3,7 +3,7 @@ using Loggel.System;
 
 namespace Loggel.Processors
 {
-  class And : Processor
+  public class And : Processor
   {
     //-------------------------------------------------------------------------
     // TYPES.
@@ -32,12 +32,15 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+    // If all the conditions are met then we can return the connected
+    // processor (if there is one) as the next processor to be processed.
 
     public override Processor Process( Circuit.CircuitContext context )
     {
       Processor nextProcessor = null;
       bool allConditionsMet = true;
 
+      // Evaluate each condition.
       foreach( Condition condition in Conditions )
       {
         if( condition.Circuit != null &&

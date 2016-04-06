@@ -5,7 +5,7 @@ using Loggel.Processors;
 namespace Loggel_Test
 {
   [TestClass]
-  public class Comparer_Test
+  public class ComparerProcessor_Test
   {
     //-------------------------------------------------------------------------
 
