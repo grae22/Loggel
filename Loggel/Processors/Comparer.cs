@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Loggel.Processors
 {
-  public class Router<T> : Processor<T>
+  public class Comparer<T> : Processor<T>
     where T : IComparable
   {
     //-------------------------------------------------------------------------
     /*
-     * The Router class determines which (if any) output socket will become live
+     * This class determines which (if any) output socket will become live
      * by comparing the circuit value against a comparison value (which may
      * be dynamic if a circuit is provided for this purpose).
      * 
@@ -48,7 +47,7 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public Router()
+    public Comparer()
     {
       // Create the output sockets.
       OutSocket_Equal = AddOutputSocket( "Equal", "Circuit and Comparison values are equal." );
@@ -138,7 +137,7 @@ namespace Loggel.Processors
       if( inRangeResult &&
           OutSocket_InRange.IsConnected )
       {
-        nextProcessor = OutSocket_Equal.ConnectedProcessor;
+        nextProcessor = OutSocket_InRange.ConnectedProcessor;
       }
       // Not in-range.
       else if( inRangeResult == false &&

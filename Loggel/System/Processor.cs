@@ -7,13 +7,13 @@ namespace Loggel
     where T : IComparable
   {
     //-------------------------------------------------------------------------
-    // Properties.
+    // PROPERTIES.
 
     // List of this processor's output sockets.
     public List<Socket<T>> OutputSockets { get; set; } = new List<Socket<T>>();
 
     //-------------------------------------------------------------------------
-    // Methods.
+    // METHODS.
 
     public Processor()
     {
@@ -36,7 +36,7 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // Abstract methods.
+    // ABSTRACT METHODS.
 
     // When a processor's input-socket is live, this will be called to allow
     // the processor to perform logic.

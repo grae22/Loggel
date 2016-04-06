@@ -6,6 +6,7 @@ namespace Loggel
     where T : IComparable
   {
     //-------------------------------------------------------------------------
+    // PROPERTIES.
 
     public Processor<T> ConnectedProcessor { get; set; } = null;
 
@@ -20,6 +21,7 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+    // METHODS.
 
     public void Process( Circuit<T>.CircuitContext context )
     {
