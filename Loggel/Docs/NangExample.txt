@@ -1,0 +1,122 @@
+<!--
+Circuit: Tramming Charge Pressure
+Description:
+Type: decimal
+Unit: Bar
+Min: 0.0
+Max: 35.0
+Initial value: 0.0
+Definition:
+  The value will depend on the 'Engine State'.
+    When the 'Engine' is 'off' or 'cranking' the value will change instantly to 0 Bar.
+    When the 'Engine' is 'running' the value will depend on the 'Selected Gear'.
+      When the 'Selected Gear' is 'F1', 'F2', 'R1' or 'R2' the value will change linearly with the 'Engine RPM' such that it is between '12' and '35' Bar when the 'Engine RPM' is between '800' and '2500' RPM.
+      When the 'Selected Gear' is 'N' the value will change linearly with the 'Engine RPM' such that it is between '12' and '19' Bar when the 'Engine RPM' is between '800' and '2500' RPM.
+      When the 'Selected Gear' changes from 'F1' to 'F2' or from 'R1' to 'R2' will change instantly to '26' Bar.
+-->
+
+<Circuit>
+  <Name>Tramming Charge Pressure</Name>
+  <Description></Description>
+  <Type>
+    <Name>decimal</Name>
+    <MinValue>0</MinValue>
+    <MaxValue>35</MaxValue>
+    <InitialValue>0</InitialValue>
+  </Type>
+  <Unit>Bar</Unit>
+  <Definition>
+    <Value>
+      <DependsOn>
+        <CircuitName>Engine State</CircuitName>
+        <When>
+          <Compare>
+            <ComparisonValue>off,cranking</ComparisonValue>
+            <Equal>
+              <Value>0</Value>
+            </Equal>
+          </Compare>
+        </When>
+        <When>
+          <Compare>
+            <ComparisonValue>running</ComparisonValue>
+            <Equal>
+              <Value>
+                <DependsOn>
+                  <CircuitName>Selected Gear</CircuitName>
+                  <When>
+                    <Compare>
+                      <ComparisonValue>F1,F2,R1,R2</ComparisonValue>
+                      <Equal>
+                        <Value>
+                          <LinearFunction>
+                            <CircuitName>Engine RPM</CircuitName>
+                            <DomainStart>800</DomainStart>
+                            <DomainEnd>2500</DomainEnd>
+                            <RangeStart>12</RangeStart>
+                            <RangeEnd>35</RangeEnd>
+                          </LinearFunction>                          
+                        </Value>
+                      </Equal>
+                    </Compare>
+                  </When>
+                  <When>
+                    <Compare>
+                      <ComparisonValue>N</ComparisonValue>
+                      <Equal>
+                        <Value>
+                          <LinearFunction>
+                            <CircuitName>Engine RPM</CircuitName>
+                            <DomainStart>800</DomainStart>
+                            <DomainEnd>2500</DomainEnd>
+                            <RangeStart>12</RangeStart>
+                            <RangeEnd>19</RangeEnd>
+                          </LinearFunction>                          
+                        </Value>
+                      </Equal>
+                    </Compare>
+                  </When>
+                  <When>
+                    <Change>
+                      <From>F1</From>
+                      <To>F2</To>
+                      <Value>26</Value>
+                    </Change>
+                  </When>
+                  <When>
+                    <Change>
+                      <From>R1</From>
+                      <To>R2</To>
+                      <Value>26</Value>
+                    </Change>
+                  </When>
+                </DependsOn>
+              <Value>
+            </Equal>
+          </Compare>
+        </When>
+      </DependsOn>
+    </Value>
+  </Definition>
+</Circuit>
+
+<!--
+
+ [DependsOn]
+      |
+      V
+    [Gate] -> [ValueProvider]
+      |
+      V
+[ValueProvider]
+      |
+      V
+    [Gate] -> [Comparer]
+      |
+      V
+  [Comparer] -> [Processor]
+      |
+      V
+ [Processor]
+
+-->
