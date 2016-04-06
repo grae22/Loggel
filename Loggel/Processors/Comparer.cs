@@ -33,12 +33,12 @@ namespace Loggel.Processors
     public Circuit<T> Circuit_RangeMax { get; set; }
 
     //-- Output sockets.
-    public Socket<T> OutSocket_Equal { get; private set; }
-    public Socket<T> OutSocket_NotEqual { get; private set; }
-    public Socket<T> OutSocket_Greater { get; private set; }
-    public Socket<T> OutSocket_Lesser { get; private set; }
-    public Socket<T> OutSocket_InRange { get; private set; }
-    public Socket<T> OutSocket_NotInRange { get; private set; }
+    public Socket<T> OutputSocket_Equal { get; private set; }
+    public Socket<T> OutputSocket_NotEqual { get; private set; }
+    public Socket<T> OutputSocket_Greater { get; private set; }
+    public Socket<T> OutputSocket_Lesser { get; private set; }
+    public Socket<T> OutputSocket_InRange { get; private set; }
+    public Socket<T> OutputSocket_NotInRange { get; private set; }
 
     //-- General.
     public T ComparisonValue { get; set; }
@@ -50,12 +50,12 @@ namespace Loggel.Processors
     public Comparer()
     {
       // Create the output sockets.
-      OutSocket_Equal = AddOutputSocket( "Equal", "Circuit and Comparison values are equal." );
-      OutSocket_NotEqual = AddOutputSocket( "NotEqual", "Circuit and Comparison values are not equal." );
-      OutSocket_Greater = AddOutputSocket( "Greater", "Circuit value is greater than Comparison value." );
-      OutSocket_Lesser = AddOutputSocket( "Lesser", "Circuit value is smaller than Comparison value." );
-      OutSocket_InRange = AddOutputSocket( "InRange", "Circuit value falls within (inclusive) specified range." );
-      OutSocket_NotInRange = AddOutputSocket( "NotInRange", "Circuit value falls outside (exclusive) specified range." );
+      OutputSocket_Equal = AddOutputSocket( "Equal", "Circuit and Comparison values are equal." );
+      OutputSocket_NotEqual = AddOutputSocket( "NotEqual", "Circuit and Comparison values are not equal." );
+      OutputSocket_Greater = AddOutputSocket( "Greater", "Circuit value is greater than Comparison value." );
+      OutputSocket_Lesser = AddOutputSocket( "Lesser", "Circuit value is smaller than Comparison value." );
+      OutputSocket_InRange = AddOutputSocket( "InRange", "Circuit value falls within (inclusive) specified range." );
+      OutputSocket_NotInRange = AddOutputSocket( "NotInRange", "Circuit value falls outside (exclusive) specified range." );
     }
 
     //-------------------------------------------------------------------------
@@ -119,8 +119,8 @@ namespace Loggel.Processors
       bool inRangeResult = false;
       int compareResult = context.Value.CompareTo( ComparisonValue );
 
-      if( OutSocket_InRange.IsConnected ||
-          OutSocket_NotInRange.IsConnected )
+      if( OutputSocket_InRange.IsConnected ||
+          OutputSocket_NotInRange.IsConnected )
       {
         // We're in-range if the value is equal to the range min or max OR
         // if the value is between the range min and max.
@@ -135,38 +135,38 @@ namespace Loggel.Processors
 
       // In-range.
       if( inRangeResult &&
-          OutSocket_InRange.IsConnected )
+          OutputSocket_InRange.IsConnected )
       {
-        nextProcessor = OutSocket_InRange.ConnectedProcessor;
+        nextProcessor = OutputSocket_InRange.ConnectedProcessor;
       }
       // Not in-range.
       else if( inRangeResult == false &&
-               OutSocket_NotInRange.IsConnected )
+               OutputSocket_NotInRange.IsConnected )
       {
-        nextProcessor = OutSocket_NotInRange.ConnectedProcessor;
+        nextProcessor = OutputSocket_NotInRange.ConnectedProcessor;
       }            
       // Equal.
       else if( compareResult == 0 &&
-               OutSocket_Equal.IsConnected )
+               OutputSocket_Equal.IsConnected )
       {
-        nextProcessor = OutSocket_Equal.ConnectedProcessor;
+        nextProcessor = OutputSocket_Equal.ConnectedProcessor;
       }
       // Greater.
       else if( compareResult > 0 &&
-               OutSocket_Greater.IsConnected )
+               OutputSocket_Greater.IsConnected )
       {
-        nextProcessor = OutSocket_Greater.ConnectedProcessor;
+        nextProcessor = OutputSocket_Greater.ConnectedProcessor;
       }
       // Lesser.
       else if( compareResult < 0 &&
-               OutSocket_Lesser.IsConnected )
+               OutputSocket_Lesser.IsConnected )
       {
-        nextProcessor = OutSocket_Lesser.ConnectedProcessor;
+        nextProcessor = OutputSocket_Lesser.ConnectedProcessor;
       }
       // Not equal.
-      else if( OutSocket_NotEqual.IsConnected )
+      else if( OutputSocket_NotEqual.IsConnected )
       {
-        nextProcessor = OutSocket_NotEqual.ConnectedProcessor;
+        nextProcessor = OutputSocket_NotEqual.ConnectedProcessor;
       }
 
       return nextProcessor;

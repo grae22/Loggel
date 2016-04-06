@@ -51,12 +51,12 @@ namespace Loggel_Test
       mathsNotEqual.Value2 = c_notEqualValue;
 
       comparer = new Comparer<int>();
-      comparer.OutSocket_InRange.ConnectedProcessor = mathsInRange;
-      comparer.OutSocket_NotInRange.ConnectedProcessor = mathsNotInRange;
-      comparer.OutSocket_Equal.ConnectedProcessor = mathsEqual;
-      comparer.OutSocket_Greater.ConnectedProcessor = mathsGreater;
-      comparer.OutSocket_Lesser.ConnectedProcessor = mathsLesser;
-      comparer.OutSocket_NotEqual.ConnectedProcessor = mathsNotEqual;
+      comparer.OutputSocket_InRange.ConnectedProcessor = mathsInRange;
+      comparer.OutputSocket_NotInRange.ConnectedProcessor = mathsNotInRange;
+      comparer.OutputSocket_Equal.ConnectedProcessor = mathsEqual;
+      comparer.OutputSocket_Greater.ConnectedProcessor = mathsGreater;
+      comparer.OutputSocket_Lesser.ConnectedProcessor = mathsLesser;
+      comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsNotEqual;
 
       circuit = new Circuit<int>( 0 );
       circuit.EntryProcessor = comparer;
@@ -98,8 +98,8 @@ namespace Loggel_Test
     public void Equal()
     {
       // 'Range' checks take precedence over other types, so remove them.
-      comparer.OutSocket_InRange.ConnectedProcessor = null;
-      comparer.OutSocket_NotInRange.ConnectedProcessor = null;
+      comparer.OutputSocket_InRange.ConnectedProcessor = null;
+      comparer.OutputSocket_NotInRange.ConnectedProcessor = null;
 
       // Test equal.
       comparer.ComparisonValue = 0;
@@ -116,8 +116,8 @@ namespace Loggel_Test
     public void Greater()
     {
       // 'Range' checks take precedence over other types, so remove them.
-      comparer.OutSocket_InRange.ConnectedProcessor = null;
-      comparer.OutSocket_NotInRange.ConnectedProcessor = null;
+      comparer.OutputSocket_InRange.ConnectedProcessor = null;
+      comparer.OutputSocket_NotInRange.ConnectedProcessor = null;
 
       // Test greater.
       comparer.ComparisonValue = -1;
@@ -134,8 +134,8 @@ namespace Loggel_Test
     public void Lesser()
     {
       // 'Range' checks take precedence over other types, so remove them.
-      comparer.OutSocket_InRange.ConnectedProcessor = null;
-      comparer.OutSocket_NotInRange.ConnectedProcessor = null;
+      comparer.OutputSocket_InRange.ConnectedProcessor = null;
+      comparer.OutputSocket_NotInRange.ConnectedProcessor = null;
 
       // Test lesser.
       comparer.ComparisonValue = 1;
@@ -152,9 +152,9 @@ namespace Loggel_Test
     public void NotEqual()
     {
       // 'Range' checks take precedence over other types, so remove them.
-      comparer.OutSocket_InRange.ConnectedProcessor = null;
-      comparer.OutSocket_NotInRange.ConnectedProcessor = null;
-      comparer.OutSocket_Lesser.ConnectedProcessor = null;
+      comparer.OutputSocket_InRange.ConnectedProcessor = null;
+      comparer.OutputSocket_NotInRange.ConnectedProcessor = null;
+      comparer.OutputSocket_Lesser.ConnectedProcessor = null;
 
       // Test not equal.
       comparer.ComparisonValue = 1;

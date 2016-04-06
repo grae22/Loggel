@@ -15,13 +15,6 @@ namespace Loggel
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public Processor()
-    {
-
-    }
-
-    //-------------------------------------------------------------------------
-
     protected Socket<T> AddOutputSocket(
       string name,
       string description )

@@ -20,8 +20,8 @@ namespace Loggel_Test
 
       Comparer<int> comparer = new Comparer<int>();
       comparer.Circuit_ComparisonValue = comparisonValue;
-      comparer.OutSocket_NotEqual.ConnectedProcessor = maths;
-      comparer.OutSocket_Equal.ConnectedProcessor = maths;
+      comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
+      comparer.OutputSocket_Equal.ConnectedProcessor = maths;
 
       Circuit<int> valueManipulator = new Circuit<int>( 0 );
       valueManipulator.EntryProcessor = comparer;
@@ -74,8 +74,8 @@ namespace Loggel_Test
 
       Comparer<double> comparer = new Comparer<double>();
       comparer.Circuit_ComparisonValue = comparisonValue;
-      comparer.OutSocket_NotEqual.ConnectedProcessor = maths;
-      comparer.OutSocket_Equal.ConnectedProcessor = maths;
+      comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
+      comparer.OutputSocket_Equal.ConnectedProcessor = maths;
 
       Circuit<double> valueManipulator = new Circuit<double>( 0.0 );
       valueManipulator.EntryProcessor = comparer;

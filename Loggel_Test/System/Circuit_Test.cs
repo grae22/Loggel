@@ -28,8 +28,8 @@ namespace Loggel_Test
       // Comparer processor for valueManipulator circuit.
       Comparer<double> comparer = new Comparer<double>();
       comparer.Circuit_ComparisonValue = comparisonValue;
-      comparer.OutSocket_NotEqual.ConnectedProcessor = mathsAdd;
-      comparer.OutSocket_Equal.ConnectedProcessor = mathsSub;
+      comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsAdd;
+      comparer.OutputSocket_Equal.ConnectedProcessor = mathsSub;
 
       // Circuit whose value is manipulated.
       Circuit<double> valueManipulator = new Circuit<double>( 0.0 );
