@@ -41,19 +41,21 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // TODO: Remove this method, when we have a processor factory it should
-    //       no longer be necessary.
 
-    public void RegisterProcessor(
+    // TODO: Continue here...
+
+    public <T> CreateProcessor(
       Processor processor,
-      bool setAsEntryProcessor )
+      bool setAsEntryProcessor ) where T : Processor
     {
-      processor.CircuitContext = Context;
+      processor = processor.CreateInstance( Context );
 
       if( setAsEntryProcessor )
       {
         EntryProcessor = processor;
       }
+
+      return processor;
     }
 
     //-------------------------------------------------------------------------

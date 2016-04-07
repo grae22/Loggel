@@ -6,6 +6,14 @@ namespace Loggel.Processors
   public class And : Processor
   {
     //-------------------------------------------------------------------------
+    // FACTORY.
+
+    public override Processor CreateInstance( Circuit.CircuitContext circuitContext )
+    {
+      return new And( circuitContext );
+    }
+
+    //-------------------------------------------------------------------------
     // TYPES.
 
     public struct Condition

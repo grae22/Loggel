@@ -1,9 +1,15 @@
-﻿using Loggel;
-
-namespace Loggel.Processors
+﻿namespace Loggel.Processors
 {
   public class Maths : Processor
   {
+    //-------------------------------------------------------------------------
+    // FACTORY.
+
+    public override Processor CreateInstance( Circuit.CircuitContext circuitContext )
+    {
+      return new Maths( circuitContext );
+    }
+
     //-------------------------------------------------------------------------
     // PROPERTIES.
 
