@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Loggel.System
+﻿namespace Loggel
 {
   public class Socket : BasicCircuitEntity
   {

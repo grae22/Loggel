@@ -40,13 +40,13 @@
     <Compile Include="Nang\NangCircuitBuilder.cs" />
     <Compile Include="Processors\Or.cs" />
     <Compile Include="Processors\And.cs" />
-    <Compile Include="System\BasicCircuitEntity.cs" />
-    <Compile Include="System\Processor.cs" />
+    <Compile Include="BasicCircuitEntity.cs" />
+    <Compile Include="Processor.cs" />
     <Compile Include="Processors\Maths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Processors\Comparer.cs" />
-    <Compile Include="System\Circuit.cs" />
-    <Compile Include="System\Socket.cs" />
+    <Compile Include="Circuit.cs" />
+    <Compile Include="Socket.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Docs\ReadMe.txt" />

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Loggel.System;
+using Loggel;
 using Loggel.Processors;
 
 namespace Loggel_Test.Processors

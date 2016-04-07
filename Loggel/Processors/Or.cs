@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Loggel.System;
+using Loggel;
 
 namespace Loggel.Processors
 {

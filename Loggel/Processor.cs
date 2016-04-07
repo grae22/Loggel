@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Loggel.System
+namespace Loggel
 {
   public abstract class Processor : BasicCircuitEntity
   {

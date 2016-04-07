@@ -1,4 +1,4 @@
-﻿using Loggel.System;
+﻿using Loggel;
 
 namespace Loggel.Processors
 {
