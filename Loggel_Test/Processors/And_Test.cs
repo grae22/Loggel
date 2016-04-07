@@ -44,13 +44,13 @@ namespace Loggel_Test.Processors
     [TestMethod]
     public void ConditionsMet()
     {
-      And.Condition condition1 = new And.Condition();
-      condition1.Circuit = new Circuit( 123 );
-      condition1.TestValue = 123;
+      Circuit circuit1 = new Circuit( 123 );
+      Comparer condition1 = new Comparer();
+      condition1.ComparisonValue = 123;
 
-      And.Condition condition2 = new And.Condition();
-      condition2.Circuit = new Circuit( 456 );
-      condition2.TestValue = 456;
+      Circuit circuit2 = new Circuit( 456 );
+      Comparer condition2 = new Comparer();
+      condition2.ComparisonValue = 456;
 
       m_and.Conditions.Add( condition1 );
       m_and.Conditions.Add( condition2 );

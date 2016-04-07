@@ -42,6 +42,20 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    public void RegisterProcessor(
+      Processor processor,
+      bool setAsEntryProcessor )
+    {
+      processor.CircuitContext = Context;
+
+      if( setAsEntryProcessor )
+      {
+        EntryProcessor = processor;
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     public void Process()
     {
       // Each processor will return the next processor to process, continue
@@ -50,7 +64,7 @@ namespace Loggel
 
       while( processorToProcess != null )
       {
-        processorToProcess = processorToProcess.Process( Context );
+        processorToProcess = processorToProcess.Process();
       }
     }
 

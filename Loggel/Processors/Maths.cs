@@ -17,7 +17,7 @@ namespace Loggel.Processors
     public Maths()
     {
       OutputSocket =
-        AddOutputSocket( "Result", "Result of mathematical operation." );
+        GetNewOutputSocket( "Result", "Result of mathematical operation." );
     }
 
     //-------------------------------------------------------------------------

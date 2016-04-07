@@ -28,7 +28,7 @@ namespace Loggel.Processors
 
     public Or()
     {
-      OutputSocket = AddOutputSocket( "Result", "Will be live when OR condition is satisfied." );
+      OutputSocket = GetNewOutputSocket( "Result", "Will be live when OR condition is satisfied." );
     }
 
     //-------------------------------------------------------------------------
