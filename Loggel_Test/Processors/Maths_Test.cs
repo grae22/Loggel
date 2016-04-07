@@ -13,18 +13,21 @@ namespace Loggel_Test
     public void Integer()
     {
       // Create a circuit.
-      Maths maths = new Maths();
-      Maths maths2 = new Maths();
+      Circuit valueManipulator = new Circuit( 0 );
+
+      Maths maths = new Maths( null );
+      valueManipulator.RegisterProcessor( maths, false );
+
+      Maths maths2 = new Maths( null );
+      valueManipulator.RegisterProcessor( maths2, false );
 
       Circuit comparisonValue = new Circuit( 1 );
 
-      Comparer comparer = new Comparer();
+      Comparer comparer = new Comparer( null );
       comparer.Circuit_ComparisonValue = comparisonValue;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
-
-      Circuit valueManipulator = new Circuit( 0 );
-      valueManipulator.EntryProcessor = comparer;
+      valueManipulator.RegisterProcessor( comparer, true );
 
       // Simple addition test.
       maths.Operator = '+';
@@ -67,18 +70,21 @@ namespace Loggel_Test
     public void Double()
     {
       // Create a circuit.
-      Maths maths = new Maths();
-      Maths maths2 = new Maths();
+      Circuit valueManipulator = new Circuit( 0.0 );
+
+      Maths maths = new Maths( null );
+      valueManipulator.RegisterProcessor( maths, false );
+
+      Maths maths2 = new Maths( null );
+      valueManipulator.RegisterProcessor( maths2, false );
 
       Circuit comparisonValue = new Circuit( 1.0 );
 
-      Comparer comparer = new Comparer();
+      Comparer comparer = new Comparer( null );
       comparer.Circuit_ComparisonValue = comparisonValue;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
-
-      Circuit valueManipulator = new Circuit( 0.0 );
-      valueManipulator.EntryProcessor = comparer;
+      valueManipulator.RegisterProcessor( comparer, true );
 
       // Simple addition test.
       maths.Operator = '+';

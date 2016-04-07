@@ -14,7 +14,9 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public Maths()
+    public Maths( Circuit.CircuitContext circuitContext )
+    :
+      base( circuitContext )
     {
       OutputSocket =
         GetNewOutputSocket( "Result", "Result of mathematical operation." );
@@ -22,29 +24,29 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public override Processor Process( Circuit.CircuitContext context )
+    public override Processor Process()
     {
       // Perform operation on circuit value.
       switch( Operator )
       {
         case '=':
-          context.Value = Value2;
+          CircuitContext.Value = Value2;
           break;
 
         case '+':
-          context.Value += Value2;
+          CircuitContext.Value += Value2;
           break;
 
         case '-':
-          context.Value -= Value2;
+          CircuitContext.Value -= Value2;
           break;
 
         case 'x':
-          context.Value *= Value2;
+          CircuitContext.Value *= Value2;
           break;
 
         case '/':
-          context.Value /= Value2;
+          CircuitContext.Value /= Value2;
           break;
 
         default:

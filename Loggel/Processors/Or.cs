@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Loggel;
+using Loggel.Helpers;
 
 namespace Loggel.Processors
 {
@@ -8,10 +8,11 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
     // TYPES.
 
-    public class Condition
+    public struct Condition
     {
-      public Circuit Circuit { get; set; }
-      public dynamic TestValue { get; set; }
+      public Circuit ValueSource { get; set; }
+      public dynamic ComparisonValue { get; set; }
+      public ValueComparison.Comparison ComparisonType { get; set; }
     }
 
     //-------------------------------------------------------------------------
@@ -26,7 +27,9 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public Or()
+    public Or( Circuit.CircuitContext circuitContext )
+    :
+      base( circuitContext )
     {
       OutputSocket = GetNewOutputSocket( "Result", "Will be live when OR condition is satisfied." );
     }
@@ -35,7 +38,7 @@ namespace Loggel.Processors
     // If all the conditions are met then we can return the connected
     // processor (if there is one) as the next processor to be processed.
 
-    public override Processor Process( Circuit.CircuitContext context )
+    public override Processor Process()
     {
       Processor nextProcessor = null;
       bool anyConditionsMet = false;
@@ -49,14 +52,16 @@ namespace Loggel.Processors
       // Evaluate each condition.
       foreach( Condition condition in Conditions )
       {
-        if( condition.Circuit != null &&
-            condition.TestValue != null )
+        bool result =
+          ValueComparison.Compare(
+            condition.ValueSource.Value,
+            condition.ComparisonValue,
+            condition.ComparisonType );
+
+        if( result == true )
         {
-          if( condition.Circuit.Value == condition.TestValue )
-          {
-            anyConditionsMet = true;
-            break;
-          }
+          anyConditionsMet = true;
+          break;
         }
       }
 

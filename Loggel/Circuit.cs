@@ -16,7 +16,7 @@ namespace Loggel
     // PROPERTIES.
 
     // This circuit's context struct.
-    private CircuitContext Context { get; set; } = new CircuitContext();
+    public CircuitContext Context { get; private set; } = new CircuitContext();
 
     // The processor whose Process() method will be called to kick-off
     // processing of this circuit.
@@ -41,6 +41,8 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+    // TODO: Remove this method, when we have a processor factory it should
+    //       no longer be necessary.
 
     public void RegisterProcessor(
       Processor processor,

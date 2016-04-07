@@ -1,10 +1,20 @@
 ﻿using System.Collections.Generic;
-using Loggel;
+using Loggel.Helpers;
 
 namespace Loggel.Processors
 {
   public class And : Processor
   {
+    //-------------------------------------------------------------------------
+    // TYPES.
+
+    public struct Condition
+    {
+      public Circuit ValueSource { get; set; }
+      public dynamic ComparisonValue { get; set; }
+      public ValueComparison.Comparison ComparisonType { get; set; }
+    }
+
     //-------------------------------------------------------------------------
     // PROPERTIES.
 
@@ -12,12 +22,14 @@ namespace Loggel.Processors
     public Socket OutputSocket { get; set; }
 
     // List of conditions's which we'll 'and' when processing.
-    public List<Comparer> Conditions { get; set; } = new List<Comparer>();
+    public List<Condition> Conditions { get; set; } = new List<Condition>();
 
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public And()
+    public And( Circuit.CircuitContext circuitContext )
+    :
+      base( circuitContext )
     {
       OutputSocket = GetNewOutputSocket( "Result", "Will be live when AND condition is satisfied." );
     }
@@ -26,17 +38,21 @@ namespace Loggel.Processors
     // If all the conditions are met then we can return the connected
     // processor (if there is one) as the next processor to be processed.
 
-    public override Processor Process( Circuit.CircuitContext context )
+    public override Processor Process()
     {
       Processor nextProcessor = null;
       bool allConditionsMet = true;
 
       // Evaluate each condition.
-      foreach( Comparer condition in Conditions )
+      foreach( Condition condition in Conditions )
       {
-        // If the condition comparer's process method returns null then
-        // the comparison has failed.
-        if( condition.Process( context ) == null  )
+        bool result =
+          ValueComparison.Compare(
+            condition.ValueSource.Value,
+            condition.ComparisonValue,
+            condition.ComparisonType );
+
+        if( result == false )
         {
           allConditionsMet = false;
           break;

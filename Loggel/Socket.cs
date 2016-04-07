@@ -24,7 +24,7 @@
     {
       if( ConnectedProcessor != null )
       {
-        ConnectedProcessor.Process( context );
+        ConnectedProcessor.Process();
       }
     }
 

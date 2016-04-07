@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ValueComparison.cs" />
     <Compile Include="Nang\NangCircuitBuilder.cs" />
     <Compile Include="Processors\Or.cs" />
     <Compile Include="Processors\And.cs" />
