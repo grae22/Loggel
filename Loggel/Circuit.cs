@@ -1,3 +1,5 @@
+using System;
+
 namespace Loggel
 {
   public class Circuit : BasicCircuitEntity
@@ -41,19 +43,30 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // TODO: Remove this method, when we have a processor factory it should
-    //       no longer be necessary.
 
-    public void RegisterProcessor(
-      Processor processor,
-      bool setAsEntryProcessor )
+    // TODO: Continue here...
+
+    public T CreateProcessor<T>(
+      string name,
+      string description,
+      bool setAsEntryProcessor ) where T : Processor
     {
-      processor.CircuitContext = Context;
+      object[] contextArg = { Context };
+
+      T processor = (T)Activator.CreateInstance( typeof( T ), contextArg );
+
+      if( processor != null )
+      {
+        processor.Name = name;
+        processor.Description = description;
+      }
 
       if( setAsEntryProcessor )
       {
         EntryProcessor = processor;
       }
+
+      return processor;
     }
 
     //-------------------------------------------------------------------------

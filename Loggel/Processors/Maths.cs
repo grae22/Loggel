@@ -1,6 +1,4 @@
-﻿using Loggel;
-
-namespace Loggel.Processors
+﻿namespace Loggel.Processors
 {
   public class Maths : Processor
   {

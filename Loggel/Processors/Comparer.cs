@@ -1,10 +1,9 @@
-﻿using Loggel;
-
-namespace Loggel.Processors
+﻿namespace Loggel.Processors
 {
   public class Comparer : Processor
   {
     //-------------------------------------------------------------------------
+
     /*
      * This class determines which (if any) output socket will become live
      * by comparing the circuit value against a comparison value (which may
@@ -15,7 +14,9 @@ namespace Loggel.Processors
      *   x In-range: Inclusive.
      *   x Not in-range: Exclusive.
     */
+
     //-------------------------------------------------------------------------
+    // PROPERTIES.
 
     //-- Input circuits.
 

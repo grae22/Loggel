@@ -8,8 +8,7 @@ namespace Loggel
     // PROPERTIES.
 
     // Reference to the context of the circuit to which this processor belongs.
-    // TODO: Make protected when processor factory is in place.
-    public Circuit.CircuitContext CircuitContext { get; set; }
+    protected Circuit.CircuitContext CircuitContext { get; set; }
 
     // List of this processor's output sockets.
     public List<Socket> OutputSockets { get; set; } = new List<Socket>();
