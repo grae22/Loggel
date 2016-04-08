@@ -46,11 +46,20 @@ namespace Loggel
 
     // TODO: Continue here...
 
-    public T CreateProcessor<T>( bool setAsEntryProcessor ) where T : Processor
+    public T CreateProcessor<T>(
+      string name,
+      string description,
+      bool setAsEntryProcessor ) where T : Processor
     {
       object[] contextArg = { Context };
 
       T processor = (T)Activator.CreateInstance( typeof( T ), contextArg );
+
+      if( processor != null )
+      {
+        processor.Name = name;
+        processor.Description = description;
+      }
 
       if( setAsEntryProcessor )
       {

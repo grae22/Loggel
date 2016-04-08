@@ -28,31 +28,31 @@ namespace Loggel_Test
     {
       m_circuit = new Circuit( 0 );
 
-      Maths mathsInRange = m_circuit.CreateProcessor<Maths>( false );
+      Maths mathsInRange = m_circuit.CreateProcessor<Maths>( "", "", false );
       mathsInRange.Operator = '=';
       mathsInRange.Value2 = c_inRangeValue;
 
-      Maths mathsNotInRange = m_circuit.CreateProcessor<Maths>( false );
+      Maths mathsNotInRange = m_circuit.CreateProcessor<Maths>( "", "", false );
       mathsNotInRange.Operator = '=';
       mathsNotInRange.Value2 = c_notInRangeValue;
 
-      Maths mathsEqual = m_circuit.CreateProcessor<Maths>( false );
+      Maths mathsEqual = m_circuit.CreateProcessor<Maths>( "", "", false );
       mathsEqual.Operator = '=';
       mathsEqual.Value2 = c_equalValue;
 
-      Maths mathsGreater = m_circuit.CreateProcessor<Maths>( false );
+      Maths mathsGreater = m_circuit.CreateProcessor<Maths>( "", "", false );
       mathsGreater.Operator = '=';
       mathsGreater.Value2 = c_greaterValue;
 
-      Maths mathsLesser = m_circuit.CreateProcessor<Maths>( false );
+      Maths mathsLesser = m_circuit.CreateProcessor<Maths>( "", "", false );
       mathsLesser.Operator = '=';
       mathsLesser.Value2 = c_lesserValue;
 
-      Maths mathsNotEqual = m_circuit.CreateProcessor<Maths>( false );
+      Maths mathsNotEqual = m_circuit.CreateProcessor<Maths>( "", "", false );
       mathsNotEqual.Operator = '=';
       mathsNotEqual.Value2 = c_notEqualValue;
 
-      m_comparer = m_circuit.CreateProcessor<Comparer>( true );
+      m_comparer = m_circuit.CreateProcessor<Comparer>( "", "", true );
       m_comparer.OutputSocket_InRange.ConnectedProcessor = mathsInRange;
       m_comparer.OutputSocket_NotInRange.ConnectedProcessor = mathsNotInRange;
       m_comparer.OutputSocket_Equal.ConnectedProcessor = mathsEqual;
