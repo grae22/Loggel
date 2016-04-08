@@ -5,11 +5,6 @@ namespace Loggel
   public abstract class Processor : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
-    // FACTORY.
-
-    public abstract Processor CreateInstance( Circuit.CircuitContext circuitContext );
-
-    //-------------------------------------------------------------------------
     // PROPERTIES.
 
     // Reference to the context of the circuit to which this processor belongs.

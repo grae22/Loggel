@@ -20,14 +20,12 @@ namespace Loggel_Test.Processors
     {
       m_circuit = new Circuit( 0 );
 
-      Maths maths = new Maths( null );
+      Maths maths = m_circuit.CreateProcessor<Maths>( false );
       maths.Operator = '+';
       maths.Value2 = 1;
-      m_circuit.RegisterProcessor( maths, false );
 
-      m_or = new Or( null );
+      m_or = m_circuit.CreateProcessor<Or>( true );
       m_or.OutputSocket.ConnectedProcessor = maths;
-      m_circuit.RegisterProcessor( m_or, true );
     }
 
     //-------------------------------------------------------------------------

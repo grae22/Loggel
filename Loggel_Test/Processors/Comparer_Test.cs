@@ -28,44 +28,37 @@ namespace Loggel_Test
     {
       m_circuit = new Circuit( 0 );
 
-      Maths mathsInRange = new Maths( null );
+      Maths mathsInRange = m_circuit.CreateProcessor<Maths>( false );
       mathsInRange.Operator = '=';
       mathsInRange.Value2 = c_inRangeValue;
-      m_circuit.RegisterProcessor( mathsInRange, false );
 
-      Maths mathsNotInRange = new Maths( null );
+      Maths mathsNotInRange = m_circuit.CreateProcessor<Maths>( false );
       mathsNotInRange.Operator = '=';
       mathsNotInRange.Value2 = c_notInRangeValue;
-      m_circuit.RegisterProcessor( mathsNotInRange, false );
 
-      Maths mathsEqual = new Maths( null );
+      Maths mathsEqual = m_circuit.CreateProcessor<Maths>( false );
       mathsEqual.Operator = '=';
       mathsEqual.Value2 = c_equalValue;
-      m_circuit.RegisterProcessor( mathsEqual, false );
 
-      Maths mathsGreater = new Maths( null );
+      Maths mathsGreater = m_circuit.CreateProcessor<Maths>( false );
       mathsGreater.Operator = '=';
       mathsGreater.Value2 = c_greaterValue;
-      m_circuit.RegisterProcessor( mathsGreater, false );
 
-      Maths mathsLesser = new Maths( null );
+      Maths mathsLesser = m_circuit.CreateProcessor<Maths>( false );
       mathsLesser.Operator = '=';
       mathsLesser.Value2 = c_lesserValue;
-      m_circuit.RegisterProcessor( mathsLesser, false );
 
-      Maths mathsNotEqual = new Maths( null );
+      Maths mathsNotEqual = m_circuit.CreateProcessor<Maths>( false );
       mathsNotEqual.Operator = '=';
       mathsNotEqual.Value2 = c_notEqualValue;
-      m_circuit.RegisterProcessor( mathsNotEqual, false );
 
-      m_comparer = new Comparer( null );
+      m_comparer = m_circuit.CreateProcessor<Comparer>( true );
       m_comparer.OutputSocket_InRange.ConnectedProcessor = mathsInRange;
       m_comparer.OutputSocket_NotInRange.ConnectedProcessor = mathsNotInRange;
       m_comparer.OutputSocket_Equal.ConnectedProcessor = mathsEqual;
       m_comparer.OutputSocket_Greater.ConnectedProcessor = mathsGreater;
       m_comparer.OutputSocket_Lesser.ConnectedProcessor = mathsLesser;
       m_comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsNotEqual;
-      m_circuit.RegisterProcessor( m_comparer, true );
     }
 
     //-------------------------------------------------------------------------

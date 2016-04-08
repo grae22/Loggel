@@ -1,3 +1,5 @@
+using System;
+
 namespace Loggel
 {
   public class Circuit : BasicCircuitEntity
@@ -44,11 +46,11 @@ namespace Loggel
 
     // TODO: Continue here...
 
-    public <T> CreateProcessor(
-      Processor processor,
-      bool setAsEntryProcessor ) where T : Processor
+    public T CreateProcessor<T>( bool setAsEntryProcessor ) where T : Processor
     {
-      processor = processor.CreateInstance( Context );
+      object[] contextArg = { Context };
+
+      T processor = (T)Activator.CreateInstance( typeof( T ), contextArg );
 
       if( setAsEntryProcessor )
       {

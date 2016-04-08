@@ -16,14 +16,6 @@
     */
 
     //-------------------------------------------------------------------------
-    // FACTORY.
-
-    public override Processor CreateInstance( Circuit.CircuitContext circuitContext )
-    {
-      return new Comparer( circuitContext );
-    }
-
-    //-------------------------------------------------------------------------
     // PROPERTIES.
 
     //-- Input circuits.
