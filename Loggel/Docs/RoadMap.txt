@@ -1,0 +1,20 @@
+﻿Loggel, Nang & Loggella RoadMap
+===============================
+
+Loggel: A logic modelling engine.
+Nang: Natural-language processing engine.
+Loggella: GUI application using Loggel and Nang to create logic models (circuits).
+
+[LOGGEL] Translate natural language "When...condition...action" statement into functioning logic circuit.
+^
+|<- [NANG] Build and run Loggel circuit based on Nang story.
+    ^
+    |<- [NANG] Save/load Nang story (logic circuit) to/from xml.
+        ^
+        |<- [LOGGEL] Save/load circuits to/from xml.
+
+[LOGGELA] Write Nang story.
+^
+|<- [NANG] Use Loggel as an engine to construct a Nang story.
+    ^
+    |<- [NANG] Model "When...condition...action" logic with Loggel circuit.
