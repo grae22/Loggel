@@ -18,13 +18,16 @@ namespace Siril
             <Value>SomeValue</Value>
           </Member>
         </MemberCollection>
+        <DataNodeCollection>
+        </DataNodeCollection>
       </DataNode>
     */
 
     //-------------------------------------------------------------------------
     
     public string Name { get; private set; }
-    public Dictionary<string, string> Members { get; private set; } = new Dictionary<string, string>();
+    private Dictionary<string, string> Members { get; set; } = new Dictionary<string, string>();
+    public Dictionary<string, DataNode> DataNodes { get; private set; } = new Dictionary<string, DataNode>();
 
     //-------------------------------------------------------------------------
 
@@ -63,6 +66,15 @@ namespace Siril
       }
 
       return (T)converter.ConvertFromString( Members[ name ] );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public DataNode AddDataNode( string name )
+    {
+      DataNode node = new DataNode( name );
+      DataNodes.Add( name, node );
+      return node;
     }
 
     //-------------------------------------------------------------------------
