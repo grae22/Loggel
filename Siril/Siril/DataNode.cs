@@ -26,7 +26,7 @@ namespace Siril
     //-------------------------------------------------------------------------
     
     public string Name { get; private set; }
-    private Dictionary<string, string> Members { get; set; } = new Dictionary<string, string>();
+    public Dictionary<string, string> Members { get; private set; } = new Dictionary<string, string>();
     public Dictionary<string, DataNode> DataNodes { get; private set; } = new Dictionary<string, DataNode>();
 
     //-------------------------------------------------------------------------
