@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
 
 namespace Siril
 {
@@ -7,6 +7,7 @@ namespace Siril
     //-------------------------------------------------------------------------
 
     private DataNode Data { get; set; }
+    private List<SirilObject> Children { get; set; } = new List<SirilObject>();
 
     //-------------------------------------------------------------------------
 
@@ -17,9 +18,32 @@ namespace Siril
 
     //-------------------------------------------------------------------------
 
+    // Implementors should use the RegisterChild() method to register members
+    // who should be snapshot'd too.
+    protected abstract void RegisterChildrenToSnapshot();
+
+    //-------------------------------------------------------------------------
+
+    protected void RegisterChild( SirilObject ob )
+    {
+      if( Children.Contains( ob ) == false )
+      {
+        Children.Add( ob );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     // Implementors should use the SetSnapshotMember() method to save a
     // member's value.
-    public abstract void PerformSnapshot();
+    // Implementors should call the base() method to run the logic here.
+    public virtual void PerformSnapshot()
+    {
+      foreach( SirilObject ob in Children )
+      {
+        ob.PerformSnapshot();
+      }
+    }
 
     //-------------------------------------------------------------------------
 
@@ -28,34 +52,6 @@ namespace Siril
       T value )
     {
       Data.SetMember<T>( name, value );
-    }
-
-    //-------------------------------------------------------------------------
-
-    // Performs a snapshot of the given object, then checks that object for
-    // properties & member vars that are also SirilObjects and recurses
-    // on them.
-    public static void RecursivePerformSnapshot( SirilObject ob )
-    {
-      ob.PerformSnapshot();
-
-      // Fields.
-      foreach( FieldInfo info in ob.GetType().GetFields() )
-      {
-        if( info.DeclaringType is SirilObject )
-        {
-          RecursivePerformSnapshot( ob );//as SirilObject );
-        }
-      }
-
-      // Properties.
-      foreach( PropertyInfo info in ob.GetType().GetProperties() )
-      {
-        if( info.PropertyType is SirilObject )
-        {
-          RecursivePerformSnapshot( ob );//as SirilObject );
-        }
-      }
     }
 
     //-------------------------------------------------------------------------

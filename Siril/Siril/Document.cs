@@ -11,8 +11,10 @@
 
     public void Generate(
       T documentRoot,
-      DataNode rootNode )
+      SirilObject rootObject )
     {
+      rootObject.PerformSnapshot();
+
       RecursiveGenerateDataNodeContent( documentRoot, rootNode );
     }
 

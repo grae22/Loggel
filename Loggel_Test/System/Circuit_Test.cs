@@ -77,7 +77,7 @@ namespace Loggel_Test
     [TestMethod]
     public void SirilSnapshot()
     {
-      Siril.SirilObject.RecursivePerformSnapshot( m_valueManipulator );
+      Siril.SirilObject.PerformSnapshot( m_valueManipulator );
     }
 
     //-------------------------------------------------------------------------

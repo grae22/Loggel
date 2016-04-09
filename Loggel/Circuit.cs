@@ -15,6 +15,9 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    // Inital value of this circuit.
+    private dynamic InitialValue { get; set; }
+
     // This circuit's context struct.
     public CircuitContext Context { get; private set; } = new CircuitContext();
 
@@ -41,6 +44,7 @@ namespace Loggel
     :
       base( name )
     {
+      InitialValue = initialValue;
       Context.Value = initialValue;
     }
 
@@ -81,9 +85,19 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    protected override void RegisterChildrenToSnapshot()
+    {
+      RegisterChild( EntryProcessor );
+    }
+
+    //-------------------------------------------------------------------------
+
     public override void PerformSnapshot()
     {
-      // Currently there is nothing we want to save.
+      SetSnapshotMember<dynamic>( "initialValue", InitialValue );
+
+      // We must call the base class method too.
+      base.PerformSnapshot();
     }
 
     //-------------------------------------------------------------------------
