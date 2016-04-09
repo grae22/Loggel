@@ -13,20 +13,20 @@ namespace Siril_Test
     public void General()
     {
       DataNode n1 = new DataNode( "Node1" );
-      n1.AddMember<int>( "M1", 1 );
-      n1.AddMember<double>( "M2", 1.23 );
+      n1.SetMember<int>( "M1", 1 );
+      n1.SetMember<double>( "M2", 1.23 );
 
       DataNode n1_1 = n1.AddDataNode( "Node1_1" );
-      n1_1.AddMember<int>( "M1", 1 );
-      n1_1.AddMember<double>( "M2", 1.23 );
+      n1_1.SetMember<int>( "M1", 1 );
+      n1_1.SetMember<double>( "M2", 1.23 );
 
       DataNode n1_2 = n1.AddDataNode( "Node1_2" );
-      n1_2.AddMember<int>( "M1", 1 );
-      n1_2.AddMember<double>( "M2", 1.23 );
+      n1_2.SetMember<int>( "M1", 1 );
+      n1_2.SetMember<double>( "M2", 1.23 );
 
       DataNode n1_2_1 = n1_2.AddDataNode( "Node1_2_1" );
-      n1_2_1.AddMember<int>( "M1", 1 );
-      n1_2_1.AddMember<double>( "M2", 1.23 );
+      n1_2_1.SetMember<int>( "M1", 1 );
+      n1_2_1.SetMember<double>( "M2", 1.23 );
 
       XmlDocument xmlDoc = new XmlDocument();
       xmlDoc.AppendChild( xmlDoc.CreateElement( "Root" ) );

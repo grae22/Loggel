@@ -38,11 +38,18 @@ namespace Siril
 
     //-------------------------------------------------------------------------
 
-    public void AddMember<T>(
+    public void SetMember<T>(
       string name,
       T value )
     {
-      Members.Add( name, value.ToString() );
+      if( Members.ContainsKey( name ) )
+      {
+        Members[ name ] = value.ToString();
+      }
+      else
+      {
+        Members.Add( name, value.ToString() );
+      }
     }
 
     //-------------------------------------------------------------------------
