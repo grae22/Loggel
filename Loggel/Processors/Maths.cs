@@ -12,9 +12,11 @@
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public Maths( Circuit.CircuitContext circuitContext )
+    public Maths(
+      string name,
+      Circuit.CircuitContext circuitContext )
     :
-      base( circuitContext )
+      base( name, circuitContext )
     {
       OutputSocket =
         GetNewOutputSocket( "Result", "Result of mathematical operation." );
@@ -61,6 +63,13 @@
       }
 
       return nextProcessor;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void PerformSnapshot()
+    {
+      // Currently there is nothing we want to save.
     }
 
     //-------------------------------------------------------------------------

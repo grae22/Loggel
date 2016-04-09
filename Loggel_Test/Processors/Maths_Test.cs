@@ -13,12 +13,12 @@ namespace Loggel_Test
     public void Integer()
     {
       // Create a circuit.
-      Circuit valueManipulator = new Circuit( 0 );
+      Circuit valueManipulator = new Circuit( "", 0 );
 
       Maths maths = valueManipulator.CreateProcessor<Maths>( "", "", false );
       Maths maths2 = valueManipulator.CreateProcessor<Maths>( "", "", false );
 
-      Circuit comparisonValue = new Circuit( 1 );
+      Circuit comparisonValue = new Circuit( "", 1 );
 
       Comparer comparer = valueManipulator.CreateProcessor<Comparer>( "", "", true );
       comparer.Circuit_ComparisonValue = comparisonValue;
@@ -66,12 +66,12 @@ namespace Loggel_Test
     public void Double()
     {
       // Create a circuit.
-      Circuit valueManipulator = new Circuit( 0.0 );
+      Circuit valueManipulator = new Circuit( "", 0.0 );
 
       Maths maths = valueManipulator.CreateProcessor<Maths>( "", "", false );
       Maths maths2 = valueManipulator.CreateProcessor<Maths>( "", "", false );
 
-      Circuit comparisonValue = new Circuit( 1.0 );
+      Circuit comparisonValue = new Circuit( "", 1.0 );
 
       Comparer comparer = valueManipulator.CreateProcessor<Comparer>( "", "", true );
       comparer.Circuit_ComparisonValue = comparisonValue;

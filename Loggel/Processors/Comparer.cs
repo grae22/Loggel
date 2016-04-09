@@ -51,9 +51,11 @@
 
     //-------------------------------------------------------------------------
 
-    public Comparer( Circuit.CircuitContext circuitContext )
+    public Comparer(
+      string name,
+      Circuit.CircuitContext circuitContext )
     :
-      base( circuitContext )
+      base( name, circuitContext )
     {
       // Create the output sockets.
       OutputSocket_Equal = GetNewOutputSocket( "Equal", "Circuit and Comparison values are equal." );
@@ -174,6 +176,13 @@
       }
 
       return nextProcessor;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void PerformSnapshot()
+    {
+      // Currently there is nothing we want to save.
     }
 
     //-------------------------------------------------------------------------

@@ -26,7 +26,7 @@ namespace Loggel_Test
     [TestInitialize]
     public void Initialise()
     {
-      m_circuit = new Circuit( 0 );
+      m_circuit = new Circuit( "", 0 );
 
       Maths mathsInRange = m_circuit.CreateProcessor<Maths>( "", "", false );
       mathsInRange.Operator = '=';

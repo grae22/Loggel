@@ -19,8 +19,8 @@ namespace Loggel
       Circuit circuit,
       bool setAsCircuitEntryProcessor ) where T : Processor
     {
-      // Processor constructors take the circuit's context as a parameter.
-      object[] contextArg = { circuit.Context };
+      // Processor constructors take the processor's name and circuit's context as parameters.
+      object[] contextArg = { name, circuit.Context };
 
       // Instantiate the processor.
       T processor = (T)Activator.CreateInstance( typeof( T ), contextArg );
@@ -29,7 +29,6 @@ namespace Loggel
       // TODO: Handle null case.
       if( processor != null )
       {
-        processor.Name = name;
         processor.Description = description;
       }
 

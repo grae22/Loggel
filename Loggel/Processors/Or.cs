@@ -27,9 +27,11 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public Or( Circuit.CircuitContext circuitContext )
+    public Or(
+      string name,
+      Circuit.CircuitContext circuitContext )
     :
-      base( circuitContext )
+      base( name, circuitContext )
     {
       OutputSocket = GetNewOutputSocket( "Result", "Will be live when OR condition is satisfied." );
     }
@@ -71,6 +73,13 @@ namespace Loggel.Processors
       }
 
       return nextProcessor;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void PerformSnapshot()
+    {
+      // Currently there is nothing we want to save.
     }
 
     //-------------------------------------------------------------------------

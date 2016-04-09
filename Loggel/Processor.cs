@@ -16,7 +16,10 @@ namespace Loggel
     //-------------------------------------------------------------------------
     // METHODS.
 
-    public Processor( Circuit.CircuitContext circuitContext )
+    public Processor( string name,
+                      Circuit.CircuitContext circuitContext )
+    :
+      base( name )
     {
       CircuitContext = circuitContext;
     }
@@ -27,8 +30,7 @@ namespace Loggel
       string name,
       string description )
     {
-      Socket socket = new Socket();
-      socket.Name = name;
+      Socket socket = new Socket( name );
       socket.Description = description;
 
       OutputSockets.Add( socket );

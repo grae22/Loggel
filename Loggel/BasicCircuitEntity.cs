@@ -1,11 +1,38 @@
 ﻿namespace Loggel
 {
-  public class BasicCircuitEntity
+  public abstract class BasicCircuitEntity : Siril.SirilObject
   {
     //-------------------------------------------------------------------------
 
     public string Name { get; set; } = "Unnamed";
-    public string Description { get; set; } = "";
+
+    private string m_description = "";
+
+    //-------------------------------------------------------------------------
+
+    public string Description
+    {
+      get
+      {
+        return m_description;
+      }
+
+      set
+      {
+        m_description = value;
+
+        SetSnapshotMember<string>( "description", m_description );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
+    public BasicCircuitEntity( string name )
+    :
+      base( name )
+    {
+      Name = name;
+    }
 
     //-------------------------------------------------------------------------
   }

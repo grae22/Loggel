@@ -5,7 +5,6 @@ namespace Loggel
   public class Circuit : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
-    // TYPES.
 
     // Circuit context class, provides limited access to aspects of this class.
     public class CircuitContext
@@ -15,7 +14,6 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // PROPERTIES.
 
     // This circuit's context struct.
     public CircuitContext Context { get; private set; } = new CircuitContext();
@@ -35,15 +33,21 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // METHODS.
-
-    public Circuit( dynamic initialValue )
+    
+    // Class constructor.
+    public Circuit(
+      string name,
+      dynamic initialValue )
+    :
+      base( name )
     {
       Context.Value = initialValue;
     }
 
     //-------------------------------------------------------------------------
 
+    // Obtains and returns (from the processor factory) a new processor of
+    // the specified type.
     public T CreateProcessor<T>(
       string name,
       string description,
@@ -59,6 +63,10 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    // We allow the circuit's 'entry' processor to perform logic, it
+    // will return the next processor that requires processing and we will
+    // let it process. We keep calling the returned processor's Process()
+    // method until there is no next processor (i.e. null is returned).
     public void Process()
     {
       // Each processor will return the next processor to process, continue
@@ -69,6 +77,13 @@ namespace Loggel
       {
         processorToProcess = processorToProcess.Process();
       }
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void PerformSnapshot()
+    {
+      // Currently there is nothing we want to save.
     }
 
     //-------------------------------------------------------------------------
