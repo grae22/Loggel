@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using Siril;
 
 namespace Loggel
 {
   public abstract class Processor : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
-    // PROPERTIES.
 
     // Reference to the context of the circuit to which this processor belongs.
     protected Circuit.CircuitContext CircuitContext { get; set; }
@@ -14,7 +14,6 @@ namespace Loggel
     public List<Socket> OutputSockets { get; set; } = new List<Socket>();
 
     //-------------------------------------------------------------------------
-    // METHODS.
 
     public Processor( string name,
                       Circuit.CircuitContext circuitContext )
@@ -39,7 +38,6 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // ABSTRACT METHODS.
 
     // When a processor's input-socket is live, this will be called to allow
     // the processor to perform logic.
@@ -47,6 +45,18 @@ namespace Loggel
     // performed. A return value of null indicates processing is complete for
     // this circuit pass.
     public abstract Processor Process();
+
+    //-------------------------------------------------------------------------
+
+    public override void PerformSnapshot( List<SirilObject> children )
+    {
+      base.PerformSnapshot( children );
+
+      foreach( Socket socket in OutputSockets )
+      {
+        children.Add( socket );
+      }
+    }
 
     //-------------------------------------------------------------------------
   }

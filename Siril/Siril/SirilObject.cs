@@ -29,7 +29,10 @@ namespace Siril
       string name,
       T value )
     {
-      Data.SetMember<T>( name, value );
+      if( value != null )
+      {
+        Data.SetMember<T>( name, value );
+      }
     }
 
     //-------------------------------------------------------------------------

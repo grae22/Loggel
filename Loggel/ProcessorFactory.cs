@@ -5,6 +5,7 @@ namespace Loggel
   public class ProcessorFactory
   {
     //-------------------------------------------------------------------------
+
     // Instantiates a processor of the required type and initialises it as
     // part of the specified circuit.
     //

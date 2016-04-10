@@ -17,6 +17,11 @@ namespace Siril
     {
       foreach( SirilObject ob in rootObjects )
       {
+        if( ob == null )
+        {
+          continue;
+        }
+
         List<SirilObject> childObjects = new List<SirilObject>();
         T content;
 

@@ -1,4 +1,5 @@
-﻿using Siril;
+﻿using System.Collections.Generic;
+using Siril;
 
 namespace Loggel
 {
@@ -34,6 +35,14 @@ namespace Loggel
       base( name )
     {
       Name = name;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void PerformSnapshot( List<SirilObject> children )
+    {
+      SetSnapshotMember<string>( "name", Name );
+      SetSnapshotMember<string>( "description", Description );
     }
 
     //-------------------------------------------------------------------------

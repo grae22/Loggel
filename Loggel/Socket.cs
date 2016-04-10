@@ -6,7 +6,6 @@ namespace Loggel
   public class Socket : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
-    // PROPERTIES.
 
     public Processor ConnectedProcessor { get; set; } = null;
 
@@ -21,7 +20,6 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
-    // METHODS.
 
     public Socket( string name )
     :
@@ -44,7 +42,9 @@ namespace Loggel
 
     public override void PerformSnapshot( List<SirilObject> children )
     {
-      // Currently there is nothing we want to save.
+      base.PerformSnapshot( children );
+
+      children.Add( ConnectedProcessor );
     }
 
     //-------------------------------------------------------------------------

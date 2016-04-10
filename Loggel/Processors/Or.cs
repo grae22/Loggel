@@ -7,7 +7,6 @@ namespace Loggel.Processors
   public class Or : Processor
   {
     //-------------------------------------------------------------------------
-    // TYPES.
 
     public struct Condition
     {
@@ -17,7 +16,6 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
-    // PROPERTIES.
 
     // This processor's output socket.
     public Socket OutputSocket { get; set; }
@@ -26,7 +24,6 @@ namespace Loggel.Processors
     public List<Condition> Conditions { get; set; } = new List<Condition>();
 
     //-------------------------------------------------------------------------
-    // METHODS.
 
     public Or(
       string name,
@@ -38,6 +35,7 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
     // If all the conditions are met then we can return the connected
     // processor (if there is one) as the next processor to be processed.
 
@@ -80,7 +78,9 @@ namespace Loggel.Processors
 
     public override void PerformSnapshot( List<SirilObject> children )
     {
-      // Currently there is nothing we want to save.
+      base.PerformSnapshot( children );
+
+      children.Add( OutputSocket );
     }
 
     //-------------------------------------------------------------------------

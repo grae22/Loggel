@@ -6,14 +6,12 @@ namespace Loggel.Processors
   public class Maths : Processor
   {
     //-------------------------------------------------------------------------
-    // PROPERTIES.
 
     public char Operator { get; set; }
     public dynamic Value2 { get; set; }
     public Socket OutputSocket { get; set; }
 
     //-------------------------------------------------------------------------
-    // METHODS.
 
     public Maths(
       string name,
@@ -72,7 +70,12 @@ namespace Loggel.Processors
 
     public override void PerformSnapshot( List<SirilObject> children )
     {
-      // Currently there is nothing we want to save.
+      base.PerformSnapshot( children );
+
+      children.Add( OutputSocket );
+
+      SetSnapshotMember<char>( "operator", Operator );
+      SetSnapshotMember<dynamic>( "value2", Value2 );
     }
 
     //-------------------------------------------------------------------------

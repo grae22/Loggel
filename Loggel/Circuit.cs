@@ -53,6 +53,7 @@ namespace Loggel
 
     // Obtains and returns (from the processor factory) a new processor of
     // the specified type.
+
     public T CreateProcessor<T>(
       string name,
       string description,
@@ -72,6 +73,7 @@ namespace Loggel
     // will return the next processor that requires processing and we will
     // let it process. We keep calling the returned processor's Process()
     // method until there is no next processor (i.e. null is returned).
+
     public void Process()
     {
       // Each processor will return the next processor to process, continue
@@ -88,9 +90,11 @@ namespace Loggel
 
     public override void PerformSnapshot( List<SirilObject> children )
     {
-      SetSnapshotMember<dynamic>( "initialValue", InitialValue );
+      base.PerformSnapshot( children );
 
       children.Add( EntryProcessor );
+
+      SetSnapshotMember<dynamic>( "initialValue", InitialValue );
     }
 
     //-------------------------------------------------------------------------

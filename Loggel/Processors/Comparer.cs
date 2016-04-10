@@ -81,6 +81,7 @@ namespace Loggel.Processors
     }
     
     //-------------------------------------------------------------------------
+
     // If we have a circuit for dynamically updating the comparison-value,
     // use it to update now.
 
@@ -93,6 +94,7 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
     // If we have a circuit for dynamically updating the range-min value,
     // use it to update now.
 
@@ -105,6 +107,7 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
     // If we have a circuit for dynamically updating the range-max value,
     // use it to update now.
 
@@ -117,6 +120,7 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
     // Evaluates conditions and passes processing onto the relevant connected
     // Only ONE output socket can be live at any one time.
 
@@ -185,7 +189,21 @@ namespace Loggel.Processors
 
     public override void PerformSnapshot( List<SirilObject> children )
     {
-      // Currently there is nothing we want to save.
+      base.PerformSnapshot( children );
+
+      children.Add( ComparisonValue );
+      children.Add( RangeMin );
+      children.Add( RangeMax );
+      children.Add( OutputSocket_Equal );
+      children.Add( OutputSocket_NotEqual );
+      children.Add( OutputSocket_Greater );
+      children.Add( OutputSocket_Lesser );
+      children.Add( OutputSocket_InRange );
+      children.Add( OutputSocket_NotInRange );
+
+      SetSnapshotMember<dynamic>( "comparisonValue", ComparisonValue );
+      SetSnapshotMember<dynamic>( "rangeMin", RangeMin );
+      SetSnapshotMember<dynamic>( "rangeMax", RangeMax );
     }
 
     //-------------------------------------------------------------------------

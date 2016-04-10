@@ -1,6 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Loggel;
 using Loggel.Processors;
+using Siril;
 
 namespace Loggel_Test
 {
@@ -17,23 +19,23 @@ namespace Loggel_Test
     public void Initialise()
     {
       // Circuit whose value is manipulated.
-      m_valueManipulator = new Circuit( "", 0.0 );
+      m_valueManipulator = new Circuit( "TestCircuit", 0.0 );
 
       // Maths processor for adding 1 to the valueManipulator circuit value.
-      Maths mathsAdd = m_valueManipulator.CreateProcessor<Maths>( "", "", false );
+      Maths mathsAdd = m_valueManipulator.CreateProcessor<Maths>( "Add", "Adding one...", false );
       mathsAdd.Operator = '+';
       mathsAdd.Value2 = 1.0;
 
       // Maths processor for subtracting 1 to the valueManipulator circuit value.
-      Maths mathsSub = m_valueManipulator.CreateProcessor<Maths>( "", "", false );
+      Maths mathsSub = m_valueManipulator.CreateProcessor<Maths>( "Subtract", "Subtracting one...", false );
       mathsSub.Operator = '-';
       mathsSub.Value2 = 1.0;
 
       // Circuit which produces the comparison value we will use.
-      Circuit comparisonValue = new Circuit( "", 1.0 );
+      Circuit comparisonValue = new Circuit( "ComparisonValue", 1.0 );
 
       // Comparer processor for valueManipulator circuit.
-      Comparer comparer = m_valueManipulator.CreateProcessor<Comparer>( "", "", true );
+      Comparer comparer = m_valueManipulator.CreateProcessor<Comparer>( "Comparer", "Comparer...", true );
       comparer.Circuit_ComparisonValue = comparisonValue;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsAdd;
       comparer.OutputSocket_Equal.ConnectedProcessor = mathsSub;
@@ -77,7 +79,11 @@ namespace Loggel_Test
     [TestMethod]
     public void SirilSnapshot()
     {
-      //Siril.SirilObject.PerformSnapshot( m_valueManipulator );
+      List<SirilObject> rootObjects = new List<SirilObject>();
+      rootObjects.Add( m_valueManipulator );
+
+      XmlStore store = new XmlStore();
+      store.WriteToFile( "Circuit_Test.SirilSnapshot.xml", rootObjects );
     }
 
     //-------------------------------------------------------------------------
