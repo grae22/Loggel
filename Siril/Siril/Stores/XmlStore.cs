@@ -1,20 +1,20 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Xml;
 
 namespace Siril
 {
-  public class Xml : Document<XmlNode>
+  public class XmlStore : SirilStore<XmlNode>
   {
     //-------------------------------------------------------------------------
 
     public override bool WriteToFile(
       string absFilename,
-      DataNode rootNode )
+      List<SirilObject> rootObjects )
     {
       XmlDocument xmlDoc = new XmlDocument();
-      XmlElement docElement = xmlDoc.CreateElement( "Document" );
+      XmlElement docElement = xmlDoc.CreateElement( "Store" );
       xmlDoc.AppendChild( docElement );
-      Generate( docElement, rootNode );
+      Generate( rootObjects, docElement );
       xmlDoc.Save( absFilename );
       return true;
     }
@@ -27,7 +27,7 @@ namespace Siril
       out XmlNode dataNodeElement )
     {
       // Data node.
-      XmlDocument doc = parent.OwnerDocument;//new XmlDocument();
+      XmlDocument doc = parent.OwnerDocument;
       dataNodeElement = doc.CreateElement( "DataNode" );
       parent.AppendChild( dataNodeElement );
 

@@ -1,6 +1,8 @@
-﻿namespace Loggel
+﻿using Siril;
+
+namespace Loggel
 {
-  public abstract class BasicCircuitEntity : Siril.SirilObject
+  public abstract class BasicCircuitEntity : SirilObject
   {
     //-------------------------------------------------------------------------
 

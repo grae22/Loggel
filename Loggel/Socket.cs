@@ -1,4 +1,7 @@
-﻿namespace Loggel
+﻿using System.Collections.Generic;
+using Siril;
+
+namespace Loggel
 {
   public class Socket : BasicCircuitEntity
   {
@@ -39,7 +42,7 @@
 
     //-------------------------------------------------------------------------
 
-    public override void PerformSnapshot()
+    public override void PerformSnapshot( List<SirilObject> children )
     {
       // Currently there is nothing we want to save.
     }

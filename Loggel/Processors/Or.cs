@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Loggel.Helpers;
+using Siril;
 
 namespace Loggel.Processors
 {
@@ -77,7 +78,7 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public override void PerformSnapshot()
+    public override void PerformSnapshot( List<SirilObject> children )
     {
       // Currently there is nothing we want to save.
     }

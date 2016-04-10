@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using Siril;
 
 namespace Loggel
 {
@@ -85,19 +86,11 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    protected override void RegisterChildrenToSnapshot()
-    {
-      RegisterChild( EntryProcessor );
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void PerformSnapshot()
+    public override void PerformSnapshot( List<SirilObject> children )
     {
       SetSnapshotMember<dynamic>( "initialValue", InitialValue );
 
-      // We must call the base class method too.
-      base.PerformSnapshot();
+      children.Add( EntryProcessor );
     }
 
     //-------------------------------------------------------------------------

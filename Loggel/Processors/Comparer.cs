@@ -1,4 +1,7 @@
-﻿namespace Loggel.Processors
+﻿using System.Collections.Generic;
+using Siril;
+
+namespace Loggel.Processors
 {
   public class Comparer : Processor
   {
@@ -180,7 +183,7 @@
 
     //-------------------------------------------------------------------------
 
-    public override void PerformSnapshot()
+    public override void PerformSnapshot( List<SirilObject> children )
     {
       // Currently there is nothing we want to save.
     }

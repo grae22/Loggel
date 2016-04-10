@@ -57,19 +57,5 @@ namespace Siril_Test
     }
 
     //-------------------------------------------------------------------------
-
-    [TestMethod]
-    public void AddSubDataNode()
-    {
-      DataNode subNode1 = m_node.AddDataNode( "SubNode1" );
-      subNode1.SetMember<int>( "int", 123 );
-      Assert.AreEqual( 123, m_node.DataNodes[ "SubNode1" ].GetMember<int>( "int" ) );
-
-      DataNode subNode2 = m_node.AddDataNode( "SubNode2" );
-      subNode2.SetMember<double>( "double", 123.456 );
-      Assert.AreEqual( 123.456, m_node.DataNodes[ "SubNode2" ].GetMember<double>( "double" ) );
-    }
-
-    //-------------------------------------------------------------------------
   }
 }
