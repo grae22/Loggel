@@ -1,0 +1,178 @@
+<Store>
+  <DataNode name="TestCircuit">
+    <MemberCollection>
+      <Member name="description">
+      </Member>
+      <Member name="initialValue">0</Member>
+    </MemberCollection>
+    <DataNodeCollection>
+      <DataNode name="Comparer">
+        <MemberCollection>
+          <Member name="description">Comparer...</Member>
+        </MemberCollection>
+        <DataNodeCollection>
+          <DataNode name="Equal">
+            <MemberCollection>
+              <Member name="description">Circuit and Comparison values are equal.</Member>
+            </MemberCollection>
+            <DataNodeCollection>
+              <DataNode name="Subtract">
+                <MemberCollection>
+                  <Member name="description">Subtracting one...</Member>
+                  <Member name="operator">-</Member>
+                  <Member name="value2">1</Member>
+                </MemberCollection>
+                <DataNodeCollection>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                </DataNodeCollection>
+              </DataNode>
+            </DataNodeCollection>
+          </DataNode>
+          <DataNode name="NotEqual">
+            <MemberCollection>
+              <Member name="description">Circuit and Comparison values are not equal.</Member>
+            </MemberCollection>
+            <DataNodeCollection>
+              <DataNode name="Add">
+                <MemberCollection>
+                  <Member name="description">Adding one...</Member>
+                  <Member name="operator">+</Member>
+                  <Member name="value2">1</Member>
+                </MemberCollection>
+                <DataNodeCollection>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                </DataNodeCollection>
+              </DataNode>
+            </DataNodeCollection>
+          </DataNode>
+          <DataNode name="Greater">
+            <MemberCollection>
+              <Member name="description">Circuit value is greater than Comparison value.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+          <DataNode name="Lesser">
+            <MemberCollection>
+              <Member name="description">Circuit value is smaller than Comparison value.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+          <DataNode name="InRange">
+            <MemberCollection>
+              <Member name="description">Circuit value falls within (inclusive) specified range.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+          <DataNode name="NotInRange">
+            <MemberCollection>
+              <Member name="description">Circuit value falls outside (exclusive) specified range.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+          <DataNode name="Equal">
+            <MemberCollection>
+              <Member name="description">Circuit and Comparison values are equal.</Member>
+            </MemberCollection>
+            <DataNodeCollection>
+              <DataNode name="Subtract">
+                <MemberCollection>
+                  <Member name="description">Subtracting one...</Member>
+                  <Member name="operator">-</Member>
+                  <Member name="value2">1</Member>
+                </MemberCollection>
+                <DataNodeCollection>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                </DataNodeCollection>
+              </DataNode>
+            </DataNodeCollection>
+          </DataNode>
+          <DataNode name="NotEqual">
+            <MemberCollection>
+              <Member name="description">Circuit and Comparison values are not equal.</Member>
+            </MemberCollection>
+            <DataNodeCollection>
+              <DataNode name="Add">
+                <MemberCollection>
+                  <Member name="description">Adding one...</Member>
+                  <Member name="operator">+</Member>
+                  <Member name="value2">1</Member>
+                </MemberCollection>
+                <DataNodeCollection>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                  <DataNode name="Result">
+                    <MemberCollection>
+                      <Member name="description">Result of mathematical operation.</Member>
+                    </MemberCollection>
+                    <DataNodeCollection />
+                  </DataNode>
+                </DataNodeCollection>
+              </DataNode>
+            </DataNodeCollection>
+          </DataNode>
+          <DataNode name="Greater">
+            <MemberCollection>
+              <Member name="description">Circuit value is greater than Comparison value.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+          <DataNode name="Lesser">
+            <MemberCollection>
+              <Member name="description">Circuit value is smaller than Comparison value.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+          <DataNode name="InRange">
+            <MemberCollection>
+              <Member name="description">Circuit value falls within (inclusive) specified range.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+          <DataNode name="NotInRange">
+            <MemberCollection>
+              <Member name="description">Circuit value falls outside (exclusive) specified range.</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+        </DataNodeCollection>
+      </DataNode>
+    </DataNodeCollection>
+  </DataNode>
+</Store>

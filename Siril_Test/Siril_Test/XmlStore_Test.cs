@@ -64,31 +64,8 @@ namespace Siril_Test
 
       // Read the xml and check it's what we're expecting.
       string content = File.ReadAllText( "XmlStore_Test.General.xml" );
-      while( content.Contains( Environment.NewLine ) )
-      {
-        content = content.Remove( content.IndexOf( Environment.NewLine ), Environment.NewLine.Length );
-      }
-      while( content.Contains( " " ) )
-      {
-        content = content.Remove( content.IndexOf( ' ' ), 1 );
-      }
-      Assert.AreEqual(
-        "<Store><DataNode><Name>Node1</Name><MemberCollection><Member>" +
-          "<Name>int</Name><Value>123</Value></Member><Member>" +
-          "<Name>double</Name><Value>1.23</Value></Member></MemberCollection>" +
-          "<DataNodeCollection><DataNode><Name>Node1_1</Name><MemberCollection>" +
-          "<Member><Name>int</Name><Value>123</Value></Member><Member>" +
-          "<Name>double</Name><Value>1.23</Value></Member></MemberCollection>" +
-          "<DataNodeCollection/></DataNode><DataNode><Name>Node1_2</Name>" +
-          "<MemberCollection><Member><Name>int</Name><Value>123</Value>" +
-          "</Member><Member><Name>double</Name><Value>1.23</Value></Member>" +
-          "</MemberCollection><DataNodeCollection><DataNode>" +
-          "<Name>Node1_2_1</Name><MemberCollection><Member><Name>int</Name>" +
-          "<Value>123</Value></Member><Member><Name>double</Name>" +
-          "<Value>1.23</Value></Member></MemberCollection><DataNodeCollection/>" +
-          "</DataNode></DataNodeCollection></DataNode></DataNodeCollection>" +
-          "</DataNode></Store>",
-        content );
+      string reference = File.ReadAllText( @"..\..\Resources\XmlStore_Test.General.xml" );
+      Assert.AreEqual( reference, content );
     }
 
     //-------------------------------------------------------------------------

@@ -1,0 +1,32 @@
+<Store>
+  <DataNode name="Node1">
+    <MemberCollection>
+      <Member name="int">123</Member>
+      <Member name="double">1.23</Member>
+    </MemberCollection>
+    <DataNodeCollection>
+      <DataNode name="Node1_1">
+        <MemberCollection>
+          <Member name="int">123</Member>
+          <Member name="double">1.23</Member>
+        </MemberCollection>
+        <DataNodeCollection />
+      </DataNode>
+      <DataNode name="Node1_2">
+        <MemberCollection>
+          <Member name="int">123</Member>
+          <Member name="double">1.23</Member>
+        </MemberCollection>
+        <DataNodeCollection>
+          <DataNode name="Node1_2_1">
+            <MemberCollection>
+              <Member name="int">123</Member>
+              <Member name="double">1.23</Member>
+            </MemberCollection>
+            <DataNodeCollection />
+          </DataNode>
+        </DataNodeCollection>
+      </DataNode>
+    </DataNodeCollection>
+  </DataNode>
+</Store>

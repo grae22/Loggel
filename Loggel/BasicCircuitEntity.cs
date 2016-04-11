@@ -41,7 +41,6 @@ namespace Loggel
 
     public override void PerformSnapshot( List<SirilObject> children )
     {
-      SetSnapshotMember<string>( "name", Name );
       SetSnapshotMember<string>( "description", Description );
     }
 

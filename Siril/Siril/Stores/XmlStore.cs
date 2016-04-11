@@ -32,9 +32,9 @@ namespace Siril
       parent.AppendChild( dataNodeElement );
 
       // Data node name.
-      XmlElement name = doc.CreateElement( "Name" );
-      name.InnerText = node.Name;
-      dataNodeElement.AppendChild( name );
+      XmlAttribute name = doc.CreateAttribute( "name" );
+      name.Value = node.Name;
+      dataNodeElement.Attributes.Append( name );
 
       // Member collection.
       XmlElement memberCollection = doc.CreateElement( "MemberCollection" );
@@ -44,14 +44,11 @@ namespace Siril
       {
         XmlElement member = doc.CreateElement( "Member" );
         memberCollection.AppendChild( member );
+        member.InnerText = node.Members[ memberName ];
 
-        XmlElement memberNameElement = doc.CreateElement( "Name" );
-        memberNameElement.InnerText = memberName;
-        member.AppendChild( memberNameElement );
-
-        XmlElement memberValue = doc.CreateElement( "Value" );
-        memberValue.InnerText = node.Members[ memberName ];
-        member.AppendChild( memberValue );
+        XmlAttribute memberNameAttrib = doc.CreateAttribute( "name" );
+        memberNameAttrib.Value = memberName;
+        member.Attributes.Append( memberNameAttrib );
       }
 
       // Data node collection.

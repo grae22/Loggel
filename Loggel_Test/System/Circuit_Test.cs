@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Loggel;
 using Loggel.Processors;
@@ -84,6 +85,10 @@ namespace Loggel_Test
 
       XmlStore store = new XmlStore();
       store.WriteToFile( "Circuit_Test.SirilSnapshot.xml", rootObjects );
+
+      string content = File.ReadAllText( "Circuit_Test.SirilSnapshot.xml" );
+      string reference = File.ReadAllText( @"..\..\Resources\Circuit_Test.SirilSnapshot.xml" );
+      Assert.AreEqual( reference, content );
     }
 
     //-------------------------------------------------------------------------
