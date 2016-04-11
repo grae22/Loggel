@@ -6,12 +6,14 @@ namespace Siril
   {
     //-------------------------------------------------------------------------
 
-    public abstract bool WriteToFile( string absFilename, List<SirilObject> rootObjects );
-    protected abstract T GenerateDataNodeContent( DataNode node, T parent, out T content );
+    public abstract void WriteToFile( string absFilename, List<SirilObject> rootObjects );
+    public abstract void ReadFromFile( string absFilename, out List<SirilObject> rootObjects );
+    protected abstract T GenerateContent( DataNode node, T parent, out T content );
+    protected abstract void GenerateObject( /* TODO */ );
 
     //-------------------------------------------------------------------------
 
-    protected void Generate(
+    protected void PerformSnapshot(
       List<SirilObject> rootObjects,
       T documentRoot )
     {
@@ -30,13 +32,13 @@ namespace Siril
 
         // Generate the actual persistable content.
         T subNodeCollection =
-          GenerateDataNodeContent(
+          GenerateContent(
             ob.Data,
             documentRoot,
             out content );
 
         // Recurse.
-        Generate( childObjects, subNodeCollection );
+        PerformSnapshot( childObjects, subNodeCollection );
       }
     }
 

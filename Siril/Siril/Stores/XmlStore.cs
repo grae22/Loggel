@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace Siril
@@ -7,21 +8,32 @@ namespace Siril
   {
     //-------------------------------------------------------------------------
 
-    public override bool WriteToFile(
+    public override void WriteToFile(
       string absFilename,
       List<SirilObject> rootObjects )
     {
       XmlDocument xmlDoc = new XmlDocument();
       XmlElement docElement = xmlDoc.CreateElement( "Store" );
       xmlDoc.AppendChild( docElement );
-      Generate( rootObjects, docElement );
+      PerformSnapshot( rootObjects, docElement );
       xmlDoc.Save( absFilename );
-      return true;
     }
 
     //-------------------------------------------------------------------------
 
-    protected override XmlNode GenerateDataNodeContent(
+    public override void ReadFromFile(
+      string absFilename,
+      out List<SirilObject> rootObjects )
+    {
+      rootObjects = new List<SirilObject>();
+
+      XmlDocument xmlDoc = new XmlDocument();
+      xmlDoc.Load( absFilename );
+    }
+
+    //-------------------------------------------------------------------------
+
+    protected override XmlNode GenerateContent(
       DataNode node,
       XmlNode parent,
       out XmlNode dataNodeElement )

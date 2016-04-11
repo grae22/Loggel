@@ -7,21 +7,6 @@ namespace Siril
   public class DataNode
   {
     //-------------------------------------------------------------------------
-    // Data-node visualised as xml.
-
-    /*
-      <DataNode>
-        <Name>SomeObject</Name>
-        <MemberCollection>
-          <Member>
-            <Name>SomeMember</Name>
-            <Value>SomeValue</Value>
-          </Member>
-        </MemberCollection>
-      </DataNode>
-    */
-
-    //-------------------------------------------------------------------------
     
     public string Name { get; private set; }
     public Dictionary<string, string> Members { get; private set; } = new Dictionary<string, string>();
