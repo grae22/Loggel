@@ -25,13 +25,19 @@ namespace Siril_Test
 
       public override void PerformSnapshot( List<SirilObject> children )
       {
-        SetSnapshotMember<int>( "int", ValueInt );
-        SetSnapshotMember<double>( "double", ValueDouble );
+        SnapshotMember<int>( "int", ValueInt );
+        SnapshotMember<double>( "double", ValueDouble );
 
         foreach( Node child in Children )
         {
           children.Add( child );
         }
+      }
+
+      public override void RestoreSnapshot()
+      {
+        ValueInt = RestoreMember<int>( "int", 0 );
+        ValueDouble = RestoreMember<double>( "double", 0.0 );
       }
 
       public void AddChild( Node child )

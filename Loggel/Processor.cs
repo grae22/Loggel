@@ -59,5 +59,14 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+
+    public override void RestoreSnapshot()
+    {
+      base.RestoreSnapshot();
+
+      // TODO: How are we handling children?
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

@@ -77,6 +77,9 @@ namespace Loggel_Test
 
     //-------------------------------------------------------------------------
 
+    // Test that the xml that is generated to persist the circuit matches
+    // what we're expecting.
+
     [TestMethod]
     public void SirilSnapshot()
     {

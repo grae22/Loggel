@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Siril;
 
 namespace Loggel
@@ -8,27 +9,11 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     public string Name { get; set; } = "Unnamed";
-
-    private string m_description = "";
-
-    //-------------------------------------------------------------------------
-
-    public string Description
-    {
-      get
-      {
-        return m_description;
-      }
-
-      set
-      {
-        m_description = value;
-
-        SetSnapshotMember<string>( "description", m_description );
-      }
-    }
+    public string Description { get; set; } = "";
 
     //-------------------------------------------------------------------------
+
+    // Constructor for use when creating a new entity.
 
     public BasicCircuitEntity( string name )
     :
@@ -39,9 +24,28 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    // Constructor to use when restoring a saved entity.
+
+    public BasicCircuitEntity( SirilObject ob )
+    :
+      base( ob )
+    {
+      
+    }
+
+    //-------------------------------------------------------------------------
+
     public override void PerformSnapshot( List<SirilObject> children )
     {
-      SetSnapshotMember<string>( "description", Description );
+      SnapshotMember<string>( "description", Description );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void RestoreSnapshot()
+    {
+      Name = RestoreMember<string>( "name", "Unnamed" );
+      Description = RestoreMember<string>( "description", "" );
     }
 
     //-------------------------------------------------------------------------

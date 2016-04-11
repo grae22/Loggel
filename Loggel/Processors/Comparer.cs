@@ -201,9 +201,22 @@ namespace Loggel.Processors
       children.Add( OutputSocket_InRange );
       children.Add( OutputSocket_NotInRange );
 
-      SetSnapshotMember<dynamic>( "comparisonValue", ComparisonValue );
-      SetSnapshotMember<dynamic>( "rangeMin", RangeMin );
-      SetSnapshotMember<dynamic>( "rangeMax", RangeMax );
+      SnapshotMember<dynamic>( "comparisonValue", ComparisonValue );
+      SnapshotMember<dynamic>( "rangeMin", RangeMin );
+      SnapshotMember<dynamic>( "rangeMax", RangeMax );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void RestoreSnapshot()
+    {
+      base.RestoreSnapshot();
+
+      ComparisonValue = RestoreMember<dynamic>( "comparisonValue", null );
+      RangeMin = RestoreMember<dynamic>( "rangeMin", null );
+      RangeMax = RestoreMember<dynamic>( "rangeMax", null );
+
+      // TODO: Children.
     }
 
     //-------------------------------------------------------------------------

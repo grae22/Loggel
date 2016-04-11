@@ -8,6 +8,7 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     // Circuit context class, provides limited access to aspects of this class.
+
     public class CircuitContext
     {
       // The curent value of this circuit.
@@ -39,6 +40,7 @@ namespace Loggel
     //-------------------------------------------------------------------------
     
     // Class constructor.
+
     public Circuit(
       string name,
       dynamic initialValue )
@@ -47,6 +49,17 @@ namespace Loggel
     {
       InitialValue = initialValue;
       Context.Value = initialValue;
+    }
+
+    //-------------------------------------------------------------------------
+
+    // Class constructor for when restoring a saved circuit.
+
+    public Circuit( SirilObject ob )
+    :
+      base( ob )
+    {
+
     }
 
     //-------------------------------------------------------------------------
@@ -94,7 +107,16 @@ namespace Loggel
 
       children.Add( EntryProcessor );
 
-      SetSnapshotMember<dynamic>( "initialValue", InitialValue );
+      SnapshotMember<dynamic>( "initialValue", InitialValue );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void RestoreSnapshot()
+    {
+      base.RestoreSnapshot();
+
+      InitialValue = RestoreMember<dynamic>( "initialValue", null );
     }
 
     //-------------------------------------------------------------------------

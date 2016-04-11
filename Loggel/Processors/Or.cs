@@ -84,5 +84,13 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+    public override void RestoreSnapshot()
+    {
+      base.RestoreSnapshot();
+
+      // TODO: Children.
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

@@ -74,8 +74,20 @@ namespace Loggel.Processors
 
       children.Add( OutputSocket );
 
-      SetSnapshotMember<char>( "operator", Operator );
-      SetSnapshotMember<dynamic>( "value2", Value2 );
+      SnapshotMember<char>( "operator", Operator );
+      SnapshotMember<dynamic>( "value2", Value2 );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public override void RestoreSnapshot()
+    {
+      base.RestoreSnapshot();
+
+      Operator = RestoreMember<char>( "operator", ' ' );
+      Value2 = RestoreMember<dynamic>( "value2", ' ' );
+
+      // TODO: Children.
     }
 
     //-------------------------------------------------------------------------
