@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Siril;
-
 namespace Loggel
 {
   public class Circuit : BasicCircuitEntity
