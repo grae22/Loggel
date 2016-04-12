@@ -3,7 +3,6 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Loggel;
 using Loggel.Processors;
-using Siril;
 
 namespace Loggel_Test
 {

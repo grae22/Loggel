@@ -42,7 +42,7 @@
     <Compile Include="ProcessorFactory.cs" />
     <Compile Include="Processors\Or.cs" />
     <Compile Include="Processors\And.cs" />
-    <Compile Include="BasicCircuitEntity.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Processors\Maths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,12 +53,6 @@
   <ItemGroup>
     <Content Include="Docs\ReadMe.txt" />
     <Content Include="Docs\RoadMap.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Siril\Siril\Siril.csproj">
-      <Project>{4a6328c1-1912-4d57-9402-fac06ccaea1d}</Project>
-      <Name>Siril</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

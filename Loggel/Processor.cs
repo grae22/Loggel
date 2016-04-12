@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 namespace Loggel
 {
-  public abstract class Processor : BasicCircuitEntity
+  public abstract class Processor : Component
   {
     //-------------------------------------------------------------------------
 
@@ -47,6 +48,25 @@ namespace Loggel
     // performed. A return value of null indicates processing is complete for
     // this circuit pass.
     public abstract Processor Process();
+
+    //-------------------------------------------------------------------------
+
+    // Persist this instance as XML.
+
+    public virtual void GetAsXml( XmlElement parent )
+    {
+      XmlDocument ownerDoc = parent.OwnerDocument;
+      XmlElement processorElement = ownerDoc.CreateElement( "Processor" );
+      parent.AppendChild( processorElement );
+      
+      XmlAttribute nameAttrib = ownerDoc.CreateAttribute( "name" );
+      nameAttrib.Value = Name;
+      processorElement.Attributes.Append( nameAttrib );
+
+      XmlElement descriptionElement = ownerDoc.CreateElement( "Description" );
+      descriptionElement.InnerText = Description;
+      processorElement.AppendChild( descriptionElement );
+    }
 
     //-------------------------------------------------------------------------
   }

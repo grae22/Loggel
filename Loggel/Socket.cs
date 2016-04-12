@@ -1,6 +1,8 @@
-﻿namespace Loggel
+﻿using System.Xml;
+
+namespace Loggel
 {
-  public class Socket : BasicCircuitEntity
+  public class Socket : Component
   {
     //-------------------------------------------------------------------------
 
@@ -36,6 +38,29 @@
       {
         ConnectedProcessor.Process();
       }
+    }
+
+    //-------------------------------------------------------------------------
+
+    // Persist this instance as XML.
+
+    void Component.GetAsXml( XmlElement parent )
+    {
+      XmlDocument ownerDoc = parent.OwnerDocument;
+      XmlElement socketElement = ownerDoc.CreateElement( "Socket" );
+      parent.AppendChild( socketElement );
+      
+      XmlAttribute nameAttrib = ownerDoc.CreateAttribute( "name" );
+      nameAttrib.Value = Name;
+      socketElement.Attributes.Append( nameAttrib );
+
+      XmlElement descriptionElement = ownerDoc.CreateElement( "Description" );
+      descriptionElement.InnerText = Description;
+      socketElement.AppendChild( descriptionElement );
+
+      XmlElement connectedProcessorNameElement = ownerDoc.CreateElement( "ConnectedProcessorName" );
+      connectedProcessorNameElement.InnerText = ( ConnectedProcessor == null ? "" : ConnectedProcessor.Name );
+      socketElement.AppendChild( connectedProcessorNameElement );
     }
 
     //-------------------------------------------------------------------------

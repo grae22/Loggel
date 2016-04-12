@@ -1,6 +1,8 @@
+using System.Xml;
+
 namespace Loggel
 {
-  public class Circuit : BasicCircuitEntity
+  public class Circuit : Component
   {
     //-------------------------------------------------------------------------
 
@@ -62,7 +64,7 @@ namespace Loggel
       bool setAsEntryProcessor ) where T : Processor
     {
       return
-        ProcessorFactory.CreateProcessor< T >(
+        ProcessorFactory.CreateProcessor<T>(
           name,
           description,
           this,
@@ -86,6 +88,33 @@ namespace Loggel
       {
         processorToProcess = processorToProcess.Process();
       }
+    }
+
+    //-------------------------------------------------------------------------
+
+    // Persist this instance as XML.
+
+    void Component.GetAsXml( XmlElement parent )
+    {
+      XmlDocument ownerDoc = parent.OwnerDocument;
+      XmlElement circuitElement = ownerDoc.CreateElement( "Circuit" );
+      parent.AppendChild( circuitElement );
+      
+      XmlAttribute nameAttrib = ownerDoc.CreateAttribute( "name" );
+      nameAttrib.Value = Name;
+      circuitElement.Attributes.Append( nameAttrib );
+
+      XmlElement descriptionElement = ownerDoc.CreateElement( "Description" );
+      descriptionElement.InnerText = Description;
+      circuitElement.AppendChild( descriptionElement );
+
+      XmlElement initialValueElement = ownerDoc.CreateElement( "InitialValue" );
+      initialValueElement.InnerText = InitialValue.ToString();
+      circuitElement.AppendChild( initialValueElement );
+
+      XmlElement entryProcessorNameElement = ownerDoc.CreateElement( "EntryProcessorName" );
+      entryProcessorNameElement.InnerText = ( EntryProcessor == null ? "" : EntryProcessor.Name );
+      circuitElement.AppendChild( entryProcessorNameElement );
     }
 
     //-------------------------------------------------------------------------
