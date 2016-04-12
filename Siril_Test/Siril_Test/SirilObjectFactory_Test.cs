@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Siril;
 
@@ -12,10 +11,9 @@ namespace Siril_Test
 
     private class TestObject : SirilObject
     {
-      public TestObject( string name )
-      :
-        base( name ) {}
+      public string Name { get { return Data.Name; } }
 
+      public TestObject( string name ) : base( name ) {}
       public override void PerformSnapshot( List<SirilObject> children ) {}
       public override void RestoreSnapshot() {}
     }
@@ -33,6 +31,7 @@ namespace Siril_Test
           "Test" );
 
       Assert.IsNotNull( ob );
+      Assert.AreEqual( "Test", ob.Name );
     }
 
     //-------------------------------------------------------------------------
