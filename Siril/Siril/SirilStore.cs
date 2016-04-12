@@ -9,7 +9,7 @@ namespace Siril
     public abstract void WriteToFile( string absFilename, List<SirilObject> rootObjects );
     public abstract void ReadFromFile( string absFilename, out List<SirilObject> rootObjects );
     protected abstract T GenerateContent( DataNode node, T parent, out T content );
-    protected abstract void GenerateObject( /* TODO */ );
+    //protected abstract void GenerateObject( /* TODO */ );
 
     //-------------------------------------------------------------------------
 

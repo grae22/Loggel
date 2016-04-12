@@ -65,8 +65,7 @@ namespace Siril_Test
 
       // Write the xml.
       XmlStore xml = new XmlStore();
-      bool result = xml.WriteToFile( "XmlStore_Test.General.xml", rootObjects );
-      Assert.AreEqual( true, result, "Failed to write the test file." );
+      xml.WriteToFile( "XmlStore_Test.General.xml", rootObjects );
 
       // Read the xml and check it's what we're expecting.
       string content = File.ReadAllText( "XmlStore_Test.General.xml" );
