@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Loggel.Helpers;
-using Siril;
 
 namespace Loggel.Processors
 {
@@ -66,24 +65,6 @@ namespace Loggel.Processors
       }
 
       return nextProcessor;
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void PerformSnapshot( List<SirilObject> children )
-    {
-      base.PerformSnapshot( children );
-
-      children.Add( OutputSocket );
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void RestoreSnapshot()
-    {
-      base.RestoreSnapshot();
-
-      // TODO: Children.
     }
 
     //-------------------------------------------------------------------------

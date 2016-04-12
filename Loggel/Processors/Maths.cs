@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Siril;
-
-namespace Loggel.Processors
+﻿namespace Loggel.Processors
 {
   public class Maths : Processor
   {
@@ -64,30 +61,6 @@ namespace Loggel.Processors
       }
 
       return nextProcessor;
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void PerformSnapshot( List<SirilObject> children )
-    {
-      base.PerformSnapshot( children );
-
-      children.Add( OutputSocket );
-
-      SnapshotMember<char>( "operator", Operator );
-      SnapshotMember<dynamic>( "value2", Value2 );
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void RestoreSnapshot()
-    {
-      base.RestoreSnapshot();
-
-      Operator = RestoreMember<char>( "operator", ' ' );
-      Value2 = RestoreMember<dynamic>( "value2", ' ' );
-
-      // TODO: Children.
     }
 
     //-------------------------------------------------------------------------

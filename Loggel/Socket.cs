@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using Siril;
-
-namespace Loggel
+﻿namespace Loggel
 {
   public class Socket : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
 
+    // BasicCircuitEntity.
+    public string Name { get; set; } = "Unnamed";
+    public string Description { get; set; } = "";
+
+    // The connected processor (if any).
     public Processor ConnectedProcessor { get; set; } = null;
 
     //-------------------------------------------------------------------------
@@ -22,10 +24,8 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     public Socket( string name )
-    :
-      base( name )
     {
-
+      Name = name;
     }
 
     //-------------------------------------------------------------------------
@@ -36,24 +36,6 @@ namespace Loggel
       {
         ConnectedProcessor.Process();
       }
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void PerformSnapshot( List<SirilObject> children )
-    {
-      base.PerformSnapshot( children );
-
-      children.Add( ConnectedProcessor );
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void RestoreSnapshot()
-    {
-      base.RestoreSnapshot();
-
-      // TODO: Children.
     }
 
     //-------------------------------------------------------------------------

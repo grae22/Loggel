@@ -79,7 +79,7 @@ namespace Loggel_Test
 
     // Test that the xml that is generated to persist the circuit matches
     // what we're expecting.
-
+    /*
     [TestMethod]
     public void SirilSnapshot()
     {
@@ -93,7 +93,7 @@ namespace Loggel_Test
       string reference = File.ReadAllText( @"..\..\Resources\Circuit_Test.SirilSnapshot.xml" );
       Assert.AreEqual( reference, content );
     }
-
+    */
     //-------------------------------------------------------------------------
   }
 }

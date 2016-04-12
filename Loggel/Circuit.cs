@@ -17,6 +17,10 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    // BasicCircuitEntity.
+    public string Name { get; set; } = "Unnamed";
+    public string Description { get; set; } = "";
+
     // Inital value of this circuit.
     private dynamic InitialValue { get; set; }
 
@@ -44,22 +48,10 @@ namespace Loggel
     public Circuit(
       string name,
       dynamic initialValue )
-    :
-      base( name )
     {
+      Name = name;
       InitialValue = initialValue;
       Context.Value = initialValue;
-    }
-
-    //-------------------------------------------------------------------------
-
-    // Class constructor for when restoring a saved circuit.
-
-    public Circuit( SirilObject ob )
-    :
-      base( ob )
-    {
-
     }
 
     //-------------------------------------------------------------------------
@@ -97,26 +89,6 @@ namespace Loggel
       {
         processorToProcess = processorToProcess.Process();
       }
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void PerformSnapshot( List<SirilObject> children )
-    {
-      base.PerformSnapshot( children );
-
-      children.Add( EntryProcessor );
-
-      SnapshotMember<dynamic>( "initialValue", InitialValue );
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void RestoreSnapshot()
-    {
-      base.RestoreSnapshot();
-
-      InitialValue = RestoreMember<dynamic>( "initialValue", null );
     }
 
     //-------------------------------------------------------------------------

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
-using Siril;
 
 namespace Loggel
 {
   public abstract class Processor : BasicCircuitEntity
   {
     //-------------------------------------------------------------------------
+
+    // BasicCircuitEntity.
+    public string Name { get; set; } = "Unnamed";
+    public string Description { get; set; } = "";
 
     // Reference to the context of the circuit to which this processor belongs.
     protected Circuit.CircuitContext CircuitContext { get; set; }
@@ -17,9 +20,8 @@ namespace Loggel
 
     public Processor( string name,
                       Circuit.CircuitContext circuitContext )
-    :
-      base( name )
     {
+      Name = name;
       CircuitContext = circuitContext;
     }
 
@@ -45,27 +47,6 @@ namespace Loggel
     // performed. A return value of null indicates processing is complete for
     // this circuit pass.
     public abstract Processor Process();
-
-    //-------------------------------------------------------------------------
-
-    public override void PerformSnapshot( List<SirilObject> children )
-    {
-      base.PerformSnapshot( children );
-
-      foreach( Socket socket in OutputSockets )
-      {
-        children.Add( socket );
-      }
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void RestoreSnapshot()
-    {
-      base.RestoreSnapshot();
-
-      // TODO: How are we handling children?
-    }
 
     //-------------------------------------------------------------------------
   }

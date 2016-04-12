@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Siril;
-
-namespace Loggel.Processors
+﻿namespace Loggel.Processors
 {
   public class Comparer : Processor
   {
@@ -183,40 +180,6 @@ namespace Loggel.Processors
       }
 
       return nextProcessor;
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void PerformSnapshot( List<SirilObject> children )
-    {
-      base.PerformSnapshot( children );
-
-      children.Add( ComparisonValue );
-      children.Add( RangeMin );
-      children.Add( RangeMax );
-      children.Add( OutputSocket_Equal );
-      children.Add( OutputSocket_NotEqual );
-      children.Add( OutputSocket_Greater );
-      children.Add( OutputSocket_Lesser );
-      children.Add( OutputSocket_InRange );
-      children.Add( OutputSocket_NotInRange );
-
-      SnapshotMember<dynamic>( "comparisonValue", ComparisonValue );
-      SnapshotMember<dynamic>( "rangeMin", RangeMin );
-      SnapshotMember<dynamic>( "rangeMax", RangeMax );
-    }
-
-    //-------------------------------------------------------------------------
-
-    public override void RestoreSnapshot()
-    {
-      base.RestoreSnapshot();
-
-      ComparisonValue = RestoreMember<dynamic>( "comparisonValue", null );
-      RangeMin = RestoreMember<dynamic>( "rangeMin", null );
-      RangeMax = RestoreMember<dynamic>( "rangeMax", null );
-
-      // TODO: Children.
     }
 
     //-------------------------------------------------------------------------
