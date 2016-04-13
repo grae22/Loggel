@@ -7,10 +7,6 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    // BasicCircuitEntity.
-    public string Name { get; set; } = "Unnamed";
-    public string Description { get; set; } = "";
-
     // Reference to the context of the circuit to which this processor belongs.
     protected Circuit.CircuitContext CircuitContext { get; set; }
 
@@ -53,19 +49,15 @@ namespace Loggel
 
     // Persist this instance as XML.
 
-    public virtual void GetAsXml( XmlElement parent )
+    public override XmlElement GetAsXml( XmlElement parent )
     {
+      parent = base.GetAsXml( parent );
+
       XmlDocument ownerDoc = parent.OwnerDocument;
       XmlElement processorElement = ownerDoc.CreateElement( "Processor" );
       parent.AppendChild( processorElement );
       
-      XmlAttribute nameAttrib = ownerDoc.CreateAttribute( "name" );
-      nameAttrib.Value = Name;
-      processorElement.Attributes.Append( nameAttrib );
-
-      XmlElement descriptionElement = ownerDoc.CreateElement( "Description" );
-      descriptionElement.InnerText = Description;
-      processorElement.AppendChild( descriptionElement );
+      return processorElement;
     }
 
     //-------------------------------------------------------------------------

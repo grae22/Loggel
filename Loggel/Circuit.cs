@@ -16,10 +16,6 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    // BasicCircuitEntity.
-    public string Name { get; set; } = "Unnamed";
-    public string Description { get; set; } = "";
-
     // Inital value of this circuit.
     private dynamic InitialValue { get; set; }
 
@@ -94,20 +90,14 @@ namespace Loggel
 
     // Persist this instance as XML.
 
-    void Component.GetAsXml( XmlElement parent )
+    public override XmlElement GetAsXml( XmlElement parent )
     {
+      parent = base.GetAsXml( parent );
+
       XmlDocument ownerDoc = parent.OwnerDocument;
       XmlElement circuitElement = ownerDoc.CreateElement( "Circuit" );
       parent.AppendChild( circuitElement );
       
-      XmlAttribute nameAttrib = ownerDoc.CreateAttribute( "name" );
-      nameAttrib.Value = Name;
-      circuitElement.Attributes.Append( nameAttrib );
-
-      XmlElement descriptionElement = ownerDoc.CreateElement( "Description" );
-      descriptionElement.InnerText = Description;
-      circuitElement.AppendChild( descriptionElement );
-
       XmlElement initialValueElement = ownerDoc.CreateElement( "InitialValue" );
       initialValueElement.InnerText = InitialValue.ToString();
       circuitElement.AppendChild( initialValueElement );
@@ -115,6 +105,8 @@ namespace Loggel
       XmlElement entryProcessorNameElement = ownerDoc.CreateElement( "EntryProcessorName" );
       entryProcessorNameElement.InnerText = ( EntryProcessor == null ? "" : EntryProcessor.Name );
       circuitElement.AppendChild( entryProcessorNameElement );
+
+      return circuitElement;
     }
 
     //-------------------------------------------------------------------------

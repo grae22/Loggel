@@ -72,29 +72,17 @@ namespace Loggel.Processors
 
     // Persist this instance as XML.
 
-    public override void GetAsXml( XmlElement parent )
+    public override XmlElement GetAsXml( XmlElement parent )
     {
       base.GetAsXml( parent );
 
       XmlDocument ownerDoc = parent.OwnerDocument;
-      XmlElement circuitElement = ownerDoc.CreateElement( "Circuit" );
-      parent.AppendChild( circuitElement );
+      XmlElement andElement = ownerDoc.CreateElement( "And" );
+      parent.AppendChild( andElement );
+
+      // TODO: Conditions.
       
-      XmlAttribute nameAttrib = ownerDoc.CreateAttribute( "name" );
-      nameAttrib.Value = Name;
-      circuitElement.Attributes.Append( nameAttrib );
-
-      XmlElement descriptionElement = ownerDoc.CreateElement( "Description" );
-      descriptionElement.InnerText = Description;
-      circuitElement.AppendChild( descriptionElement );
-
-      //XmlElement initialValueElement = ownerDoc.CreateElement( "InitialValue" );
-      //initialValueElement.InnerText = InitialValue.ToString();
-      //circuitElement.AppendChild( initialValueElement );
-
-      //XmlElement entryProcessorNameElement = ownerDoc.CreateElement( "EntryProcessorName" );
-      //entryProcessorNameElement.InnerText = ( EntryProcessor == null ? "" : EntryProcessor.Name );
-      //circuitElement.AppendChild( entryProcessorNameElement );
+      return andElement; 
     }
 
     //-------------------------------------------------------------------------

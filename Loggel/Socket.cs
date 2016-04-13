@@ -6,10 +6,6 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    // BasicCircuitEntity.
-    public string Name { get; set; } = "Unnamed";
-    public string Description { get; set; } = "";
-
     // The connected processor (if any).
     public Processor ConnectedProcessor { get; set; } = null;
 
@@ -43,7 +39,7 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     // Persist this instance as XML.
-
+    /*
     void Component.GetAsXml( XmlElement parent )
     {
       XmlDocument ownerDoc = parent.OwnerDocument;
@@ -62,7 +58,7 @@ namespace Loggel
       connectedProcessorNameElement.InnerText = ( ConnectedProcessor == null ? "" : ConnectedProcessor.Name );
       socketElement.AppendChild( connectedProcessorNameElement );
     }
-
+    */
     //-------------------------------------------------------------------------
   }
 }
