@@ -1,4 +1,6 @@
-﻿namespace Loggel.Processors
+﻿using System.Xml;
+
+namespace Loggel.Processors
 {
   public class Comparer : Processor
   {
@@ -22,19 +24,19 @@
 
     // (OPTIONAL) Circuit context whose value we will compare with the comparison
     // value rather than the value of the circuit to which this processor belongs.
-    public Circuit.CircuitContext ExternalCircuitContext { private get; set; }
+    public Circuit.CircuitContext ExternalValueSource { private get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // comparison value (if a dynamic comparison value is desired).
-    public Circuit Circuit_ComparisonValue { private get; set; }
+    public Circuit.CircuitContext ComparisonValueSource { private get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // range min value (if a dynamic range min value is desired).
-    public Circuit Circuit_RangeMin { private get; set; }
+    public Circuit.CircuitContext RangeMinSource { private get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // range max value (if a dynamic range max value is desired).
-    public Circuit Circuit_RangeMax { private get; set; }
+    public Circuit.CircuitContext RangeMaxSource { private get; set; }
 
     //-- Output sockets.
     public Socket OutputSocket_Equal { get; private set; }
@@ -84,9 +86,9 @@
 
     private void UpdateComparisonValue()
     {
-      if( Circuit_ComparisonValue != null )
+      if( ComparisonValueSource != null )
       {
-        ComparisonValue = Circuit_ComparisonValue.Value;
+        ComparisonValue = ComparisonValueSource.Value;
       }
     }
 
@@ -97,9 +99,9 @@
 
     private void UpdateRangeMin()
     {
-      if( Circuit_RangeMin != null )
+      if( RangeMinSource != null )
       {
-        RangeMin = Circuit_RangeMin.Value;
+        RangeMin = RangeMinSource.Value;
       }
     }
 
@@ -110,9 +112,9 @@
 
     private void UpdateRangeMax()
     {
-      if( Circuit_RangeMax != null )
+      if( RangeMaxSource != null )
       {
-        RangeMax = Circuit_RangeMax.Value;
+        RangeMax = RangeMaxSource.Value;
       }
     }
 
@@ -126,7 +128,7 @@
       //-- If we have an external circuit context we use that for the value to
       //-- compare against the comparison value. Otherwise we simply use the
       //-- context of the circuit to which this processor belongs.
-      Circuit.CircuitContext context = ( ExternalCircuitContext ?? CircuitContext );
+      Circuit.CircuitContext context = ( ExternalValueSource ?? CircuitContext );
 
       //-- Check if any of the conditions are met for an output socket to be live.
       //-- A socket can only be live if it is connected to a wire.
@@ -180,6 +182,62 @@
       }
 
       return nextProcessor;
+    }
+
+    //-------------------------------------------------------------------------
+
+    // Persist this instance as XML.
+
+    public override XmlElement GetAsXml( XmlElement parent )
+    {
+      // Must call base method.
+      base.GetAsXml( parent );
+
+      // Comparer processor xml.
+      XmlDocument ownerDoc = parent.OwnerDocument;
+      XmlElement comparerElement = ownerDoc.CreateElement( "Comparer" );
+      parent.AppendChild( comparerElement );
+
+      // External value source.
+      XmlElement externalValueSourceNameElement = ownerDoc.CreateElement( "ExternalValueSourceName" );
+      comparerElement.AppendChild( externalValueSourceNameElement );
+      if( ExternalValueSource != null )
+      {
+        externalValueSourceNameElement.InnerText = ExternalValueSource.Name;
+      }
+
+      // Range-min source.
+      XmlElement rangeMinSourceNameElement = ownerDoc.CreateElement( "RangeMinSourceName" );
+      comparerElement.AppendChild( rangeMinSourceNameElement );
+      if( RangeMinSource != null )
+      {
+        rangeMinSourceNameElement.InnerText = rangeMinSourceNameElement.Name;
+      }
+
+      // Range-max source.
+      XmlElement rangeMaxSourceNameElement = ownerDoc.CreateElement( "RangeMaxSourceName" );
+      comparerElement.AppendChild( rangeMaxSourceNameElement );
+      if( RangeMaxSource != null )
+      {
+        rangeMaxSourceNameElement.InnerText = rangeMaxSourceNameElement.Name;
+      }
+
+      // Comparison value.
+      XmlElement comparisonValueElement = ownerDoc.CreateElement( "ComparisonValue" );
+      comparerElement.AppendChild( comparisonValueElement );
+      comparisonValueElement.InnerText = ComparisonValue.ToString();
+
+      // Range-min value.
+      XmlElement rangeMinValueElement = ownerDoc.CreateElement( "RangeMin" );
+      comparerElement.AppendChild( rangeMinValueElement );
+      rangeMinValueElement.InnerText = RangeMin.ToString();
+
+      // Range-max value.
+      XmlElement rangeMaxValueElement = ownerDoc.CreateElement( "RangeMax" );
+      comparerElement.AppendChild( rangeMaxValueElement );
+      rangeMaxValueElement.InnerText = RangeMax.ToString();
+
+      return comparerElement;
     }
 
     //-------------------------------------------------------------------------

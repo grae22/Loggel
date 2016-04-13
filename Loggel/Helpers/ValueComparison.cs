@@ -16,6 +16,35 @@
 
     //-------------------------------------------------------------------------
 
+    public static string ComparisonAsString( Comparison comparison )
+    {
+      switch( comparison )
+      {
+        case Comparison.EQUAL:
+          return "==";
+
+        case Comparison.NOT_EQUAL:
+          return "!=";
+
+        case Comparison.GREATER:
+          return ">";
+
+        case Comparison.LESSER:
+          return "<";
+
+        case Comparison.IN_RANGE:
+          return "()";
+
+        case Comparison.NOT_IN_RANGE:
+          return "!()";
+
+        default:
+          return null;
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     public static bool Compare(
       dynamic value1,
       dynamic value2,

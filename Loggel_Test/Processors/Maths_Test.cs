@@ -21,7 +21,7 @@ namespace Loggel_Test
       Circuit comparisonValue = new Circuit( "", 1 );
 
       Comparer comparer = valueManipulator.CreateProcessor<Comparer>( "", "", true );
-      comparer.Circuit_ComparisonValue = comparisonValue;
+      comparer.ComparisonValueSource = comparisonValue.Context;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
 
@@ -74,7 +74,7 @@ namespace Loggel_Test
       Circuit comparisonValue = new Circuit( "", 1.0 );
 
       Comparer comparer = valueManipulator.CreateProcessor<Comparer>( "", "", true );
-      comparer.Circuit_ComparisonValue = comparisonValue;
+      comparer.ComparisonValueSource = comparisonValue.Context;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
 

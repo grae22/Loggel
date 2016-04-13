@@ -74,13 +74,45 @@ namespace Loggel.Processors
 
     public override XmlElement GetAsXml( XmlElement parent )
     {
+      // Must call base method.
       base.GetAsXml( parent );
 
+      // And processor xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
       XmlElement andElement = ownerDoc.CreateElement( "And" );
       parent.AppendChild( andElement );
 
-      // TODO: Conditions.
+      // Conditions.
+      XmlElement conditionCollection = ownerDoc.CreateElement( "ConditionCollection" );
+      andElement.AppendChild( conditionCollection );
+
+      foreach( Condition condition in Conditions )
+      {
+        XmlElement conditionElement = ownerDoc.CreateElement( "Condition" );
+        conditionCollection.AppendChild( conditionElement );
+
+        XmlElement valueSourceNameElement = ownerDoc.CreateElement( "ValueSourceName" );
+        conditionElement.AppendChild( valueSourceNameElement );
+        if( condition.ValueSource != null )
+        {
+          valueSourceNameElement.InnerText = condition.ValueSource.Name;
+        }
+
+        XmlElement comparisonValueElement = ownerDoc.CreateElement( "ComparisonValue" );
+        conditionElement.AppendChild( comparisonValueElement );
+        if( condition.ValueSource != null )
+        {
+          comparisonValueElement.InnerText = condition.ComparisonValue.ToString();
+        }
+
+        XmlElement comparisonTypeElement = ownerDoc.CreateElement( "ComparisonType" );
+        comparisonTypeElement.AppendChild( comparisonValueElement );
+        if( condition.ValueSource != null )
+        {
+          comparisonTypeElement.InnerText =
+            ValueComparison.ComparisonAsString( condition.ComparisonType ) ?? "";
+        }
+      }
       
       return andElement; 
     }

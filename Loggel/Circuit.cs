@@ -10,8 +10,32 @@ namespace Loggel
 
     public class CircuitContext
     {
+      //-----------------------------------------
+
+      // The circuit.
+      private Circuit Circuit { get; set; }
+
       // The curent value of this circuit.
       public dynamic Value { get; set; }
+
+      //-----------------------------------------
+
+      public string Name
+      {
+        get
+        {
+          return Circuit.Name;
+        }
+      }
+
+      //-----------------------------------------
+
+      public CircuitContext( Circuit circuit )
+      {
+        Circuit = circuit;
+      }
+
+      //-----------------------------------------
     }
 
     //-------------------------------------------------------------------------
@@ -20,7 +44,7 @@ namespace Loggel
     private dynamic InitialValue { get; set; }
 
     // This circuit's context struct.
-    public CircuitContext Context { get; private set; } = new CircuitContext();
+    public CircuitContext Context { get; private set; }
 
     // The processor whose Process() method will be called to kick-off
     // processing of this circuit.
@@ -46,6 +70,8 @@ namespace Loggel
     {
       Name = name;
       InitialValue = initialValue;
+
+      Context = new CircuitContext( this );
       Context.Value = initialValue;
     }
 
@@ -92,8 +118,10 @@ namespace Loggel
 
     public override XmlElement GetAsXml( XmlElement parent )
     {
+      // Must call base method.
       parent = base.GetAsXml( parent );
 
+      // Circuit xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
       XmlElement circuitElement = ownerDoc.CreateElement( "Circuit" );
       parent.AppendChild( circuitElement );
@@ -105,6 +133,9 @@ namespace Loggel
       XmlElement entryProcessorNameElement = ownerDoc.CreateElement( "EntryProcessorName" );
       entryProcessorNameElement.InnerText = ( EntryProcessor == null ? "" : EntryProcessor.Name );
       circuitElement.AppendChild( entryProcessorNameElement );
+
+      // Entry processor.
+      EntryProcessor.GetAsXml( circuitElement );
 
       return circuitElement;
     }

@@ -36,7 +36,7 @@ namespace Loggel_Test
 
       // Comparer processor for valueManipulator circuit.
       Comparer comparer = m_valueManipulator.CreateProcessor<Comparer>( "Comparer", "Comparer...", true );
-      comparer.Circuit_ComparisonValue = comparisonValue;
+      comparer.ComparisonValueSource = comparisonValue.Context;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsAdd;
       comparer.OutputSocket_Equal.ConnectedProcessor = mathsSub;
     }

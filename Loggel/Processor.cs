@@ -11,7 +11,7 @@ namespace Loggel
     protected Circuit.CircuitContext CircuitContext { get; set; }
 
     // List of this processor's output sockets.
-    public List<Socket> OutputSockets { get; set; } = new List<Socket>();
+    private Dictionary<string, Socket> OutputSockets { get; set; } = new Dictionary<string, Socket>();
 
     //-------------------------------------------------------------------------
 
@@ -31,9 +31,23 @@ namespace Loggel
       Socket socket = new Socket( name );
       socket.Description = description;
 
-      OutputSockets.Add( socket );
+      OutputSockets.Add( name, socket );
 
       return socket;
+    }
+
+    //-------------------------------------------------------------------------
+
+    protected Socket GetOutputSocket( string name )
+    {
+      Socket socket = null;
+
+      if( OutputSockets.ContainsKey( name ) )
+      {
+        socket = OutputSockets[ name ];
+      }
+
+      return null;
     }
 
     //-------------------------------------------------------------------------
@@ -51,11 +65,22 @@ namespace Loggel
 
     public override XmlElement GetAsXml( XmlElement parent )
     {
+      // Must call base method.
       parent = base.GetAsXml( parent );
 
+      // Processor xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
       XmlElement processorElement = ownerDoc.CreateElement( "Processor" );
       parent.AppendChild( processorElement );
+
+      // Sockets.
+      XmlElement socketCollection = ownerDoc.CreateElement( "SocketCollection" );
+      processorElement.AppendChild( socketCollection );
+
+      foreach( Socket socket in OutputSockets.Values )
+      {
+        socket.GetAsXml( socketCollection );
+      }
       
       return processorElement;
     }
