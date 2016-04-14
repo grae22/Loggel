@@ -24,6 +24,7 @@ namespace Loggel_Test
       comparer.ComparisonValueSource = comparisonValue.Context;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
+      valueManipulator.EntryProcessor = comparer;
 
       // Simple addition test.
       maths.Operator = '+';
@@ -77,6 +78,7 @@ namespace Loggel_Test
       comparer.ComparisonValueSource = comparisonValue.Context;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
       comparer.OutputSocket_Equal.ConnectedProcessor = maths;
+      valueManipulator.EntryProcessor = comparer;
 
       // Simple addition test.
       maths.Operator = '+';

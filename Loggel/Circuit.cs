@@ -44,24 +44,6 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    // Obtains and returns (from the processor factory) a new processor of
-    // the specified type.
-    /*
-    public T CreateProcessor<T>(
-      string name,
-      string description,
-      bool setAsEntryProcessor ) where T : Processor
-    {
-      return
-        ProcessorFactory.Context.CreateComponent<T>(
-          name,
-          description,
-          this,
-          setAsEntryProcessor );
-    }
-    */
-    //-------------------------------------------------------------------------
-
     // We allow the circuit's 'entry' processor to perform logic, it
     // will return the next processor that requires processing and we will
     // let it process. We keep calling the returned processor's Process()

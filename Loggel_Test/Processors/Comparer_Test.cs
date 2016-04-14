@@ -59,6 +59,7 @@ namespace Loggel_Test
       m_comparer.OutputSocket_Greater.ConnectedProcessor = mathsGreater;
       m_comparer.OutputSocket_Lesser.ConnectedProcessor = mathsLesser;
       m_comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsNotEqual;
+      m_circuit.EntryProcessor = m_comparer;
     }
 
     //-------------------------------------------------------------------------
