@@ -8,9 +8,9 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     public dynamic Value { get; set; }
+    public Dictionary<string, Component> Components { get; private set; } = new Dictionary<string, Component>();
 
     private Circuit Circuit { get; set; }
-    private Dictionary<string, Component> Components { get; set; } = new Dictionary<string, Component>();
 
     //-------------------------------------------------------------------------
 

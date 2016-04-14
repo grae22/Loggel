@@ -33,7 +33,7 @@ namespace Loggel.Processors
       base( name, description, circuitContext )
     {
       OutputSocket =
-        Context.CreateComponent<Socket>(
+        CreateOutputSocket(
           "Result",
           "Will be live when AND condition is satisfied." );
     }

@@ -61,12 +61,12 @@ namespace Loggel.Processors
       base( name, description, circuitContext )
     {
       // Create the output sockets.
-      OutputSocket_Equal = GetNewOutputSocket( "Equal", "Circuit and Comparison values are equal." );
-      OutputSocket_NotEqual = GetNewOutputSocket( "NotEqual", "Circuit and Comparison values are not equal." );
-      OutputSocket_Greater = GetNewOutputSocket( "Greater", "Circuit value is greater than Comparison value." );
-      OutputSocket_Lesser = GetNewOutputSocket( "Lesser", "Circuit value is smaller than Comparison value." );
-      OutputSocket_InRange = GetNewOutputSocket( "InRange", "Circuit value falls within (inclusive) specified range." );
-      OutputSocket_NotInRange = GetNewOutputSocket( "NotInRange", "Circuit value falls outside (exclusive) specified range." );
+      OutputSocket_Equal = CreateOutputSocket( "Equal", "Circuit and Comparison values are equal." );
+      OutputSocket_NotEqual = CreateOutputSocket( "NotEqual", "Circuit and Comparison values are not equal." );
+      OutputSocket_Greater = CreateOutputSocket( "Greater", "Circuit value is greater than Comparison value." );
+      OutputSocket_Lesser = CreateOutputSocket( "Lesser", "Circuit value is smaller than Comparison value." );
+      OutputSocket_InRange = CreateOutputSocket( "InRange", "Circuit value falls within (inclusive) specified range." );
+      OutputSocket_NotInRange = CreateOutputSocket( "NotInRange", "Circuit value falls outside (exclusive) specified range." );
     }
 
     //-------------------------------------------------------------------------

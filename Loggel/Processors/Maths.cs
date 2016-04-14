@@ -20,7 +20,7 @@ namespace Loggel.Processors
       base( name, description, circuitContext )
     {
       OutputSocket =
-        GetNewOutputSocket( "Result", "Result of mathematical operation." );
+        CreateOutputSocket( "Result", "Result of mathematical operation." );
     }
 
     //-------------------------------------------------------------------------

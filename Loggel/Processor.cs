@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using System.Diagnostics;
 
 namespace Loggel
 {
@@ -27,12 +28,14 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    protected Socket GetNewOutputSocket(
+    protected Socket CreateOutputSocket(
       string name,
       string description )
     {
-      Socket socket = new Socket( name, description, Context );
-      socket.Description = description;
+      Socket socket =
+        Context.CreateComponent<Socket>(
+          name,
+          description );
 
       OutputSockets.Add( name, socket );
 

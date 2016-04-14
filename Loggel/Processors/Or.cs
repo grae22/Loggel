@@ -32,7 +32,7 @@ namespace Loggel.Processors
     :
       base( name, description, circuitContext )
     {
-      OutputSocket = GetNewOutputSocket( "Result", "Will be live when OR condition is satisfied." );
+      OutputSocket = CreateOutputSocket( "Result", "Will be live when OR condition is satisfied." );
     }
 
     //-------------------------------------------------------------------------
