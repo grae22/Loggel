@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Loggel
 {
@@ -9,7 +10,7 @@ namespace Loggel
     public dynamic Value { get; set; }
 
     private Circuit Circuit { get; set; }
-    private Dictionary<string, Component> Components { get; set; }
+    private Dictionary<string, Component> Components { get; set; } = new Dictionary<string, Component>();
 
     //-------------------------------------------------------------------------
 
@@ -30,23 +31,53 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    // Returns component if it already exists, creates one if it doesn't.
-
-    public Component GetComponent<T>(
-      string name,
-      bool createIfNotFound ) where T : Component
+    public T CreateComponent<T>( string name ) where T : Component
     {
-      Component component = null;
+      T component = null;
+
+      // Must have a name.
+      if( name.Length == 0 )
+      {
+        throw new ArgumentException( "Component must have a name." );
+      }
 
       // Already exists?
-      if( Components.ContainsKey( name ) )
+      if( Components.ContainsKey( name ) )          
       {
-        component = Components[ name ];
+        throw new Exception(
+          "Component '" + name + "' (of type '" + typeof( T ).Name + "') already exists." );
       }
+
       // Doesn't already exist, create it?
-      else if( createIfNotFound )
+      component = ComponentFactory.Create<T>( name, this );
+
+      if( component == null )
       {
-        component = ComponentFactory.Create<T>( name );
+        throw new Exception(
+          "Failed to create component '" + name + "' of type '" + typeof( T ).Name + "'." );
+      }
+
+      return component;
+    }
+
+    //-------------------------------------------------------------------------
+
+    // Returns component if it already exists, null if not.
+
+    public T GetComponent<T>( string name ) where T : Component
+    {
+      T component = null;
+
+      if( Components.ContainsKey( name ) )          
+      {
+        component = (T)Components[ name ];
+
+        if( component == null )
+        {
+          throw new Exception(
+            "Component '" + name + "' is not of type '" +
+            typeof( T ).Name + "'." );
+        }
       }
 
       return component;

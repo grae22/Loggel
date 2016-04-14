@@ -6,10 +6,14 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    public static Component Create<T>( string name )
-      where T : Component
+    public static T Create<T>(
+      string name,
+      CircuitContext circuitContext ) where T : Component
     {
-      T component = (T)Activator.CreateInstance<T>();
+      // Components take a name & circuit-context as constructor args.
+      object[] args = { name, circuitContext };
+
+      T component = (T)Activator.CreateInstance( typeof( T ), args );
 
       if( component == null )
       {

@@ -33,6 +33,8 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    // Class constructor for restoring from xml.
+
     public Circuit( XmlElement parent )
     {
       Context = new CircuitContext( this );
@@ -44,20 +46,20 @@ namespace Loggel
 
     // Obtains and returns (from the processor factory) a new processor of
     // the specified type.
-
+    /*
     public T CreateProcessor<T>(
       string name,
       string description,
       bool setAsEntryProcessor ) where T : Processor
     {
       return
-        ProcessorFactory.CreateProcessor<T>(
+        ProcessorFactory.Context.CreateComponent<T>(
           name,
           description,
           this,
           setAsEntryProcessor );
     }
-
+    */
     //-------------------------------------------------------------------------
 
     // We allow the circuit's 'entry' processor to perform logic, it
