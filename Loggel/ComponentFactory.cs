@@ -8,6 +8,7 @@ namespace Loggel
 
     public static T Create<T>(
       string name,
+      string description,
       CircuitContext circuitContext ) where T : Component
     {
       // Components take a name & circuit-context as constructor args.
@@ -21,6 +22,8 @@ namespace Loggel
           "Failed to instantiate component '" + name + "' of type '"
           + typeof( T ).GetType().Name + "'." );
       }
+
+      component.Description = description;
 
       return component;
     }

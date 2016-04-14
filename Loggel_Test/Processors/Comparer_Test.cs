@@ -28,31 +28,31 @@ namespace Loggel_Test
     {
       m_circuit = new Circuit( "", 0 );
 
-      Maths mathsInRange = m_circuit.Context.CreateComponent<Maths>( "InRange" );
+      Maths mathsInRange = m_circuit.Context.CreateComponent<Maths>( "InRange", "" );
       mathsInRange.Operator = '=';
       mathsInRange.Value2 = c_inRangeValue;
 
-      Maths mathsNotInRange = m_circuit.Context.CreateComponent<Maths>( "NotInRange" );
+      Maths mathsNotInRange = m_circuit.Context.CreateComponent<Maths>( "NotInRange", "" );
       mathsNotInRange.Operator = '=';
       mathsNotInRange.Value2 = c_notInRangeValue;
 
-      Maths mathsEqual = m_circuit.Context.CreateComponent<Maths>( "Equal" );
+      Maths mathsEqual = m_circuit.Context.CreateComponent<Maths>( "Equal", "" );
       mathsEqual.Operator = '=';
       mathsEqual.Value2 = c_equalValue;
 
-      Maths mathsGreater = m_circuit.Context.CreateComponent<Maths>( "Greater" );
+      Maths mathsGreater = m_circuit.Context.CreateComponent<Maths>( "Greater", "" );
       mathsGreater.Operator = '=';
       mathsGreater.Value2 = c_greaterValue;
 
-      Maths mathsLesser = m_circuit.Context.CreateComponent<Maths>( "Lesser" );
+      Maths mathsLesser = m_circuit.Context.CreateComponent<Maths>( "Lesser", "" );
       mathsLesser.Operator = '=';
       mathsLesser.Value2 = c_lesserValue;
 
-      Maths mathsNotEqual = m_circuit.Context.CreateComponent<Maths>( "NotEqual" );
+      Maths mathsNotEqual = m_circuit.Context.CreateComponent<Maths>( "NotEqual", "" );
       mathsNotEqual.Operator = '=';
       mathsNotEqual.Value2 = c_notEqualValue;
 
-      m_comparer = m_circuit.Context.CreateComponent<Comparer>( "Comparer" );
+      m_comparer = m_circuit.Context.CreateComponent<Comparer>( "Comparer", "" );
       m_comparer.OutputSocket_InRange.ConnectedProcessor = mathsInRange;
       m_comparer.OutputSocket_NotInRange.ConnectedProcessor = mathsNotInRange;
       m_comparer.OutputSocket_Equal.ConnectedProcessor = mathsEqual;

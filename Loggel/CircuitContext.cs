@@ -31,7 +31,9 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    public T CreateComponent<T>( string name ) where T : Component
+    public T CreateComponent<T>(
+      string name,
+      string description ) where T : Component
     {
       T component = null;
 
@@ -49,7 +51,7 @@ namespace Loggel
       }
 
       // Doesn't already exist, create it?
-      component = ComponentFactory.Create<T>( name, this );
+      component = ComponentFactory.Create<T>( name, description, this );
 
       if( component == null )
       {

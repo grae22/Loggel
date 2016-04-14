@@ -22,12 +22,12 @@ namespace Loggel_Test
       m_valueManipulator = new Circuit( "TestCircuit", 0.0 );
 
       // Maths processor for adding 1 to the valueManipulator circuit value.
-      Maths mathsAdd = m_valueManipulator.Context.CreateComponent<Maths>( "Add" );
+      Maths mathsAdd = m_valueManipulator.Context.CreateComponent<Maths>( "Add", "" );
       mathsAdd.Operator = '+';
       mathsAdd.Value2 = 1.0;
 
       // Maths processor for subtracting 1 to the valueManipulator circuit value.
-      Maths mathsSub = m_valueManipulator.Context.CreateComponent<Maths>( "Subtract" );
+      Maths mathsSub = m_valueManipulator.Context.CreateComponent<Maths>( "Subtract", "" );
       mathsSub.Operator = '-';
       mathsSub.Value2 = 1.0;
 
@@ -35,7 +35,7 @@ namespace Loggel_Test
       Circuit comparisonValue = new Circuit( "ComparisonValue", 1.0 );
 
       // Comparer processor for valueManipulator circuit.
-      Comparer comparer = m_valueManipulator.Context.CreateComponent<Comparer>( "Comparer" );
+      Comparer comparer = m_valueManipulator.Context.CreateComponent<Comparer>( "Comparer", "" );
       comparer.ComparisonValueSource = comparisonValue.Context;
       comparer.OutputSocket_NotEqual.ConnectedProcessor = mathsAdd;
       comparer.OutputSocket_Equal.ConnectedProcessor = mathsSub;
