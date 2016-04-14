@@ -19,5 +19,22 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+
+    public static void SaveToXmlFile( string absFilename,
+                                      Circuit circuit )
+    {
+      XmlDocument doc = new XmlDocument();
+      XmlElement rootElement = doc.CreateElement( "Root" );
+      doc.AppendChild( rootElement );
+
+      foreach( Component component in circuit.Context.Components.Values )
+      {
+        component.GetAsXml( rootElement );
+      }
+
+      doc.Save( absFilename );
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

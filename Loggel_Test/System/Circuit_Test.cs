@@ -83,11 +83,13 @@ namespace Loggel_Test
     [TestMethod]
     public void GetAsXml()
     {
-      XmlDocument xmlDoc = new XmlDocument();
-      XmlElement rootElement = xmlDoc.CreateElement( "Root" );
-      xmlDoc.AppendChild( rootElement );
-      m_valueManipulator.GetAsXml( rootElement );
-      xmlDoc.Save( "Circuit_Test.GetAsXml.xml" );
+      //XmlDocument xmlDoc = new XmlDocument();
+      //XmlElement rootElement = xmlDoc.CreateElement( "Root" );
+      //xmlDoc.AppendChild( rootElement );
+      //m_valueManipulator.GetAsXml( rootElement );
+      //xmlDoc.Save( "Circuit_Test.GetAsXml.xml" );
+
+      CircuitBuilder.SaveToXmlFile( "Circuit_Test.GetAsXml.xml", m_valueManipulator );
 
       string content = File.ReadAllText( "Circuit_Test.GetAsXml.xml" );
       string reference = File.ReadAllText( @"..\..\Resources\Circuit_Test.GetAsXml.xml" );

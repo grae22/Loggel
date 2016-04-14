@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using System.Diagnostics;
 
 namespace Loggel
 {
   public abstract class Processor : Component
   {
     //-------------------------------------------------------------------------
-
-    // Reference to the context of the circuit to which this processor belongs.
-    //protected CircuitContext CircuitContext { get; set; }
 
     // List of this processor's output sockets.
     private Dictionary<string, Socket> OutputSockets { get; set; } = new Dictionary<string, Socket>();

@@ -86,12 +86,6 @@ namespace Loggel
       entryProcessorNameElement.InnerText = ( EntryProcessor == null ? "" : EntryProcessor.Name );
       circuitElement.AppendChild( entryProcessorNameElement );
 
-      // Entry processor.
-      if( EntryProcessor != null )
-      {
-        EntryProcessor.GetAsXml( circuitElement );
-      }
-
       return circuitElement;
     }
 

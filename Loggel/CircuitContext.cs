@@ -59,6 +59,8 @@ namespace Loggel
           "Failed to create component '" + name + "' of type '" + typeof( T ).Name + "'." );
       }
 
+      Components.Add( name, component );
+
       return component;
     }
 
