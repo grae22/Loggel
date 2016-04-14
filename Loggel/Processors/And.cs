@@ -75,9 +75,9 @@ namespace Loggel.Processors
     public override XmlElement GetAsXml( XmlElement parent )
     {
       // Must call base method.
-      base.GetAsXml( parent );
+      parent = base.GetAsXml( parent );
 
-      // And processor xml.
+      // 'And' processor xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
       XmlElement andElement = ownerDoc.CreateElement( "And" );
       parent.AppendChild( andElement );

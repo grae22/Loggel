@@ -43,7 +43,7 @@ namespace Loggel
     public override XmlElement GetAsXml( XmlElement parent )
     {
       // Must call base method.
-      base.GetAsXml( parent );
+      parent = base.GetAsXml( parent );
 
       // Socket xml.
       XmlDocument ownerDoc = parent.OwnerDocument;

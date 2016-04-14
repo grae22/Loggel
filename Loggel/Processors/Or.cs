@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Loggel.Helpers;
+using System.Xml;
 
 namespace Loggel.Processors
 {
@@ -71,6 +72,55 @@ namespace Loggel.Processors
       }
 
       return nextProcessor;
+    }
+
+    //-------------------------------------------------------------------------
+
+    // Persist this instance as XML.
+
+    public override XmlElement GetAsXml( XmlElement parent )
+    {
+      // Must call base method.
+      parent = base.GetAsXml( parent );
+
+      // 'Or' processor xml.
+      XmlDocument ownerDoc = parent.OwnerDocument;
+      XmlElement orElement = ownerDoc.CreateElement( "Or" );
+      parent.AppendChild( orElement );
+
+      // Conditions.
+      XmlElement conditionCollection = ownerDoc.CreateElement( "ConditionCollection" );
+      orElement.AppendChild( conditionCollection );
+
+      foreach( Condition condition in Conditions )
+      {
+        XmlElement conditionElement = ownerDoc.CreateElement( "Condition" );
+        conditionCollection.AppendChild( conditionElement );
+
+        XmlElement valueSourceNameElement = ownerDoc.CreateElement( "ValueSourceName" );
+        conditionElement.AppendChild( valueSourceNameElement );
+        if( condition.ValueSource != null )
+        {
+          valueSourceNameElement.InnerText = condition.ValueSource.Name;
+        }
+
+        XmlElement comparisonValueElement = ownerDoc.CreateElement( "ComparisonValue" );
+        conditionElement.AppendChild( comparisonValueElement );
+        if( condition.ValueSource != null )
+        {
+          comparisonValueElement.InnerText = condition.ComparisonValue.ToString();
+        }
+
+        XmlElement comparisonTypeElement = ownerDoc.CreateElement( "ComparisonType" );
+        comparisonTypeElement.AppendChild( comparisonValueElement );
+        if( condition.ValueSource != null )
+        {
+          comparisonTypeElement.InnerText =
+            ValueComparison.ComparisonAsString( condition.ComparisonType ) ?? "";
+        }
+      }
+      
+      return orElement; 
     }
 
     //-------------------------------------------------------------------------

@@ -191,7 +191,7 @@ namespace Loggel.Processors
     public override XmlElement GetAsXml( XmlElement parent )
     {
       // Must call base method.
-      base.GetAsXml( parent );
+      parent = base.GetAsXml( parent );
 
       // Comparer processor xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
