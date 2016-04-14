@@ -13,7 +13,7 @@ Loggella: GUI application using Loggel and Nang to create logic models (circuits
         ^
         |<- [LOGGEL] Save/load circuits to/from xml.
             ^
-            |<- [SIRIL] Library for persisting data.
+            |<- <ON HOLD> [SIRIL] Library for persisting data.
 
 [LOGGELA] Write Nang story.
 ^

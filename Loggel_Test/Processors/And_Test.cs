@@ -36,7 +36,7 @@ namespace Loggel_Test.Processors
     public void NoConditions()
     {
       m_circuit.Process();
-      Assert.AreEqual( 1, m_circuit.Value, "Signal should have passed." );
+      Assert.AreEqual( 1, m_circuit.Context.Value, "Signal should have passed." );
     }
 
     //-------------------------------------------------------------------------
@@ -46,20 +46,20 @@ namespace Loggel_Test.Processors
     {
       Circuit compareValue1 = new Circuit( "", 123 );
       And.Condition condition1 = new And.Condition();
-      condition1.ValueSource = compareValue1;
+      condition1.ValueSource = compareValue1.Context;
       condition1.ComparisonValue = 123;
       condition1.ComparisonType = ValueComparison.Comparison.EQUAL;
 
       Circuit compareValue2 = new Circuit( "", 456 );
       And.Condition condition2 = new And.Condition();
-      condition2.ValueSource = compareValue2;
+      condition2.ValueSource = compareValue2.Context;
       condition2.ComparisonValue = 456;
       condition2.ComparisonType = ValueComparison.Comparison.EQUAL;
 
       m_and.Conditions.Add( condition1 );
       m_and.Conditions.Add( condition2 );
       m_circuit.Process();
-      Assert.AreEqual( 1, m_circuit.Value, "Signal should have passed." );
+      Assert.AreEqual( 1, m_circuit.Context.Value, "Signal should have passed." );
     }
 
     //-------------------------------------------------------------------------
@@ -69,20 +69,20 @@ namespace Loggel_Test.Processors
     {
       Circuit compareValue1 = new Circuit( "", 123 );
       And.Condition condition1 = new And.Condition();
-      condition1.ValueSource = compareValue1;
+      condition1.ValueSource = compareValue1.Context;
       condition1.ComparisonValue = 123;
       condition1.ComparisonType = ValueComparison.Comparison.EQUAL;
 
       Circuit compareValue2 = new Circuit( "", 999 );
       And.Condition condition2 = new And.Condition();
-      condition2.ValueSource = compareValue2;
+      condition2.ValueSource = compareValue2.Context;
       condition2.ComparisonValue = 123;
       condition2.ComparisonType = ValueComparison.Comparison.EQUAL;
 
       m_and.Conditions.Add( condition1 );
       m_and.Conditions.Add( condition2 );
       m_circuit.Process();
-      Assert.AreEqual( 0, m_circuit.Value, "Signal should not have passed." );
+      Assert.AreEqual( 0, m_circuit.Context.Value, "Signal should not have passed." );
     }
 
     //-------------------------------------------------------------------------

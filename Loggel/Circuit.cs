@@ -18,16 +18,6 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    public dynamic Value
-    {
-      get
-      {
-        return Context.Value;
-      }
-    }
-
-    //-------------------------------------------------------------------------
-    
     // Class constructor.
 
     public Circuit(

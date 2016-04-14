@@ -10,7 +10,7 @@ namespace Loggel.Processors
 
     public struct Condition
     {
-      public Circuit ValueSource { get; set; }
+      public CircuitContext ValueSource { get; set; }
       public dynamic ComparisonValue { get; set; }
       public ValueComparison.Comparison ComparisonType { get; set; }
     }

@@ -29,25 +29,25 @@ namespace Loggel_Test
       maths.Operator = '+';
       maths.Value2 = 1;
       valueManipulator.Process();
-      Assert.AreEqual( 1, valueManipulator.Value, "Addition failed." );
+      Assert.AreEqual( 1, valueManipulator.Context.Value, "Addition failed." );
 
       // Simple multiplication test.
       maths.Operator = 'x';
       maths.Value2 = 10;
       valueManipulator.Process();
-      Assert.AreEqual( 10, valueManipulator.Value, "Multiplication failed." );
+      Assert.AreEqual( 10, valueManipulator.Context.Value, "Multiplication failed." );
 
       // Simple division test.
       maths.Operator = '/';
       maths.Value2 = 2;
       valueManipulator.Process();
-      Assert.AreEqual( 5, valueManipulator.Value, "Division failed." );
+      Assert.AreEqual( 5, valueManipulator.Context.Value, "Division failed." );
 
       // Simple subtraction test.
       maths.Operator = '-';
       maths.Value2 = 5;
       valueManipulator.Process();
-      Assert.AreEqual( 0, valueManipulator.Value, "Subtraction failed." );
+      Assert.AreEqual( 0, valueManipulator.Context.Value, "Subtraction failed." );
 
       // Add an additional maths processor after the existing one, check
       // that the chain produces the correct result.
@@ -57,7 +57,7 @@ namespace Loggel_Test
       maths2.Operator = '+';
       maths2.Value2 = 123;
       valueManipulator.Process();
-      Assert.AreEqual( 1123, valueManipulator.Value, "Chained operation failed." );
+      Assert.AreEqual( 1123, valueManipulator.Context.Value, "Chained operation failed." );
     }
 
     //-------------------------------------------------------------------------
@@ -82,25 +82,25 @@ namespace Loggel_Test
       maths.Operator = '+';
       maths.Value2 = 1.0;
       valueManipulator.Process();
-      Assert.AreEqual( 1.0, valueManipulator.Value, "Addition failed." );
+      Assert.AreEqual( 1.0, valueManipulator.Context.Value, "Addition failed." );
 
       // Simple multiplication test.
       maths.Operator = 'x';
       maths.Value2 = 10.0;
       valueManipulator.Process();
-      Assert.AreEqual( 10.0, valueManipulator.Value, "Multiplication failed." );
+      Assert.AreEqual( 10.0, valueManipulator.Context.Value, "Multiplication failed." );
 
       // Simple division test.
       maths.Operator = '/';
       maths.Value2 = 2.0;
       valueManipulator.Process();
-      Assert.AreEqual( 5.0, valueManipulator.Value, "Division failed." );
+      Assert.AreEqual( 5.0, valueManipulator.Context.Value, "Division failed." );
 
       // Simple subtraction test.
       maths.Operator = '-';
       maths.Value2 = 5.0;
       valueManipulator.Process();
-      Assert.AreEqual( 0.0, valueManipulator.Value, "Subtraction failed." );
+      Assert.AreEqual( 0.0, valueManipulator.Context.Value, "Subtraction failed." );
 
       // Add an additional maths processor after the existing one, check
       // that the chain produces the correct result.
@@ -110,7 +110,7 @@ namespace Loggel_Test
       maths2.Operator = '+';
       maths2.Value2 = 123.4;
       valueManipulator.Process();
-      Assert.AreEqual( 1123.4, valueManipulator.Value, "Chained operation failed." );
+      Assert.AreEqual( 1123.4, valueManipulator.Context.Value, "Chained operation failed." );
     }
 
     //-------------------------------------------------------------------------

@@ -53,7 +53,7 @@ namespace Loggel_Test
       // mathsAdd processor should add 1 to the value.
       // Value should now equal 1.
       m_valueManipulator.Process();
-      Assert.AreEqual( 1.0, m_valueManipulator.Value );
+      Assert.AreEqual( 1.0, m_valueManipulator.Context.Value );
 
       // Process circuit:
       // Value is currently 1.0.
@@ -62,7 +62,7 @@ namespace Loggel_Test
       // mathsSub processor should subtract 1 from the value.
       // Value should now equal 0.
       m_valueManipulator.Process();
-      Assert.AreEqual( 0.0, m_valueManipulator.Value );
+      Assert.AreEqual( 0.0, m_valueManipulator.Context.Value );
 
       // Process circuit:
       // Value is currently 0.0 (again).
@@ -71,7 +71,7 @@ namespace Loggel_Test
       // mathsAdd processor should add 1 to the value.
       // Value should now equal 1 (again).
       m_valueManipulator.Process();
-      Assert.AreEqual( 1.0, m_valueManipulator.Value );
+      Assert.AreEqual( 1.0, m_valueManipulator.Context.Value );
     }
 
     //-------------------------------------------------------------------------

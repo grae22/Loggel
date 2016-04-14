@@ -72,7 +72,7 @@ namespace Loggel_Test
       m_circuit.Process();
       Assert.AreEqual(
         c_inRangeValue,
-        m_circuit.Value,
+        m_circuit.Context.Value,
         "Comparer did not select InRange connected processor."  );
     }
 
@@ -87,7 +87,7 @@ namespace Loggel_Test
       m_circuit.Process();
       Assert.AreEqual(
         c_notInRangeValue,
-        m_circuit.Value,
+        m_circuit.Context.Value,
         "Comparer did not select NotInRange connected processor." );
     }
 
@@ -105,7 +105,7 @@ namespace Loggel_Test
       m_circuit.Process();
       Assert.AreEqual(
         c_equalValue,
-        m_circuit.Value,
+        m_circuit.Context.Value,
         "Comparer did not select Equal connected processor." );
     }
 
@@ -123,7 +123,7 @@ namespace Loggel_Test
       m_circuit.Process();
       Assert.AreEqual(
         c_greaterValue,
-        m_circuit.Value,
+        m_circuit.Context.Value,
         "Comparer did not select Greater connected processor." );
     }
 
@@ -141,7 +141,7 @@ namespace Loggel_Test
       m_circuit.Process();
       Assert.AreEqual(
         c_lesserValue,
-        m_circuit.Value,
+        m_circuit.Context.Value,
         "Comparer did not select Lesser connected processor." );
     }
 
@@ -160,7 +160,7 @@ namespace Loggel_Test
       m_circuit.Process();
       Assert.AreEqual(
         c_notEqualValue,
-        m_circuit.Value,
+        m_circuit.Context.Value,
         "Comparer did not select NotEqual connected processor." );
     }
 
