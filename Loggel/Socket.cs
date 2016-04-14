@@ -28,7 +28,7 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    public void Process( Circuit.CircuitContext context )
+    public void Process( CircuitContext context )
     {
       if( ConnectedProcessor != null )
       {

@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CircuitBuilder.cs" />
+    <Compile Include="CircuitContext.cs" />
     <Compile Include="Helpers\ValueComparison.cs" />
     <Compile Include="Nang\NangCircuitBuilder.cs" />
     <Compile Include="ProcessorFactory.cs" />

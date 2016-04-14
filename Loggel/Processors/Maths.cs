@@ -14,7 +14,7 @@ namespace Loggel.Processors
 
     public Maths(
       string name,
-      Circuit.CircuitContext circuitContext )
+      CircuitContext circuitContext )
     :
       base( name, circuitContext )
     {

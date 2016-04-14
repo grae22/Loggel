@@ -24,19 +24,19 @@ namespace Loggel.Processors
 
     // (OPTIONAL) Circuit context whose value we will compare with the comparison
     // value rather than the value of the circuit to which this processor belongs.
-    public Circuit.CircuitContext ExternalValueSource { private get; set; }
+    public CircuitContext ExternalValueSource { private get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // comparison value (if a dynamic comparison value is desired).
-    public Circuit.CircuitContext ComparisonValueSource { private get; set; }
+    public CircuitContext ComparisonValueSource { private get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // range min value (if a dynamic range min value is desired).
-    public Circuit.CircuitContext RangeMinSource { private get; set; }
+    public CircuitContext RangeMinSource { private get; set; }
 
     // (OPTIONAL) Circuit that provides a value that will be used to update the
     // range max value (if a dynamic range max value is desired).
-    public Circuit.CircuitContext RangeMaxSource { private get; set; }
+    public CircuitContext RangeMaxSource { private get; set; }
 
     //-- Output sockets.
     public Socket OutputSocket_Equal { get; private set; }
@@ -55,7 +55,7 @@ namespace Loggel.Processors
 
     public Comparer(
       string name,
-      Circuit.CircuitContext circuitContext )
+      CircuitContext circuitContext )
     :
       base( name, circuitContext )
     {
@@ -128,7 +128,7 @@ namespace Loggel.Processors
       //-- If we have an external circuit context we use that for the value to
       //-- compare against the comparison value. Otherwise we simply use the
       //-- context of the circuit to which this processor belongs.
-      Circuit.CircuitContext context = ( ExternalValueSource ?? CircuitContext );
+      CircuitContext context = ( ExternalValueSource ?? CircuitContext );
 
       //-- Check if any of the conditions are met for an output socket to be live.
       //-- A socket can only be live if it is connected to a wire.

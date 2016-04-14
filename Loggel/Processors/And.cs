@@ -27,7 +27,7 @@ namespace Loggel.Processors
 
     public And(
       string name,
-      Circuit.CircuitContext circuitContext )
+      CircuitContext circuitContext )
     :
       base( name, circuitContext )
     {

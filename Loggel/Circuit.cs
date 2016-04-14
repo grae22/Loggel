@@ -6,40 +6,6 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    // Circuit context class, provides limited access to aspects of this class.
-
-    public class CircuitContext
-    {
-      //-----------------------------------------
-
-      // The circuit.
-      private Circuit Circuit { get; set; }
-
-      // The curent value of this circuit.
-      public dynamic Value { get; set; }
-
-      //-----------------------------------------
-
-      public string Name
-      {
-        get
-        {
-          return Circuit.Name;
-        }
-      }
-
-      //-----------------------------------------
-
-      public CircuitContext( Circuit circuit )
-      {
-        Circuit = circuit;
-      }
-
-      //-----------------------------------------
-    }
-
-    //-------------------------------------------------------------------------
-
     // Inital value of this circuit.
     private dynamic InitialValue { get; set; }
 
