@@ -1,0 +1,97 @@
+<Root>
+  <Component name="TestCircuit">
+    <Description>
+    </Description>
+    <Circuit>
+      <InitialValue>0</InitialValue>
+      <EntryProcessorName>Comparer</EntryProcessorName>
+      <Component name="Comparer">
+        <Description>Comparer...</Description>
+        <Processor>
+          <SocketCollection>
+            <Component name="Equal">
+              <Description>Circuit and Comparison values are equal.</Description>
+              <Socket>
+                <ConnectedProcessor>
+                  <Component name="Subtract">
+                    <Description>Subtracting one...</Description>
+                    <Processor>
+                      <SocketCollection>
+                        <Component name="Result">
+                          <Description>Result of mathematical operation.</Description>
+                          <Socket>
+                            <ConnectedProcessor />
+                          </Socket>
+                        </Component>
+                      </SocketCollection>
+                      <Maths>
+                        <Operator>-</Operator>
+                        <Value2>1</Value2>
+                      </Maths>
+                    </Processor>
+                  </Component>
+                </ConnectedProcessor>
+              </Socket>
+            </Component>
+            <Component name="NotEqual">
+              <Description>Circuit and Comparison values are not equal.</Description>
+              <Socket>
+                <ConnectedProcessor>
+                  <Component name="Add">
+                    <Description>Adding one...</Description>
+                    <Processor>
+                      <SocketCollection>
+                        <Component name="Result">
+                          <Description>Result of mathematical operation.</Description>
+                          <Socket>
+                            <ConnectedProcessor />
+                          </Socket>
+                        </Component>
+                      </SocketCollection>
+                      <Maths>
+                        <Operator>+</Operator>
+                        <Value2>1</Value2>
+                      </Maths>
+                    </Processor>
+                  </Component>
+                </ConnectedProcessor>
+              </Socket>
+            </Component>
+            <Component name="Greater">
+              <Description>Circuit value is greater than Comparison value.</Description>
+              <Socket>
+                <ConnectedProcessor />
+              </Socket>
+            </Component>
+            <Component name="Lesser">
+              <Description>Circuit value is smaller than Comparison value.</Description>
+              <Socket>
+                <ConnectedProcessor />
+              </Socket>
+            </Component>
+            <Component name="InRange">
+              <Description>Circuit value falls within (inclusive) specified range.</Description>
+              <Socket>
+                <ConnectedProcessor />
+              </Socket>
+            </Component>
+            <Component name="NotInRange">
+              <Description>Circuit value falls outside (exclusive) specified range.</Description>
+              <Socket>
+                <ConnectedProcessor />
+              </Socket>
+            </Component>
+          </SocketCollection>
+          <Comparer>
+            <ExternalValueSourceName />
+            <RangeMinSourceName />
+            <RangeMaxSourceName />
+            <ComparisonValue />
+            <RangeMin />
+            <RangeMax />
+          </Comparer>
+        </Processor>
+      </Component>
+    </Circuit>
+  </Component>
+</Root>

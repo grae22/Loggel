@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Xml;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Loggel;
@@ -78,21 +78,21 @@ namespace Loggel_Test
 
     // Test that the xml that is generated to persist the circuit matches
     // what we're expecting.
-    /*
+
     [TestMethod]
-    public void SirilSnapshot()
+    public void GetAsXml()
     {
-      List<SirilObject> rootObjects = new List<SirilObject>();
-      rootObjects.Add( m_valueManipulator );
+      XmlDocument xmlDoc = new XmlDocument();
+      XmlElement rootElement = xmlDoc.CreateElement( "Root" );
+      xmlDoc.AppendChild( rootElement );
+      m_valueManipulator.GetAsXml( rootElement );
+      xmlDoc.Save( "Circuit_Test.GetAsXml.xml" );
 
-      XmlStore store = new XmlStore();
-      store.WriteToFile( "Circuit_Test.SirilSnapshot.xml", rootObjects );
-
-      string content = File.ReadAllText( "Circuit_Test.SirilSnapshot.xml" );
-      string reference = File.ReadAllText( @"..\..\Resources\Circuit_Test.SirilSnapshot.xml" );
+      string content = File.ReadAllText( "Circuit_Test.GetAsXml.xml" );
+      string reference = File.ReadAllText( @"..\..\Resources\Circuit_Test.GetAsXml.xml" );
       Assert.AreEqual( reference, content );
     }
-    */
+
     //-------------------------------------------------------------------------
   }
 }

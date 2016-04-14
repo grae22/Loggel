@@ -225,17 +225,26 @@ namespace Loggel.Processors
       // Comparison value.
       XmlElement comparisonValueElement = ownerDoc.CreateElement( "ComparisonValue" );
       comparerElement.AppendChild( comparisonValueElement );
-      comparisonValueElement.InnerText = ComparisonValue.ToString();
+      if( ComparisonValue != null )
+      {
+        comparisonValueElement.InnerText = ComparisonValue.ToString();
+      }
 
       // Range-min value.
       XmlElement rangeMinValueElement = ownerDoc.CreateElement( "RangeMin" );
       comparerElement.AppendChild( rangeMinValueElement );
-      rangeMinValueElement.InnerText = RangeMin.ToString();
+      if( RangeMin != null )
+      {
+        rangeMinValueElement.InnerText = RangeMin.ToString();
+      }
 
       // Range-max value.
       XmlElement rangeMaxValueElement = ownerDoc.CreateElement( "RangeMax" );
       comparerElement.AppendChild( rangeMaxValueElement );
-      rangeMaxValueElement.InnerText = RangeMax.ToString();
+      if( RangeMax != null )
+      {
+        rangeMaxValueElement.InnerText = RangeMax.ToString();
+      }
 
       return comparerElement;
     }

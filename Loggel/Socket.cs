@@ -51,9 +51,16 @@ namespace Loggel
       parent.AppendChild( socketElement );
       
       // Connected processor name.
-      XmlElement connectedProcessorNameElement = ownerDoc.CreateElement( "ConnectedProcessorName" );
-      connectedProcessorNameElement.InnerText = ( ConnectedProcessor == null ? "" : ConnectedProcessor.Name );
-      socketElement.AppendChild( connectedProcessorNameElement );
+      //XmlElement connectedProcessorNameElement = ownerDoc.CreateElement( "ConnectedProcessorName" );
+      //connectedProcessorNameElement.InnerText = ( ConnectedProcessor == null ? "" : ConnectedProcessor.Name );
+      //socketElement.AppendChild( connectedProcessorNameElement );
+
+      XmlElement connectedProcessorElement = ownerDoc.CreateElement( "ConnectedProcessor" );
+      socketElement.AppendChild( connectedProcessorElement );
+      if( ConnectedProcessor != null )
+      {
+        ConnectedProcessor.GetAsXml( connectedProcessorElement );
+      }
 
       return socketElement;
     }

@@ -68,7 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Circuit_Test.SirilSnapshot.xml" />
+    <Content Include="Resources\Circuit_Test.GetAsXml.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
