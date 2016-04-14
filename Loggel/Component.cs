@@ -36,5 +36,22 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+
+    // Restores values from xml.
+    // Implementors should return the XmlElement that they want children to
+    // use as a parent.
+
+    public virtual XmlElement RestoreFromXml( XmlElement parent )
+    {
+      XmlElement componentElement = parent[ "Component" ];
+      Name = componentElement.Attributes[ "name" ].Value;
+
+      XmlElement descriptionElement = componentElement[ "Description" ];
+      Description = descriptionElement.InnerText;
+
+      return componentElement;
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

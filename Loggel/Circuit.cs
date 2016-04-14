@@ -77,6 +77,15 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    public Circuit( XmlElement parent )
+    {
+      Context = new CircuitContext( this );
+
+      RestoreFromXml( parent );
+    }
+
+    //-------------------------------------------------------------------------
+
     // Obtains and returns (from the processor factory) a new processor of
     // the specified type.
 
@@ -135,7 +144,29 @@ namespace Loggel
       circuitElement.AppendChild( entryProcessorNameElement );
 
       // Entry processor.
-      EntryProcessor.GetAsXml( circuitElement );
+      if( EntryProcessor != null )
+      {
+        EntryProcessor.GetAsXml( circuitElement );
+      }
+
+      return circuitElement;
+    }
+
+    //-------------------------------------------------------------------------
+
+    // Restore this instance from xml.
+
+    public override XmlElement RestoreFromXml( XmlElement parent )
+    {
+      // Must call base method.
+      parent = base.RestoreFromXml( parent );
+
+      // Circuit.
+      XmlElement circuitElement = parent[ "Circuit" ];
+      InitialValue = circuitElement[ "InitialValue" ].InnerText;
+      Context.Value = InitialValue;
+
+      //EntryProcessor
 
       return circuitElement;
     }
