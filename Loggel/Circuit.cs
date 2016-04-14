@@ -10,7 +10,7 @@ namespace Loggel
     private dynamic InitialValue { get; set; }
 
     // This circuit's context struct.
-    public CircuitContext Context { get; private set; }
+    public new CircuitContext Context { get; private set; }
 
     // The processor whose Process() method will be called to kick-off
     // processing of this circuit.
@@ -22,11 +22,12 @@ namespace Loggel
 
     public Circuit(
       string name,
+      string description,
       dynamic initialValue )
+    :
+      base( name, description, null )
     {
-      Name = name;
       InitialValue = initialValue;
-
       Context = new CircuitContext( this );
       Context.Value = initialValue;
     }
@@ -36,6 +37,8 @@ namespace Loggel
     // Class constructor for restoring from xml.
 
     public Circuit( XmlElement parent )
+    :
+      base( "", "", null )
     {
       Context = new CircuitContext( this );
 

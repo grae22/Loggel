@@ -14,9 +14,10 @@ namespace Loggel.Processors
 
     public Maths(
       string name,
+      string description,
       CircuitContext circuitContext )
     :
-      base( name, circuitContext )
+      base( name, description, circuitContext )
     {
       OutputSocket =
         GetNewOutputSocket( "Result", "Result of mathematical operation." );
@@ -30,23 +31,23 @@ namespace Loggel.Processors
       switch( Operator )
       {
         case '=':
-          CircuitContext.Value = Value2;
+          Context.Value = Value2;
           break;
 
         case '+':
-          CircuitContext.Value += Value2;
+          Context.Value += Value2;
           break;
 
         case '-':
-          CircuitContext.Value -= Value2;
+          Context.Value -= Value2;
           break;
 
         case 'x':
-          CircuitContext.Value *= Value2;
+          Context.Value *= Value2;
           break;
 
         case '/':
-          CircuitContext.Value /= Value2;
+          Context.Value /= Value2;
           break;
 
         default:

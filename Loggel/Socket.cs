@@ -21,9 +21,14 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    public Socket( string name )
+    public Socket(
+      string name,
+      string description,
+      CircuitContext circuitContext )
+    :
+      base( name, description, circuitContext )
     {
-      Name = name;
+
     }
 
     //-------------------------------------------------------------------------

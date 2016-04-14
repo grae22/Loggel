@@ -18,7 +18,7 @@ namespace Loggel_Test.Processors
     [TestInitialize]
     public void Initialise()
     {
-      m_circuit = new Circuit( "", 0 );
+      m_circuit = new Circuit( "", "", 0 );
 
       Maths maths = m_circuit.Context.CreateComponent<Maths>( "Maths", "" );
       maths.Operator = '+';
@@ -45,13 +45,13 @@ namespace Loggel_Test.Processors
     [TestMethod]
     public void ConditionsMet()
     {
-      Circuit compareValue1 = new Circuit( "", 123 );
+      Circuit compareValue1 = new Circuit( "", "", 123 );
       And.Condition condition1 = new And.Condition();
       condition1.ValueSource = compareValue1.Context;
       condition1.ComparisonValue = 123;
       condition1.ComparisonType = ValueComparison.Comparison.EQUAL;
 
-      Circuit compareValue2 = new Circuit( "", 456 );
+      Circuit compareValue2 = new Circuit( "", "", 456 );
       And.Condition condition2 = new And.Condition();
       condition2.ValueSource = compareValue2.Context;
       condition2.ComparisonValue = 456;
@@ -68,13 +68,13 @@ namespace Loggel_Test.Processors
     [TestMethod]
     public void ConditionsNotMet()
     {
-      Circuit compareValue1 = new Circuit( "", 123 );
+      Circuit compareValue1 = new Circuit( "", "", 123 );
       And.Condition condition1 = new And.Condition();
       condition1.ValueSource = compareValue1.Context;
       condition1.ComparisonValue = 123;
       condition1.ComparisonType = ValueComparison.Comparison.EQUAL;
 
-      Circuit compareValue2 = new Circuit( "", 999 );
+      Circuit compareValue2 = new Circuit( "", "", 999 );
       And.Condition condition2 = new And.Condition();
       condition2.ValueSource = compareValue2.Context;
       condition2.ComparisonValue = 123;

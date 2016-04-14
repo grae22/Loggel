@@ -55,9 +55,10 @@ namespace Loggel.Processors
 
     public Comparer(
       string name,
+      string description,
       CircuitContext circuitContext )
     :
-      base( name, circuitContext )
+      base( name, description, circuitContext )
     {
       // Create the output sockets.
       OutputSocket_Equal = GetNewOutputSocket( "Equal", "Circuit and Comparison values are equal." );
@@ -128,7 +129,7 @@ namespace Loggel.Processors
       //-- If we have an external circuit context we use that for the value to
       //-- compare against the comparison value. Otherwise we simply use the
       //-- context of the circuit to which this processor belongs.
-      CircuitContext context = ( ExternalValueSource ?? CircuitContext );
+      CircuitContext context = ( ExternalValueSource ?? Context );
 
       //-- Check if any of the conditions are met for an output socket to be live.
       //-- A socket can only be live if it is connected to a wire.

@@ -12,6 +12,20 @@ namespace Loggel
     // Component description property.
     public string Description { get; set; }
 
+    // Circuit-context to which this component belongs.
+    protected CircuitContext Context { get; private set; }
+
+    //-------------------------------------------------------------------------
+
+    public Component( string name,
+                      string description,
+                      CircuitContext circuitContext )
+    {
+      Name = name;
+      Description = description;
+      Context = circuitContext;
+    }
+
     //-------------------------------------------------------------------------
 
     // Method for persisting component data as xml.

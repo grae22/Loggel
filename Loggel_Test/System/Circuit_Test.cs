@@ -19,7 +19,7 @@ namespace Loggel_Test
     public void Initialise()
     {
       // Circuit whose value is manipulated.
-      m_valueManipulator = new Circuit( "TestCircuit", 0.0 );
+      m_valueManipulator = new Circuit( "TestCircuit", "", 0.0 );
 
       // Maths processor for adding 1 to the valueManipulator circuit value.
       Maths mathsAdd = m_valueManipulator.Context.CreateComponent<Maths>( "Add", "" );
@@ -32,7 +32,7 @@ namespace Loggel_Test
       mathsSub.Value2 = 1.0;
 
       // Circuit which produces the comparison value we will use.
-      Circuit comparisonValue = new Circuit( "ComparisonValue", 1.0 );
+      Circuit comparisonValue = new Circuit( "ComparisonValue", "", 1.0 );
 
       // Comparer processor for valueManipulator circuit.
       Comparer comparer = m_valueManipulator.Context.CreateComponent<Comparer>( "Comparer", "" );

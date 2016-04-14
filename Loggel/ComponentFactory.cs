@@ -11,8 +11,8 @@ namespace Loggel
       string description,
       CircuitContext circuitContext ) where T : Component
     {
-      // Components take a name & circuit-context as constructor args.
-      object[] args = { name, circuitContext };
+      // Components take a name, description & circuit-context as constructor args.
+      object[] args = { name, description, circuitContext };
 
       T component = (T)Activator.CreateInstance( typeof( T ), args );
 

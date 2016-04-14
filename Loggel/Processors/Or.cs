@@ -27,9 +27,10 @@ namespace Loggel.Processors
 
     public Or(
       string name,
+      string description,
       CircuitContext circuitContext )
     :
-      base( name, circuitContext )
+      base( name, description, circuitContext )
     {
       OutputSocket = GetNewOutputSocket( "Result", "Will be live when OR condition is satisfied." );
     }

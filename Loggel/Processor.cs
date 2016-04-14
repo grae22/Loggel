@@ -8,18 +8,21 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     // Reference to the context of the circuit to which this processor belongs.
-    protected CircuitContext CircuitContext { get; set; }
+    //protected CircuitContext CircuitContext { get; set; }
 
     // List of this processor's output sockets.
     private Dictionary<string, Socket> OutputSockets { get; set; } = new Dictionary<string, Socket>();
 
     //-------------------------------------------------------------------------
 
-    public Processor( string name,
-                      CircuitContext circuitContext )
+    public Processor(
+      string name,
+      string description,
+      CircuitContext circuitContext )
+    :
+      base( name, description, circuitContext )
     {
-      Name = name;
-      CircuitContext = circuitContext;
+
     }
 
     //-------------------------------------------------------------------------
@@ -28,7 +31,7 @@ namespace Loggel
       string name,
       string description )
     {
-      Socket socket = new Socket( name );
+      Socket socket = new Socket( name, description, Context );
       socket.Description = description;
 
       OutputSockets.Add( name, socket );

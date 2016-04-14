@@ -27,11 +27,15 @@ namespace Loggel.Processors
 
     public And(
       string name,
+      string description,
       CircuitContext circuitContext )
     :
-      base( name, circuitContext )
+      base( name, description, circuitContext )
     {
-      OutputSocket = GetNewOutputSocket( "Result", "Will be live when AND condition is satisfied." );
+      OutputSocket =
+        Context.CreateComponent<Socket>(
+          "Result",
+          "Will be live when AND condition is satisfied." );
     }
 
     //-------------------------------------------------------------------------
