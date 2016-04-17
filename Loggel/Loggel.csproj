@@ -42,7 +42,6 @@
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Helpers\ValueComparison.cs" />
     <Compile Include="Nang\NangCircuitBuilder.cs" />
-    <Compile Include="ProcessorFactory.cs" />
     <Compile Include="Processors\Or.cs" />
     <Compile Include="Processors\And.cs" />
     <Compile Include="Component.cs" />
