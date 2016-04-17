@@ -26,11 +26,12 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
 
     public Or(
+      uint id,
       string name,
       string description,
       CircuitContext circuitContext )
     :
-      base( name, description, circuitContext )
+      base( id, name, description, circuitContext )
     {
       OutputSocket = CreateOutputSocket( "Result", "Will be live when OR condition is satisfied." );
     }
@@ -98,11 +99,11 @@ namespace Loggel.Processors
         XmlElement conditionElement = ownerDoc.CreateElement( "Condition" );
         conditionCollection.AppendChild( conditionElement );
 
-        XmlElement valueSourceNameElement = ownerDoc.CreateElement( "ValueSourceName" );
-        conditionElement.AppendChild( valueSourceNameElement );
+        XmlElement valueSourceIdElement = ownerDoc.CreateElement( "ValueSourceId" );
+        conditionElement.AppendChild( valueSourceIdElement );
         if( condition.ValueSource != null )
         {
-          valueSourceNameElement.InnerText = condition.ValueSource.Name;
+          valueSourceIdElement.InnerText = condition.ValueSource.Id.ToString();
         }
 
         XmlElement comparisonValueElement = ownerDoc.CreateElement( "ComparisonValue" );

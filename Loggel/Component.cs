@@ -6,6 +6,9 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
+    // Component's unique ID.
+    public uint Id { get; private set; }
+
     // Component name property.
     public string Name { get; set; }
 
@@ -17,10 +20,12 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    public Component( string name,
+    public Component( uint id,
+                      string name,
                       string description,
                       CircuitContext circuitContext )
     {
+      Id = id;
       Name = name;
       Description = description;
       Context = circuitContext;
@@ -38,9 +43,17 @@ namespace Loggel
       XmlElement componentElement = ownerDoc.CreateElement( "Component" );
       parent.AppendChild( componentElement );
       
-      XmlAttribute nameAttrib = ownerDoc.CreateAttribute( "name" );
-      nameAttrib.Value = Name;
-      componentElement.Attributes.Append( nameAttrib );
+      XmlElement typeElement = ownerDoc.CreateElement( "Type" );
+      typeElement.InnerText = GetType().FullName;
+      componentElement.AppendChild( typeElement );
+
+      XmlElement idElement = ownerDoc.CreateElement( "Id" );
+      idElement.InnerText = Id.ToString();
+      componentElement.AppendChild( idElement );
+
+      XmlElement nameElement = ownerDoc.CreateElement( "Name" );
+      nameElement.InnerText = Name;
+      componentElement.AppendChild( nameElement );
 
       XmlElement descriptionElement = ownerDoc.CreateElement( "Description" );
       descriptionElement.InnerText = Description;
@@ -58,7 +71,12 @@ namespace Loggel
     public virtual XmlElement RestoreFromXml( XmlElement parent )
     {
       XmlElement componentElement = parent[ "Component" ];
-      Name = componentElement.Attributes[ "name" ].Value;
+
+      XmlElement idElement = componentElement[ "Id" ];
+      Id = uint.Parse( idElement.InnerText );
+
+      XmlElement nameElement = componentElement[ "Name" ];
+      Name = nameElement.InnerText;
 
       XmlElement descriptionElement = componentElement[ "Description" ];
       Description = descriptionElement.InnerText;

@@ -13,11 +13,12 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
 
     public Maths(
+      uint id,
       string name,
       string description,
       CircuitContext circuitContext )
     :
-      base( name, description, circuitContext )
+      base( id, name, description, circuitContext )
     {
       OutputSocket =
         CreateOutputSocket( "Result", "Result of mathematical operation." );

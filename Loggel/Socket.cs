@@ -22,11 +22,12 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     public Socket(
+      uint id,
       string name,
       string description,
       CircuitContext circuitContext )
     :
-      base( name, description, circuitContext )
+      base( id, name, description, circuitContext )
     {
 
     }
@@ -55,17 +56,10 @@ namespace Loggel
       XmlElement socketElement = ownerDoc.CreateElement( "Socket" );
       parent.AppendChild( socketElement );
       
-      // Connected processor name.
-      //XmlElement connectedProcessorNameElement = ownerDoc.CreateElement( "ConnectedProcessorName" );
-      //connectedProcessorNameElement.InnerText = ( ConnectedProcessor == null ? "" : ConnectedProcessor.Name );
-      //socketElement.AppendChild( connectedProcessorNameElement );
-
-      XmlElement connectedProcessorElement = ownerDoc.CreateElement( "ConnectedProcessor" );
-      socketElement.AppendChild( connectedProcessorElement );
-      if( ConnectedProcessor != null )
-      {
-        ConnectedProcessor.GetAsXml( connectedProcessorElement );
-      }
+      // Connected processor id.
+      XmlElement connectedProcessorIdElement = ownerDoc.CreateElement( "ConnectedProcessorId" );
+      connectedProcessorIdElement.InnerText = ( ConnectedProcessor == null ? "" : ConnectedProcessor.Id.ToString() );
+      socketElement.AppendChild( connectedProcessorIdElement );
 
       return socketElement;
     }

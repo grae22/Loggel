@@ -25,7 +25,7 @@ namespace Loggel
       string description,
       dynamic initialValue )
     :
-      base( name, description, null )
+      base( 0, name, description, null )
     {
       InitialValue = initialValue;
       Context = new CircuitContext( this );
@@ -38,7 +38,7 @@ namespace Loggel
 
     public Circuit( XmlElement parent )
     :
-      base( "", "", null )
+      base( 0, "", "", null )
     {
       Context = new CircuitContext( this );
 
@@ -82,9 +82,9 @@ namespace Loggel
       initialValueElement.InnerText = InitialValue.ToString();
       circuitElement.AppendChild( initialValueElement );
 
-      XmlElement entryProcessorNameElement = ownerDoc.CreateElement( "EntryProcessorName" );
-      entryProcessorNameElement.InnerText = ( EntryProcessor == null ? "" : EntryProcessor.Name );
-      circuitElement.AppendChild( entryProcessorNameElement );
+      XmlElement entryProcessorIdElement = ownerDoc.CreateElement( "EntryProcessorId" );
+      entryProcessorIdElement.InnerText = ( EntryProcessor == null ? "" : EntryProcessor.Id.ToString() );
+      circuitElement.AppendChild( entryProcessorIdElement );
 
       return circuitElement;
     }
@@ -103,7 +103,7 @@ namespace Loggel
       InitialValue = circuitElement[ "InitialValue" ].InnerText;
       Context.Value = InitialValue;
 
-      //EntryProcessor
+      // Entry processor.
 
       return circuitElement;
     }

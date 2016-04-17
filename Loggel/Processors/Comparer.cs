@@ -54,11 +54,12 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
 
     public Comparer(
+      uint id,
       string name,
       string description,
       CircuitContext circuitContext )
     :
-      base( name, description, circuitContext )
+      base( id, name, description, circuitContext )
     {
       // Create the output sockets.
       OutputSocket_Equal = CreateOutputSocket( "Equal", "Circuit and Comparison values are equal." );
@@ -200,27 +201,35 @@ namespace Loggel.Processors
       parent.AppendChild( comparerElement );
 
       // External value source.
-      XmlElement externalValueSourceNameElement = ownerDoc.CreateElement( "ExternalValueSourceName" );
-      comparerElement.AppendChild( externalValueSourceNameElement );
+      XmlElement externalValueSourceIdElement = ownerDoc.CreateElement( "ExternalValueSourceId" );
+      comparerElement.AppendChild( externalValueSourceIdElement );
       if( ExternalValueSource != null )
       {
-        externalValueSourceNameElement.InnerText = ExternalValueSource.Name;
+        externalValueSourceIdElement.InnerText = ExternalValueSource.Id.ToString();
+      }
+
+      // Comparison value source.
+      XmlElement comparisonValueSourceIdElement = ownerDoc.CreateElement( "ComparisonValueSourceId" );
+      comparerElement.AppendChild( comparisonValueSourceIdElement );
+      if( ComparisonValueSource != null )
+      {
+        comparisonValueSourceIdElement.InnerText = ComparisonValueSource.Id.ToString();
       }
 
       // Range-min source.
-      XmlElement rangeMinSourceNameElement = ownerDoc.CreateElement( "RangeMinSourceName" );
-      comparerElement.AppendChild( rangeMinSourceNameElement );
+      XmlElement rangeMinSourceIdElement = ownerDoc.CreateElement( "RangeMinSourceId" );
+      comparerElement.AppendChild( rangeMinSourceIdElement );
       if( RangeMinSource != null )
       {
-        rangeMinSourceNameElement.InnerText = rangeMinSourceNameElement.Name;
+        rangeMinSourceIdElement.InnerText = RangeMinSource.Id.ToString();
       }
 
       // Range-max source.
-      XmlElement rangeMaxSourceNameElement = ownerDoc.CreateElement( "RangeMaxSourceName" );
-      comparerElement.AppendChild( rangeMaxSourceNameElement );
+      XmlElement rangeMaxSourceIdElement = ownerDoc.CreateElement( "RangeMaxSourceId" );
+      comparerElement.AppendChild( rangeMaxSourceIdElement );
       if( RangeMaxSource != null )
       {
-        rangeMaxSourceNameElement.InnerText = rangeMaxSourceNameElement.Name;
+        rangeMaxSourceIdElement.InnerText = RangeMaxSource.Id.ToString();
       }
 
       // Comparison value.

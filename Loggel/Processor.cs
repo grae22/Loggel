@@ -13,11 +13,12 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     public Processor(
+      uint id,
       string name,
       string description,
       CircuitContext circuitContext )
     :
-      base( name, description, circuitContext )
+      base( id, name, description, circuitContext )
     {
 
     }
@@ -76,12 +77,14 @@ namespace Loggel
       parent.AppendChild( processorElement );
 
       // Sockets.
-      XmlElement socketCollection = ownerDoc.CreateElement( "SocketCollection" );
+      XmlElement socketCollection = ownerDoc.CreateElement( "SocketIdCollection" );
       processorElement.AppendChild( socketCollection );
 
       foreach( Socket socket in OutputSockets.Values )
       {
-        socket.GetAsXml( socketCollection );
+        XmlElement socketElement = ownerDoc.CreateElement( "SocketId" );
+        socketElement.InnerText = socket.Id.ToString();
+        socketCollection.AppendChild( socketElement );
       }
       
       return processorElement;
