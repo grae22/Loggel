@@ -91,5 +91,30 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+
+    // Restore this instance from xml.
+
+    public override XmlElement RestoreFromXml( XmlElement parent )
+    {
+      // Must call base method.
+      parent = base.RestoreFromXml( parent );
+
+      // Processor element.
+      XmlElement processorElement = parent[ "Processor" ];
+
+      // Sockets.
+      XmlElement socketCollection = parent[ "SocketIdCollection" ];
+
+      foreach( XmlElement socketIdElement in socketCollection.SelectNodes( "SocketId" ) )
+      {
+        uint id = uint.Parse( socketIdElement.InnerText );
+        Socket socket = (Socket)Context.Components[ id ];
+        OutputSockets.Add( socket.Name, socket );
+      }
+
+      return processorElement;
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

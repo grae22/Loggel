@@ -65,5 +65,28 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+
+    // Restore this instance from xml.
+
+    public override XmlElement RestoreFromXml( XmlElement parent )
+    {
+      // Must call base method.
+      parent = base.RestoreFromXml( parent );
+
+      // Socket.
+      XmlElement socketElement = parent[ "Socket" ];
+
+      // Connected processor.
+      XmlElement connectedProcessorIdElement = socketElement[ "ConnectedProcessorId" ];
+      if( connectedProcessorIdElement.InnerText.Length > 0 )
+      {
+        uint id = uint.Parse( connectedProcessorIdElement.InnerText );
+        ConnectedProcessor = (Processor)Context.Components[ id ];
+      }
+
+      return socketElement;
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

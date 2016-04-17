@@ -104,6 +104,12 @@ namespace Loggel
       Context.Value = InitialValue;
 
       // Entry processor.
+      XmlElement entryProcessorIdElement = parent[ "EntryProcessorId" ];
+      if( entryProcessorIdElement.InnerText.Length > 0 )
+      {
+        uint id = uint.Parse( entryProcessorIdElement.InnerText );
+        EntryProcessor = (Processor)Context.Components[ id ];
+      }
 
       return circuitElement;
     }

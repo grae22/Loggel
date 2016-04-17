@@ -27,7 +27,7 @@ namespace Loggel
       XmlElement rootElement = doc.CreateElement( "Root" );
       doc.AppendChild( rootElement );
 
-      foreach( Component component in circuit.Context.Components )
+      foreach( Component component in circuit.Context.Components.Values )
       {
         component.GetAsXml( rootElement );
       }

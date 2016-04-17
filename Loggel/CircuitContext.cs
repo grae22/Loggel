@@ -8,8 +8,7 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     public dynamic Value { get; set; }
-    //public Dictionary<string, Component> Components { get; private set; } = new Dictionary<string, Component>();
-    public List<Component> Components { get; private set; } = new List<Component>();
+    public Dictionary<uint, Component> Components { get; private set; } = new Dictionary<uint, Component>();
 
     private Circuit Circuit { get; set; }
 
@@ -54,13 +53,6 @@ namespace Loggel
         throw new ArgumentException( "Component must have a name." );
       }
 
-      // Already exists?
-      //if( Components.ContainsKey( name ) )          
-      //{
-      //  throw new Exception(
-      //    "Component '" + name + "' (of type '" + typeof( T ).Name + "') already exists." );
-      //}
-
       // Doesn't already exist, create it?
       component = ComponentFactory.Create<T>( name, description, this );
 
@@ -70,8 +62,7 @@ namespace Loggel
           "Failed to create component '" + name + "' of type '" + typeof( T ).Name + "'." );
       }
 
-      //Components.Add( name, component );
-      Components.Add( component );
+      Components.Add( component.Id, component );
 
       return component;
     }

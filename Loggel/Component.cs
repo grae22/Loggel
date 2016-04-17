@@ -65,8 +65,8 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     // Restores values from xml.
-    // Implementors should return the XmlElement that they want children to
-    // use as a parent.
+    // Implementors should return the element any child classes should use
+    // as the parent element.
 
     public virtual XmlElement RestoreFromXml( XmlElement parent )
     {
