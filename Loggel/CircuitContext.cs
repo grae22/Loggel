@@ -9,6 +9,7 @@ namespace Loggel
 
     public dynamic Value { get; set; }
     public Dictionary<uint, Component> Components { get; private set; } = new Dictionary<uint, Component>();
+    public Board Board { get; private set; }
 
     private Circuit Circuit { get; set; }
 

@@ -260,5 +260,64 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
+    // Restore this instance from xml.
+
+    public override XmlElement RestoreFromXml( XmlElement parent )
+    {
+      // Must call base method.
+      parent = base.RestoreFromXml( parent );
+
+      // Comparer processor.
+      XmlElement comparerElement = parent[ "Comparer" ];
+
+      // External value source.
+      XmlElement externalValueSourceIdElement = comparerElement[ "ExternalValueSourceId" ];
+      if( externalValueSourceIdElement.InnerText.Length > 0 )
+      {
+        uint id = uint.Parse( externalValueSourceIdElement.InnerText );
+        ExternalValueSource = Context.Board.Circuits[ id ].Context;
+      }
+
+      // Comparison value source.
+      XmlElement comparisonValueSourceIdElement = comparerElement[ "ComparisonValueSourceId" ];
+      if( comparisonValueSourceIdElement.InnerText.Length > 0 )
+      {
+        uint id = uint.Parse( comparisonValueSourceIdElement.InnerText );
+        ComparisonValueSource = Context.Board.Circuits[ id ].Context;
+      }
+
+      // Range min value source.
+      XmlElement rangeMinValueSourceIdElement = comparerElement[ "RangeMinSourceId" ];
+      if( rangeMinValueSourceIdElement.InnerText.Length > 0 )
+      {
+        uint id = uint.Parse( rangeMinValueSourceIdElement.InnerText );
+        RangeMinSource = Context.Board.Circuits[ id ].Context;
+      }
+
+      // Range max value source.
+      XmlElement rangeMaxValueSourceIdElement = comparerElement[ "RangeMaxSourceId" ];
+      if( rangeMaxValueSourceIdElement.InnerText.Length > 0 )
+      {
+        uint id = uint.Parse( rangeMaxValueSourceIdElement.InnerText );
+        RangeMaxSource = Context.Board.Circuits[ id ].Context;
+      }
+
+      // Comparison value.
+      XmlElement comparisonValueElement = comparerElement[ "ComparisonValue" ];
+      ComparisonValue = comparisonValueElement.InnerText;
+
+      // Range min value.
+      XmlElement rangeMinValueElement = comparerElement[ "RangeMin" ];
+      RangeMin = rangeMinValueElement.InnerText;
+
+      // Range max value.
+      XmlElement rangeMaxValueElement = comparerElement[ "RangeMax" ];
+      RangeMax = rangeMaxValueElement.InnerText;
+
+      return comparerElement;
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

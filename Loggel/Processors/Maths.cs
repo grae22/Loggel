@@ -95,5 +95,32 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
+    // Restore this instance from xml.
+
+    public override XmlElement RestoreFromXml( XmlElement parent )
+    {
+      // Must call base method.
+      parent = base.RestoreFromXml( parent );
+
+      // Maths processor.
+      XmlElement mathsElement = parent[ "Maths" ];
+
+      // Operator.
+      XmlElement operatorElement = mathsElement[ "Operator" ];
+      if( operatorElement.InnerText.Length > 0 )
+      {
+        Operator = operatorElement.InnerText[ 0 ];
+      }
+
+      // Value2.
+      XmlElement value2Element = mathsElement[ "Value2" ];
+      if( value2Element.InnerText.Length > 0 )
+      {
+        Value2 = value2Element.InnerText;
+      }
+
+      return mathsElement;
+    }  
   }
 }

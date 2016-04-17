@@ -6,6 +6,7 @@
 
     public enum Comparison
     {
+      UNKNOWN,
       EQUAL,
       NOT_EQUAL,
       GREATER,
@@ -41,6 +42,46 @@
         default:
           return null;
       }
+    }
+
+    //-------------------------------------------------------------------------
+
+    public static Comparison ComparisonFromString( string s )
+    {
+      Comparison comparison = Comparison.UNKNOWN;
+
+      switch( s )
+      {
+        case "==":
+          comparison = Comparison.EQUAL;
+          break;
+
+        case "!=":
+          comparison = Comparison.NOT_EQUAL;
+          break;
+
+        case ">":
+          comparison = Comparison.GREATER;
+          break;
+
+        case "<":
+          comparison = Comparison.LESSER;
+          break;
+
+        case "()":
+          comparison = Comparison.IN_RANGE;
+          break;
+
+        case "!()":
+          comparison = Comparison.NOT_IN_RANGE;
+          break;
+
+        default:
+          comparison = Comparison.UNKNOWN;
+          break;
+      }
+
+      return comparison;
     }
 
     //-------------------------------------------------------------------------

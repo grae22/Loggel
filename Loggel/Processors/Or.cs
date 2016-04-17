@@ -126,5 +126,40 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
+    // Restore this instance from xml.
+
+    public override XmlElement RestoreFromXml( XmlElement parent )
+    {
+      // Must call base method.
+      parent = base.RestoreFromXml( parent );
+
+      // 'Or' processor.
+      XmlElement orElement = parent[ "Or" ];
+
+      // Condition collection.
+      XmlElement conditionCollection = orElement[ "ConditionCollection" ];
+
+      foreach( XmlElement conditionElement in conditionCollection.SelectNodes( "Condition" ) )
+      {
+        Condition condition = new Condition();
+
+        Circuit circuit =
+          Context.Board.Circuits[
+            uint.Parse(
+              conditionElement[ "ValueSourceId" ].InnerText ) ];
+        condition.ValueSource = circuit.Context;
+
+        condition.ComparisonValue = conditionElement[ "ComparisonValue" ].InnerText;
+
+        condition.ComparisonType =
+          ValueComparison.ComparisonFromString(
+            conditionElement[ "ComparisonType" ].InnerText );
+      }
+
+      return orElement;
+    }
+
+    //-------------------------------------------------------------------------
   }
 }
