@@ -50,11 +50,15 @@ namespace Loggel
 
       foreach( Component component in circuit.Context.Components.Values )
       {
+        string absFilename =
+          circuitDir +
+          component.GetType().Name + '_' + component.Name + ".xml";
+
         doc = new XmlDocument();
         rootElement = doc.CreateElement( "Root" );
         doc.AppendChild( rootElement );
         component.GetAsXml( rootElement );
-        doc.Save( circuitDir + component.Name + ".xml" );
+        doc.Save( absFilename );
       }
     }
 

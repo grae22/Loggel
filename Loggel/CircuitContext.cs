@@ -54,7 +54,16 @@ namespace Loggel
         throw new ArgumentException( "Component must have a name." );
       }
 
-      // Doesn't already exist, create it?
+      // Check name isn't already used.
+      foreach( Component c in Components.Values )
+      {
+        if( c.Name == name )
+        {
+          throw new ArgumentException( "The name '" + name + "' is already in use." );
+        }
+      }
+
+      // Create it?
       component = ComponentFactory.Create<T>( name, description, this );
 
       if( component == null )
