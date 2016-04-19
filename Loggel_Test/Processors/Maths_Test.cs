@@ -22,8 +22,8 @@ namespace Loggel_Test
 
       Comparer comparer = valueManipulator.Context.CreateComponent<Comparer>( "Comparer", "" );
       comparer.ComparisonValueSource = comparisonValue.Context;
-      comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
-      comparer.OutputSocket_Equal.ConnectedProcessor = maths;
+      comparer.Processor_NotEqual = maths;
+      comparer.Processor_Equal = maths;
       valueManipulator.EntryProcessor = comparer;
 
       // Simple addition test.
@@ -52,7 +52,7 @@ namespace Loggel_Test
 
       // Add an additional maths processor after the existing one, check
       // that the chain produces the correct result.
-      maths.OutputSocket.ConnectedProcessor = maths2;
+      maths.ConnectedProcessor = maths2;
       maths.Operator = '+';
       maths.Value2 = 1000;
       maths2.Operator = '+';
@@ -76,8 +76,8 @@ namespace Loggel_Test
 
       Comparer comparer = valueManipulator.Context.CreateComponent<Comparer>( "Comparer", "" );
       comparer.ComparisonValueSource = comparisonValue.Context;
-      comparer.OutputSocket_NotEqual.ConnectedProcessor = maths;
-      comparer.OutputSocket_Equal.ConnectedProcessor = maths;
+      comparer.Processor_NotEqual = maths;
+      comparer.Processor_Equal = maths;
       valueManipulator.EntryProcessor = comparer;
 
       // Simple addition test.
@@ -106,7 +106,7 @@ namespace Loggel_Test
 
       // Add an additional maths processor after the existing one, check
       // that the chain produces the correct result.
-      maths.OutputSocket.ConnectedProcessor = maths2;
+      maths.ConnectedProcessor = maths2;
       maths.Operator = '+';
       maths.Value2 = 1000.0;
       maths2.Operator = '+';

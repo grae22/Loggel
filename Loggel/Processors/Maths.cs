@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 
 namespace Loggel.Processors
 {
@@ -8,7 +9,7 @@ namespace Loggel.Processors
 
     public char Operator { get; set; }
     public dynamic Value2 { get; set; }
-    public Socket OutputSocket { get; set; }
+    public Processor ConnectedProcessor { get; set; }
 
     //-------------------------------------------------------------------------
 
@@ -20,8 +21,7 @@ namespace Loggel.Processors
     :
       base( id, name, description, circuitContext )
     {
-      OutputSocket =
-        CreateOutputSocket( "Result", "Result of mathematical operation." );
+
     }
 
     //-------------------------------------------------------------------------
@@ -56,15 +56,8 @@ namespace Loggel.Processors
           break;
       }
 
-      // Return the next processor if we have one.
-      Processor nextProcessor = null;
-
-      if( OutputSocket.ConnectedProcessor != null )
-      {
-        nextProcessor = OutputSocket.ConnectedProcessor;
-      }
-
-      return nextProcessor;
+      // Return the next processor (may be null).
+      return ConnectedProcessor;
     }
 
     //-------------------------------------------------------------------------
@@ -73,8 +66,12 @@ namespace Loggel.Processors
 
     public override XmlElement GetAsXml( XmlElement parent )
     {
+      // Compile a map of connected processors.
+      Dictionary<string, Processor> processors = new Dictionary<string, Processor>();
+      processors.Add( "default", ConnectedProcessor );
+
       // Must call base method.
-      parent = base.GetAsXml( parent );
+      parent = base.GetAsXml( parent, processors );
 
       // Maths processor xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
@@ -105,6 +102,9 @@ namespace Loggel.Processors
 
       // Maths processor.
       XmlElement mathsElement = parent[ "Maths" ];
+
+      // Connected processor.
+      ConnectedProcessor = GetConnectedProcessor( "default" );
 
       // Operator.
       XmlElement operatorElement = mathsElement[ "Operator" ];

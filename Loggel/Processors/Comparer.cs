@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using System.Collections.Generic;
 
 namespace Loggel.Processors
 {
@@ -7,9 +8,9 @@ namespace Loggel.Processors
     //-------------------------------------------------------------------------
 
     /*
-     * This class determines which (if any) output socket will become live
-     * by comparing the circuit value against a comparison value (which may
-     * be dynamic if a circuit is provided for this purpose).
+     * This class determines which (if any) connected processor will become
+     * live by comparing the circuit value against a comparison value (which
+     * may be dynamic if a circuit is provided for this purpose).
      * 
      * NOTE:
      * x Range checks are performed as follows:
@@ -38,13 +39,13 @@ namespace Loggel.Processors
     // range max value (if a dynamic range max value is desired).
     public CircuitContext RangeMaxSource { private get; set; }
 
-    //-- Output sockets.
-    public Socket OutputSocket_Equal { get; private set; }
-    public Socket OutputSocket_NotEqual { get; private set; }
-    public Socket OutputSocket_Greater { get; private set; }
-    public Socket OutputSocket_Lesser { get; private set; }
-    public Socket OutputSocket_InRange { get; private set; }
-    public Socket OutputSocket_NotInRange { get; private set; }
+    //-- Connected processors.
+    public Processor Processor_Equal { get; set; }
+    public Processor Processor_NotEqual { get; set; }
+    public Processor Processor_Greater { get; set; }
+    public Processor Processor_Lesser { get; set; }
+    public Processor Processor_InRange { get; set; }
+    public Processor Processor_NotInRange { get; set; }
 
     //-- General.
     public dynamic ComparisonValue { private get; set; }
@@ -61,13 +62,7 @@ namespace Loggel.Processors
     :
       base( id, name, description, circuitContext )
     {
-      // Create the output sockets.
-      OutputSocket_Equal = CreateOutputSocket( "Equal", "Circuit and Comparison values are equal." );
-      OutputSocket_NotEqual = CreateOutputSocket( "NotEqual", "Circuit and Comparison values are not equal." );
-      OutputSocket_Greater = CreateOutputSocket( "Greater", "Circuit value is greater than Comparison value." );
-      OutputSocket_Lesser = CreateOutputSocket( "Lesser", "Circuit value is smaller than Comparison value." );
-      OutputSocket_InRange = CreateOutputSocket( "InRange", "Circuit value falls within (inclusive) specified range." );
-      OutputSocket_NotInRange = CreateOutputSocket( "NotInRange", "Circuit value falls outside (exclusive) specified range." );
+
     }
 
     //-------------------------------------------------------------------------
@@ -139,8 +134,8 @@ namespace Loggel.Processors
       // Order is important and range sockets take precendence.
       bool inRangeResult = false;
 
-      if( OutputSocket_InRange.IsConnected ||
-          OutputSocket_NotInRange.IsConnected )
+      if( Processor_InRange != null ||
+          Processor_NotInRange != null )
       {
         inRangeResult =
           RangeMin <= context.Value &&
@@ -149,38 +144,38 @@ namespace Loggel.Processors
 
       // In-range.
       if( inRangeResult &&
-          OutputSocket_InRange.IsConnected )
+          Processor_InRange != null )
       {
-        nextProcessor = OutputSocket_InRange.ConnectedProcessor;
+        nextProcessor = Processor_InRange;
       }
       // Not in-range.
       else if( inRangeResult == false &&
-               OutputSocket_NotInRange.IsConnected )
+               Processor_NotInRange != null )
       {
-        nextProcessor = OutputSocket_NotInRange.ConnectedProcessor;
+        nextProcessor = Processor_NotInRange;
       }            
       // Equal.
       else if( context.Value == ComparisonValue &&
-               OutputSocket_Equal.IsConnected )
+               Processor_Equal != null )
       {
-        nextProcessor = OutputSocket_Equal.ConnectedProcessor;
+        nextProcessor = Processor_Equal;
       }
       // Greater.
       else if( context.Value > ComparisonValue &&
-               OutputSocket_Greater.IsConnected )
+               Processor_Greater != null )
       {
-        nextProcessor = OutputSocket_Greater.ConnectedProcessor;
+        nextProcessor = Processor_Greater;
       }
       // Lesser.
       else if( context.Value < ComparisonValue &&
-               OutputSocket_Lesser.IsConnected )
+               Processor_Lesser != null )
       {
-        nextProcessor = OutputSocket_Lesser.ConnectedProcessor;
+        nextProcessor = Processor_Lesser;
       }
       // Not equal.
-      else if( OutputSocket_NotEqual.IsConnected )
+      else if( Processor_NotEqual != null )
       {
-        nextProcessor = OutputSocket_NotEqual.ConnectedProcessor;
+        nextProcessor = Processor_NotEqual;
       }
 
       return nextProcessor;
@@ -192,8 +187,17 @@ namespace Loggel.Processors
 
     public override XmlElement GetAsXml( XmlElement parent )
     {
+      // Compile a map of connected processors.
+      Dictionary<string, Processor> processors = new Dictionary<string, Processor>();
+      processors.Add( "equal", Processor_Equal );
+      processors.Add( "notEqual", Processor_NotEqual );
+      processors.Add( "greater", Processor_Greater );
+      processors.Add( "lesser", Processor_Lesser );
+      processors.Add( "inRange", Processor_InRange );
+      processors.Add( "notInRange", Processor_NotInRange );
+
       // Must call base method.
-      parent = base.GetAsXml( parent );
+      parent = base.GetAsXml( parent, processors );
 
       // Comparer processor xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
@@ -302,6 +306,14 @@ namespace Loggel.Processors
         uint id = uint.Parse( rangeMaxValueSourceIdElement.InnerText );
         RangeMaxSource = Context.Board.Circuits[ id ].Context;
       }
+
+      // Connected processors.
+      Processor_Equal = GetConnectedProcessor( "equal" );
+      Processor_NotEqual = GetConnectedProcessor( "notEqual" );
+      Processor_Greater = GetConnectedProcessor( "greater" );
+      Processor_Lesser = GetConnectedProcessor( "lesser" );
+      Processor_InRange = GetConnectedProcessor( "inRange" );
+      Processor_NotInRange = GetConnectedProcessor( "notInRange" );
 
       // Comparison value.
       XmlElement comparisonValueElement = comparerElement[ "ComparisonValue" ];

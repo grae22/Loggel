@@ -17,8 +17,8 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    // This processor's output socket.
-    public Socket OutputSocket { get; set; }
+    // The processor connected to this processor.
+    public Processor ConnectedProcessor { get; set; }
 
     // List of conditions's which we'll 'or' when processing.
     public List<Condition> Conditions { get; set; } = new List<Condition>();
@@ -33,7 +33,7 @@ namespace Loggel.Processors
     :
       base( id, name, description, circuitContext )
     {
-      OutputSocket = CreateOutputSocket( "Result", "Will be live when OR condition is satisfied." );
+
     }
 
     //-------------------------------------------------------------------------
@@ -70,7 +70,7 @@ namespace Loggel.Processors
 
       if( anyConditionsMet )
       {
-        nextProcessor = OutputSocket.ConnectedProcessor;
+        nextProcessor = ConnectedProcessor;
       }
 
       return nextProcessor;
@@ -82,8 +82,12 @@ namespace Loggel.Processors
 
     public override XmlElement GetAsXml( XmlElement parent )
     {
+      // Compile a map of connected processors.
+      Dictionary<string, Processor> processors = new Dictionary<string, Processor>();
+      processors.Add( "default", ConnectedProcessor );
+
       // Must call base method.
-      parent = base.GetAsXml( parent );
+      parent = base.GetAsXml( parent, processors );
 
       // 'Or' processor xml.
       XmlDocument ownerDoc = parent.OwnerDocument;
@@ -136,6 +140,9 @@ namespace Loggel.Processors
 
       // 'Or' processor.
       XmlElement orElement = parent[ "Or" ];
+
+      // Connected processor.
+      ConnectedProcessor = GetConnectedProcessor( "default" );
 
       // Condition collection.
       XmlElement conditionCollection = orElement[ "ConditionCollection" ];

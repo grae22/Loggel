@@ -7,8 +7,10 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    // List of this processor's output sockets.
-    private Dictionary<string, Socket> OutputSockets { get; set; } = new Dictionary<string, Socket>();
+    // Processors connected to this processor, mapped id to processor.
+    // This is only used when loading from xml.
+    private Dictionary<string, Processor> ConnectedProcessors { get; set; } =
+      new Dictionary<string, Processor>();
 
     //-------------------------------------------------------------------------
 
@@ -25,32 +27,16 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    protected Socket CreateOutputSocket(
-      string name,
-      string description )
+    protected Processor GetConnectedProcessor( string name )
     {
-      Socket socket =
-        Context.CreateComponent<Socket>(
-          name,
-          description );
+      Processor processor = null;
 
-      OutputSockets.Add( name, socket );
-
-      return socket;
-    }
-
-    //-------------------------------------------------------------------------
-
-    protected Socket GetOutputSocket( string name )
-    {
-      Socket socket = null;
-
-      if( OutputSockets.ContainsKey( name ) )
+      if( ConnectedProcessors.ContainsKey( name ) )
       {
-        socket = OutputSockets[ name ];
+        processor = ConnectedProcessors[ name ];
       }
 
-      return null;
+      return processor;
     }
 
     //-------------------------------------------------------------------------
@@ -60,13 +46,16 @@ namespace Loggel
     // The return value should be the next processor whose logic must be
     // performed. A return value of null indicates processing is complete for
     // this circuit pass.
+
     public abstract Processor Process();
 
     //-------------------------------------------------------------------------
 
     // Persist this instance as XML.
 
-    public override XmlElement GetAsXml( XmlElement parent )
+    public XmlElement GetAsXml(
+      XmlElement parent,
+      Dictionary<string, Processor> processors )
     {
       // Must call base method.
       parent = base.GetAsXml( parent );
@@ -76,15 +65,26 @@ namespace Loggel
       XmlElement processorElement = ownerDoc.CreateElement( "Processor" );
       parent.AppendChild( processorElement );
 
-      // Sockets.
-      XmlElement socketCollection = ownerDoc.CreateElement( "SocketIdCollection" );
-      processorElement.AppendChild( socketCollection );
+      // Connected processors.
+      XmlElement connectedProcessorIdCollection =
+        ownerDoc.CreateElement( "ConnectedProcessorIdCollection" );
+      processorElement.AppendChild( connectedProcessorIdCollection );
 
-      foreach( Socket socket in OutputSockets.Values )
+      foreach( string name in processors.Keys )
       {
-        XmlElement socketElement = ownerDoc.CreateElement( "SocketId" );
-        socketElement.InnerText = socket.Id.ToString();
-        socketCollection.AppendChild( socketElement );
+        Processor processor = processors[ name ];
+
+        if( processor == null )
+        {
+          continue;
+        }
+
+        XmlElement processorIdElement = ownerDoc.CreateElement( "ProcessorId" );
+        connectedProcessorIdCollection.AppendChild( processorIdElement );
+        processorIdElement.InnerText = processor.Id.ToString();
+        XmlAttribute internalNameAttrib = ownerDoc.CreateAttribute( "internalName" );
+        processorIdElement.Attributes.Append( internalNameAttrib );
+        internalNameAttrib.Value = name;
       }
       
       return processorElement;
@@ -102,14 +102,16 @@ namespace Loggel
       // Processor element.
       XmlElement processorElement = parent[ "Processor" ];
 
-      // Sockets.
-      XmlElement socketCollection = parent[ "SocketIdCollection" ];
+      // Connected processors.
+      XmlElement connectedProcessorIdCollection = parent[ "ConnectedProcessorIdCollection" ];
 
-      foreach( XmlElement socketIdElement in socketCollection.SelectNodes( "SocketId" ) )
+      foreach( XmlElement processorIdElement in connectedProcessorIdCollection.SelectNodes( "ProcessorId" ) )
       {
-        uint id = uint.Parse( socketIdElement.InnerText );
-        Socket socket = (Socket)Context.Components[ id ];
-        OutputSockets.Add( socket.Name, socket );
+        string internalName = processorIdElement.Attributes[ "internalName" ].Value;
+
+        uint id = uint.Parse( processorIdElement.InnerText );
+        Processor processors = (Processor)Context.Components[ id ];
+        ConnectedProcessors.Add( internalName, processors );
       }
 
       return processorElement;

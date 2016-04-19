@@ -25,7 +25,7 @@ namespace Loggel_Test.Processors
       maths.Value2 = 1;
 
       m_or = m_circuit.Context.CreateComponent<Or>( "Or", "" );
-      m_or.OutputSocket.ConnectedProcessor = maths;
+      m_or.ConnectedProcessor = maths;
       m_circuit.EntryProcessor = m_or;
     }
 

@@ -20,3 +20,6 @@ Loggella: GUI application using Loggel and Nang to create logic models (circuits
 |<- [NANG] Use Loggel as an engine to construct a Nang story.
     ^
     |<- [NANG] Model "When...condition...action" logic with Loggel circuit.
+
+[LOGGEL] Logging system - needs to allow for displaying useful info to user, but not
+         flooding him/her with info. E.G. "Component referencing unknown circuit".
