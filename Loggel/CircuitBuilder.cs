@@ -8,19 +8,34 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    public static Circuit BuildFromXmlFile( string absFilename )
+    public static Circuit Load( string absDirectory )
     {
-      // Load the xml.
-      XmlDocument doc = new XmlDocument();
-      doc.Load( absFilename );
-      XmlElement rootElement = doc.FirstChild as XmlElement;
+      // There must be a 'Circuit.xml' file in the directory.
+      string absCircuitFilename = absDirectory + @"\Circuit.xml";
 
-      Circuit circuit = new Circuit( rootElement );
+      if( File.Exists( absCircuitFilename ) == false )
+      {
+        return null;
+      }
 
-      return circuit;
+      // >>> CONTINUE HERE <<<
+
+      // Load the circuit's xml.
+      //XmlDocument doc = new XmlDocument();
+      //doc.Load( absCircuitFilename );
+      //XmlElement rootElement = doc.FirstChild as XmlElement;
+
+      //Circuit circuit = new Circuit( rootElement );
+
+      //return circuit;
+
+      return null;
     }
 
     //-------------------------------------------------------------------------
+
+    // Creates a directory in the parent directory and writes XML docs for
+    // specified circuit and its components to this new directory.
 
     public static void Save( string absParentDirectory,
                              Circuit circuit )
@@ -48,11 +63,12 @@ namespace Loggel
       circuit.GetAsXml( rootElement );
       doc.Save( circuitDir + "Circuit.xml" );
 
+      // Create XML docs for each component.
       foreach( Component component in circuit.Context.Components.Values )
       {
         string absFilename =
           circuitDir +
-          component.GetType().Name + '_' + component.Name + ".xml";
+          "Component_" + component.GetType().Name + '_' + component.Name + ".xml";
 
         doc = new XmlDocument();
         rootElement = doc.CreateElement( "Root" );
