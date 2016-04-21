@@ -1,0 +1,13 @@
+<Root>
+  <Component>
+    <Type>Loggel.Circuit</Type>
+    <Id>0</Id>
+    <Name>TestCircuit</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <InitialValue>0</InitialValue>
+      <EntryProcessorId>2</EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>
