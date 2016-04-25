@@ -36,13 +36,11 @@ namespace Loggel
 
     // Class constructor for restoring from xml.
 
-    public Circuit( XmlElement parent )
+    public Circuit()
     :
       base( 0, "", "", null )
     {
       Context = new CircuitContext( this );
-
-      RestoreFromXml( parent );
     }
 
     //-------------------------------------------------------------------------
@@ -104,7 +102,7 @@ namespace Loggel
       Context.Value = InitialValue;
 
       // Entry processor.
-      XmlElement entryProcessorIdElement = parent[ "EntryProcessorId" ];
+      XmlElement entryProcessorIdElement = circuitElement[ "EntryProcessorId" ];
       if( entryProcessorIdElement.InnerText.Length > 0 )
       {
         uint id = uint.Parse( entryProcessorIdElement.InnerText );

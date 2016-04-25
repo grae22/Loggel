@@ -84,12 +84,6 @@ namespace Loggel_Test
     [TestMethod]
     public void GetAsXml()
     {
-      //XmlDocument xmlDoc = new XmlDocument();
-      //XmlElement rootElement = xmlDoc.CreateElement( "Root" );
-      //xmlDoc.AppendChild( rootElement );
-      //m_valueManipulator.GetAsXml( rootElement );
-      //xmlDoc.Save( "Circuit_Test.GetAsXml.xml" );
-
       string path =
         Path.GetDirectoryName(
           Assembly.GetExecutingAssembly().Location ) + @"\Circuit_Test.GetAsXml\";

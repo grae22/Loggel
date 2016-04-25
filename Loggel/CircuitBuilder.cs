@@ -18,18 +18,17 @@ namespace Loggel
         return null;
       }
 
-      // >>> CONTINUE HERE <<<
-
       // Load the circuit's xml.
-      //XmlDocument doc = new XmlDocument();
-      //doc.Load( absCircuitFilename );
-      //XmlElement rootElement = doc.FirstChild as XmlElement;
+      XmlDocument doc = new XmlDocument();
+      doc.Load( absCircuitFilename );
+      XmlElement rootElement = doc.FirstChild as XmlElement;
 
-      //Circuit circuit = new Circuit( rootElement );
+      Circuit circuit = new Circuit();
 
-      //return circuit;
+      // Load the rest of the circuit's components.
+      // TODO: Continue here.
 
-      return null;
+      return circuit;
     }
 
     //-------------------------------------------------------------------------
