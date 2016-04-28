@@ -25,8 +25,26 @@ namespace Loggel
 
       Circuit circuit = new Circuit();
 
-      // Load the rest of the circuit's components.
-      // TODO: Continue here.
+      // Load the rest of the circuit's components, each has its own xml file.
+      string[] filenames =
+        Directory.GetFiles(
+          absDirectory,
+          "*.xml",
+          SearchOption.TopDirectoryOnly );
+
+      foreach( string filename in filenames )
+      {
+        string name =
+          Path.GetFileNameWithoutExtension( filename );
+
+        // Skip the circuit's file.
+        if( name.ToLower() == "circuit" )
+        {
+          continue;
+        }
+        
+        // TODO: Continue here.
+      }
 
       return circuit;
     }
@@ -72,6 +90,11 @@ namespace Loggel
         doc = new XmlDocument();
         rootElement = doc.CreateElement( "Root" );
         doc.AppendChild( rootElement );
+
+        XmlAttribute typeAttrib = doc.CreateAttribute( "type" );
+        typeAttrib.Value = component.GetType().FullName;
+        rootElement.Attributes.Append( typeAttrib );
+
         component.GetAsXml( rootElement );
         doc.Save( absFilename );
       }

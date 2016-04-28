@@ -43,10 +43,6 @@ namespace Loggel
       XmlElement componentElement = ownerDoc.CreateElement( "Component" );
       parent.AppendChild( componentElement );
       
-      XmlElement typeElement = ownerDoc.CreateElement( "Type" );
-      typeElement.InnerText = GetType().FullName;
-      componentElement.AppendChild( typeElement );
-
       XmlElement idElement = ownerDoc.CreateElement( "Id" );
       idElement.InnerText = Id.ToString();
       componentElement.AppendChild( idElement );
