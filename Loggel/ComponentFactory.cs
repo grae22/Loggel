@@ -35,10 +35,23 @@ namespace Loggel
     //-------------------------------------------------------------------------
 
     public static Component Create(
-      string type,
-      string name )
+      string typeName,
+      uint componentId,
+      CircuitContext circuitContext )
     {
-      return null;
+      object[] args = { componentId, "(pending)", "", circuitContext };
+
+      Component component =
+        (Component)Activator.CreateInstance(
+          Type.GetType( typeName ),
+          args );
+
+      if( NextComponentId <= componentId )
+      {
+        NextComponentId = componentId + 1;
+      }
+
+      return component;
     }
 
     //-------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Loggel
 {
@@ -26,6 +27,8 @@ namespace Loggel
       Circuit circuit = new Circuit();
 
       // Load the rest of the circuit's components, each has its own xml file.
+      Dictionary<Component, XmlElement> componentsToXml = new Dictionary<Component, XmlElement>();
+
       string[] filenames =
         Directory.GetFiles(
           absDirectory,
@@ -43,7 +46,25 @@ namespace Loggel
           continue;
         }
         
-        // TODO: Continue here.
+        // Load the doc and get the component type.
+        doc = new XmlDocument();
+        doc.Load( filename );
+        rootElement = doc.FirstChild as XmlElement;
+        string typeName = rootElement.Attributes[ "type" ].Value;
+        uint componentId = uint.Parse( rootElement.Attributes[ "id" ].Value );
+
+        // Instantiate the component.
+        Component component =
+          circuit.Context.CreateComponent(
+            typeName,
+            componentId );
+
+        componentsToXml.Add( component, rootElement );
+      }
+
+      foreach( KeyValuePair<Component, XmlElement> componentAndXml in componentsToXml )
+      {
+        componentAndXml.Key.RestoreFromXml( componentAndXml.Value );
       }
 
       return circuit;
@@ -94,6 +115,10 @@ namespace Loggel
         XmlAttribute typeAttrib = doc.CreateAttribute( "type" );
         typeAttrib.Value = component.GetType().FullName;
         rootElement.Attributes.Append( typeAttrib );
+
+        XmlAttribute idAttrib = doc.CreateAttribute( "id" );
+        idAttrib.Value = component.Id.ToString();
+        rootElement.Attributes.Append( idAttrib );
 
         component.GetAsXml( rootElement );
         doc.Save( absFilename );

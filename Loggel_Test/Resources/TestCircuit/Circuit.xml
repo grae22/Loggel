@@ -1,7 +1,5 @@
 <Root>
   <Component>
-    <Type>Loggel.Circuit</Type>
-    <Id>0</Id>
     <Name>TestCircuit</Name>
     <Description>
     </Description>

@@ -79,27 +79,32 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    // Returns component if it already exists, null if not.
-    /*
-    public T GetComponent<T>( string name ) where T : Component
+    public Component CreateComponent(
+      string typeName,
+      uint componentId )
     {
-      T component = null;
+      Component component = null;
 
-      if( Components.ContainsKey( name ) )          
+      // Must have a type name.
+      if( typeName.Length == 0 )
       {
-        component = (T)Components[ name ];
-
-        if( component == null )
-        {
-          throw new Exception(
-            "Component '" + name + "' is not of type '" +
-            typeof( T ).Name + "'." );
-        }
+        throw new ArgumentException( "Component must have a type-name." );
       }
+
+      // Create it?
+      component = ComponentFactory.Create( typeName, componentId, this );
+
+      if( component == null )
+      {
+        throw new Exception(
+          "Failed to create component of type '" + typeName + "." );
+      }
+
+      Components.Add( component.Id, component );
 
       return component;
     }
-    */
+    
     //-------------------------------------------------------------------------
   }
 }

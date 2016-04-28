@@ -1,7 +1,5 @@
-<Root>
+<Root type="Loggel.Processors.Comparer" id="2">
   <Component>
-    <Type>Loggel.Processors.Comparer</Type>
-    <Id>2</Id>
     <Name>Comparer</Name>
     <Description>
     </Description>

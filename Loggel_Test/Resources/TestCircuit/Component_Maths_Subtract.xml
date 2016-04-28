@@ -1,7 +1,5 @@
-<Root>
+<Root type="Loggel.Processors.Maths" id="1">
   <Component>
-    <Type>Loggel.Processors.Maths</Type>
-    <Id>1</Id>
     <Name>Subtract</Name>
     <Description>
     </Description>

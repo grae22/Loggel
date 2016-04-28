@@ -103,7 +103,7 @@ namespace Loggel
       XmlElement processorElement = parent[ "Processor" ];
 
       // Connected processors.
-      XmlElement connectedProcessorIdCollection = parent[ "ConnectedProcessorIdCollection" ];
+      XmlElement connectedProcessorIdCollection = processorElement[ "ConnectedProcessorIdCollection" ];
 
       foreach( XmlElement processorIdElement in connectedProcessorIdCollection.SelectNodes( "ProcessorId" ) )
       {
