@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using System.Xml;
 using System.IO;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Loggel;
 using Loggel.Processors;
@@ -13,6 +13,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     private Circuit m_valueManipulator;
+    private Circuit m_comparisonValue;
 
     //-------------------------------------------------------------------------
 
@@ -20,7 +21,7 @@ namespace Loggel_Test
     public void Initialise()
     {
       // Circuit whose value is manipulated.
-      m_valueManipulator = new Circuit( "TestCircuit", "", 0.0 );
+      m_valueManipulator = ComponentFactory.CreateCircuit( "TestCircuit", 0.0 );
 
       // Maths processor for adding 1 to the valueManipulator circuit value.
       Maths mathsAdd = m_valueManipulator.Context.CreateComponent<Maths>( "Add", "" );
@@ -33,11 +34,11 @@ namespace Loggel_Test
       mathsSub.Value2 = 1.0;
 
       // Circuit which produces the comparison value we will use.
-      Circuit comparisonValue = new Circuit( "ComparisonValue", "", 1.0 );
+      m_comparisonValue = ComponentFactory.CreateCircuit( "ComparisonValue", 1.0 );
 
       // Comparer processor for valueManipulator circuit.
       Comparer comparer = m_valueManipulator.Context.CreateComponent<Comparer>( "Comparer", "" );
-      comparer.ComparisonValueSource = comparisonValue.Context;
+      comparer.ComparisonValueSource = m_comparisonValue.Context;
       comparer.Processor_NotEqual = mathsAdd;
       comparer.Processor_Equal = mathsSub;
       m_valueManipulator.EntryProcessor = comparer;
@@ -95,6 +96,7 @@ namespace Loggel_Test
       catch { }
 
       CircuitBuilder.Save( path, m_valueManipulator );
+      CircuitBuilder.Save( path, m_comparisonValue );
 
       //string content = File.ReadAllText( "Circuit_Test.GetAsXml.xml" );
       //string reference = File.ReadAllText( @"..\..\Resources\Circuit_Test.GetAsXml.xml" );
@@ -108,8 +110,20 @@ namespace Loggel_Test
     [TestMethod]
     public void RestoreFromXml()
     {
-      Circuit circuit =
-        CircuitBuilder.Load( @"..\..\Resources\TestCircuit" );
+      List<Circuit> circuits;
+      CircuitBuilder.Load( @"..\..\Resources\", out circuits );
+
+      foreach( Circuit c in circuits )
+      {
+        if( c.Name == "TestCircuit" )
+        {
+          m_valueManipulator = c;
+          break;
+        }
+      }
+
+      // Run the routing tests.
+      Routing();
 
       // Now dump it back to xml file, reload and test everything's the same.
       //XmlDocument xmlDoc = new XmlDocument();

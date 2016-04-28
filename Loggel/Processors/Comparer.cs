@@ -280,7 +280,7 @@ namespace Loggel.Processors
       if( externalValueSourceIdElement.InnerText.Length > 0 )
       {
         uint id = uint.Parse( externalValueSourceIdElement.InnerText );
-        ExternalValueSource = Context.Board.Circuits[ id ].Context;
+        ExternalValueSource = CircuitContext.AllContexts[ id ];
       }
 
       // Comparison value source.
@@ -288,7 +288,7 @@ namespace Loggel.Processors
       if( comparisonValueSourceIdElement.InnerText.Length > 0 )
       {
         uint id = uint.Parse( comparisonValueSourceIdElement.InnerText );
-        ComparisonValueSource = Context.Board.Circuits[ id ].Context;
+        ComparisonValueSource = CircuitContext.AllContexts[ id ];
       }
 
       // Range min value source.
@@ -296,7 +296,7 @@ namespace Loggel.Processors
       if( rangeMinValueSourceIdElement.InnerText.Length > 0 )
       {
         uint id = uint.Parse( rangeMinValueSourceIdElement.InnerText );
-        RangeMinSource = Context.Board.Circuits[ id ].Context;
+        RangeMinSource = CircuitContext.AllContexts[ id ];
       }
 
       // Range max value source.
@@ -304,7 +304,7 @@ namespace Loggel.Processors
       if( rangeMaxValueSourceIdElement.InnerText.Length > 0 )
       {
         uint id = uint.Parse( rangeMaxValueSourceIdElement.InnerText );
-        RangeMaxSource = Context.Board.Circuits[ id ].Context;
+        RangeMaxSource = CircuitContext.AllContexts[ id ];
       }
 
       // Connected processors.

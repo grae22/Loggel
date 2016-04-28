@@ -2,7 +2,7 @@
 
 namespace Loggel
 {
-  class ComponentFactory
+  public class ComponentFactory
   {
     //-------------------------------------------------------------------------
 
@@ -39,6 +39,7 @@ namespace Loggel
       uint componentId,
       CircuitContext circuitContext )
     {
+      // Components take a name, description & circuit-context as constructor args.
       object[] args = { componentId, "(pending)", "", circuitContext };
 
       Component component =
@@ -46,12 +47,42 @@ namespace Loggel
           Type.GetType( typeName ),
           args );
 
+      // Update the 'next component id' with this id + 1.
       if( NextComponentId <= componentId )
       {
         NextComponentId = componentId + 1;
       }
 
       return component;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public static Circuit CreateCircuit(
+      string name,
+      dynamic initialValue )
+    {
+      return
+        new Circuit(
+          NextComponentId++,
+          name,
+          "",
+          initialValue );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public static Circuit CreateCircuit( uint componentId )
+    {
+      Circuit circuit = new Circuit( componentId );
+
+      // Update the 'next component id' with this id + 1.
+      if( NextComponentId <= componentId )
+      {
+        NextComponentId = componentId + 1;
+      }
+
+      return circuit;
     }
 
     //-------------------------------------------------------------------------

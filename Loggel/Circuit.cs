@@ -21,14 +21,15 @@ namespace Loggel
     // Class constructor.
 
     public Circuit(
+      uint componentId,
       string name,
       string description,
       dynamic initialValue )
     :
-      base( 0, name, description, null )
+      base( componentId, name, description, null )
     {
       InitialValue = initialValue;
-      Context = new CircuitContext( this );
+      Context = CircuitContext.CreateContext( this );
       Context.Value = initialValue;
     }
 
@@ -36,11 +37,11 @@ namespace Loggel
 
     // Class constructor for restoring from xml.
 
-    public Circuit()
+    public Circuit( uint componentId )
     :
-      base( 0, "", "", null )
+      base( componentId, "", "", null )
     {
-      Context = new CircuitContext( this );
+      Context = CircuitContext.CreateContext( this );
     }
 
     //-------------------------------------------------------------------------

@@ -1,16 +1,16 @@
-<Root type="Loggel.Processors.Comparer" id="2">
+<Root type="Loggel.Processors.Comparer" id="4">
   <Component>
     <Name>Comparer</Name>
     <Description>
     </Description>
     <Processor>
       <ConnectedProcessorIdCollection>
-        <ProcessorId internalName="equal">1</ProcessorId>
-        <ProcessorId internalName="notEqual">0</ProcessorId>
+        <ProcessorId internalName="equal">2</ProcessorId>
+        <ProcessorId internalName="notEqual">1</ProcessorId>
       </ConnectedProcessorIdCollection>
       <Comparer>
         <ExternalValueSourceId />
-        <ComparisonValueSourceId>0</ComparisonValueSourceId>
+        <ComparisonValueSourceId>3</ComparisonValueSourceId>
         <RangeMinSourceId />
         <RangeMaxSourceId />
         <ComparisonValue />

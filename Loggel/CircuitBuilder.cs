@@ -9,65 +9,95 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
-    public static Circuit Load( string absDirectory )
+    public static void Load(
+      string absDirectory,
+      out List<Circuit> circuits )
     {
-      // There must be a 'Circuit.xml' file in the directory.
+      Dictionary<Component, XmlElement> componentXml = new Dictionary<Component, XmlElement>();
+
+      circuits = new List<Circuit>();
+
+      CircuitContext.AllContexts.Clear();
+
+      RecursiveLoad(
+        absDirectory,
+        circuits,
+        componentXml );
+
+      foreach( KeyValuePair<Component, XmlElement> currentComponentXml in componentXml )
+      {
+        currentComponentXml.Key.RestoreFromXml( currentComponentXml.Value );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
+    private static void RecursiveLoad(
+      string absDirectory,
+      List<Circuit> circuits,
+      Dictionary<Component, XmlElement> componentXml )
+    {
+      // Is there a 'Circuit.xml' file in this directory? Load the circuit.
       string absCircuitFilename = absDirectory + @"\Circuit.xml";
 
-      if( File.Exists( absCircuitFilename ) == false )
+      if( File.Exists( absCircuitFilename ) )
       {
-        return null;
-      }
+        // Load the circuit's xml.
+        XmlDocument doc = new XmlDocument();
+        doc.Load( absCircuitFilename );
+        XmlElement rootElement = doc.FirstChild as XmlElement;
 
-      // Load the circuit's xml.
-      XmlDocument doc = new XmlDocument();
-      doc.Load( absCircuitFilename );
-      XmlElement rootElement = doc.FirstChild as XmlElement;
-
-      Circuit circuit = new Circuit();
-
-      // Load the rest of the circuit's components, each has its own xml file.
-      Dictionary<Component, XmlElement> componentsToXml = new Dictionary<Component, XmlElement>();
-
-      string[] filenames =
-        Directory.GetFiles(
-          absDirectory,
-          "*.xml",
-          SearchOption.TopDirectoryOnly );
-
-      foreach( string filename in filenames )
-      {
-        string name =
-          Path.GetFileNameWithoutExtension( filename );
-
-        // Skip the circuit's file.
-        if( name.ToLower() == "circuit" )
-        {
-          continue;
-        }
-        
-        // Load the doc and get the component type.
-        doc = new XmlDocument();
-        doc.Load( filename );
-        rootElement = doc.FirstChild as XmlElement;
-        string typeName = rootElement.Attributes[ "type" ].Value;
         uint componentId = uint.Parse( rootElement.Attributes[ "id" ].Value );
 
-        // Instantiate the component.
-        Component component =
-          circuit.Context.CreateComponent(
-            typeName,
-            componentId );
+        Circuit circuit = ComponentFactory.CreateCircuit( componentId );
 
-        componentsToXml.Add( component, rootElement );
+        circuits.Add( circuit );    // TODO: Remove?
+
+        // Load the rest of the circuit's components, each has its own xml file.
+        string[] filenames =
+          Directory.GetFiles(
+            absDirectory,
+            "*.xml",
+            SearchOption.TopDirectoryOnly );
+
+        foreach( string filename in filenames )
+        {
+          string name =
+            Path.GetFileNameWithoutExtension( filename );
+
+          // Skip the circuit's file.
+          if( name.ToLower() == "circuit" )
+          {
+            continue;
+          }
+        
+          // Load the doc and get the component type.
+          doc = new XmlDocument();
+          doc.Load( filename );
+          rootElement = doc.FirstChild as XmlElement;
+          string typeName = rootElement.Attributes[ "type" ].Value;
+          componentId = uint.Parse( rootElement.Attributes[ "id" ].Value );
+
+          // Instantiate the component.
+          Component component =
+            circuit.Context.CreateComponent(
+              typeName,
+              componentId );
+
+          componentXml.Add( component, rootElement );
+        }
       }
 
-      foreach( KeyValuePair<Component, XmlElement> componentAndXml in componentsToXml )
+      // Check for sub-directories with circuits.
+      string[] subDirectories = Directory.GetDirectories( absDirectory );
+
+      foreach( string subDir in subDirectories )
       {
-        componentAndXml.Key.RestoreFromXml( componentAndXml.Value );
+        RecursiveLoad(
+          subDir,
+          circuits,
+          componentXml );
       }
-
-      return circuit;
     }
 
     //-------------------------------------------------------------------------
@@ -98,6 +128,11 @@ namespace Loggel
       XmlDocument doc = new XmlDocument();
       XmlElement rootElement = doc.CreateElement( "Root" );
       doc.AppendChild( rootElement );
+
+      XmlAttribute idAttrib = doc.CreateAttribute( "id" );
+      idAttrib.Value = circuit.Id.ToString();
+      rootElement.Attributes.Append( idAttrib );
+
       circuit.GetAsXml( rootElement );
       doc.Save( circuitDir + "Circuit.xml" );
 
@@ -116,7 +151,7 @@ namespace Loggel
         typeAttrib.Value = component.GetType().FullName;
         rootElement.Attributes.Append( typeAttrib );
 
-        XmlAttribute idAttrib = doc.CreateAttribute( "id" );
+        idAttrib = doc.CreateAttribute( "id" );
         idAttrib.Value = component.Id.ToString();
         rootElement.Attributes.Append( idAttrib );
 

@@ -1,0 +1,12 @@
+<Root id="3">
+  <Component>
+    <Name>ComparisonValue</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <InitialValue>1</InitialValue>
+      <EntryProcessorId>
+      </EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

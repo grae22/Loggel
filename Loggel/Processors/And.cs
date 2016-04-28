@@ -145,11 +145,9 @@ namespace Loggel.Processors
       {
         Condition condition = new Condition();
 
-        Circuit circuit =
-          Context.Board.Circuits[
-            uint.Parse(
-              conditionElement[ "ValueSourceId" ].InnerText ) ];
-        condition.ValueSource = circuit.Context;
+        condition.ValueSource =
+          CircuitContext.AllContexts[
+            uint.Parse( conditionElement[ "ValueSourceId" ].InnerText ) ];
 
         condition.ComparisonValue = conditionElement[ "ComparisonValue" ].InnerText;
 

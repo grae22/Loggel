@@ -7,9 +7,10 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
+    public static Dictionary<uint, CircuitContext> AllContexts { get; private set; } = new Dictionary<uint, CircuitContext>();
+
     public dynamic Value { get; set; }
     public Dictionary<uint, Component> Components { get; private set; } = new Dictionary<uint, Component>();
-    public Board Board { get; private set; }
 
     private Circuit Circuit { get; set; }
 
@@ -35,7 +36,18 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    public CircuitContext( Circuit circuit )
+    public static CircuitContext CreateContext( Circuit circuit )
+    {
+      CircuitContext context = new CircuitContext( circuit );
+
+      AllContexts.Add( context.Id, context );
+
+      return context;
+    }
+
+    //-------------------------------------------------------------------------
+
+    private CircuitContext( Circuit circuit )
     {
       Circuit = circuit;
     }
@@ -105,6 +117,21 @@ namespace Loggel
       return component;
     }
     
+    //-------------------------------------------------------------------------
+
+    public Component GetComponent( string name )
+    {
+      foreach( Component component in Components.Values )
+      {
+        if( component.Name == name )
+        {
+          return component;
+        }
+      }
+
+      return null;
+    }
+
     //-------------------------------------------------------------------------
   }
 }
