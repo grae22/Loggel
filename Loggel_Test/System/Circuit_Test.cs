@@ -83,7 +83,7 @@ namespace Loggel_Test
     // what we're expecting.
 
     [TestMethod]
-    public void GetAsXml()
+    public void SaveCircuits()
     {
       string path =
         Path.GetDirectoryName(
@@ -108,7 +108,7 @@ namespace Loggel_Test
     // Test that we can restore a circuit from xml.
 
     [TestMethod]
-    public void RestoreFromXml()
+    public void LoadCircuit()
     {
       List<Circuit> circuits;
       CircuitBuilder.Load( @"..\..\Resources\", out circuits );
