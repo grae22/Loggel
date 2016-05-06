@@ -1,4 +1,16 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+/*
+  * This class determines which (if any) connected processor will become
+  * live by comparing the circuit value against a comparison value (which
+  * may be dynamic if a circuit is provided for this purpose).
+  * 
+  * NOTE:
+  * x Range checks are performed as follows:
+  *   x In-range: Inclusive.
+  *   x Not in-range: Exclusive.
+*/
+//-----------------------------------------------------------------------------
+
 using System.Xml;
 using System.Collections.Generic;
 
@@ -6,19 +18,6 @@ namespace Loggel.Processors
 {
   public class Comparer : Processor
   {
-    //-------------------------------------------------------------------------
-
-    /*
-     * This class determines which (if any) connected processor will become
-     * live by comparing the circuit value against a comparison value (which
-     * may be dynamic if a circuit is provided for this purpose).
-     * 
-     * NOTE:
-     * x Range checks are performed as follows:
-     *   x In-range: Inclusive.
-     *   x Not in-range: Exclusive.
-    */
-
     //-------------------------------------------------------------------------
     // PROPERTIES.
 
