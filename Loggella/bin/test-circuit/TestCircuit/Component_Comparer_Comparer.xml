@@ -1,0 +1,22 @@
+<Root type="Loggel.Processors.Comparer" id="4">
+  <Component>
+    <Name>Comparer</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="equal">2</ProcessorId>
+        <ProcessorId internalName="notEqual">1</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Comparer>
+        <ExternalValueSourceId>5</ExternalValueSourceId>
+        <ComparisonValueSourceId />
+        <RangeMinSourceId />
+        <RangeMaxSourceId />
+        <ComparisonValue>1</ComparisonValue>
+        <RangeMin />
+        <RangeMax />
+      </Comparer>
+    </Processor>
+  </Component>
+</Root>

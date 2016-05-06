@@ -1,0 +1,12 @@
+<Root id="0">
+  <Component>
+    <Name>TestCircuit</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <ValueType>System.Double</ValueType>
+      <InitialValue>0</InitialValue>
+      <EntryProcessorId>4</EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

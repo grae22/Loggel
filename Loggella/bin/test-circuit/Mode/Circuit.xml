@@ -1,0 +1,12 @@
+<Root id="5">
+  <Component>
+    <Name>Mode</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <ValueType>System.Double</ValueType>
+      <InitialValue>0</InitialValue>
+      <EntryProcessorId>6</EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

@@ -1,0 +1,22 @@
+<Root type="Loggel.Processors.Comparer" id="6">
+  <Component>
+    <Name>DeactiveCondition</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="equal">8</ProcessorId>
+        <ProcessorId internalName="notEqual">9</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Comparer>
+        <ExternalValueSourceId>0</ExternalValueSourceId>
+        <ComparisonValueSourceId />
+        <RangeMinSourceId />
+        <RangeMaxSourceId />
+        <ComparisonValue>10</ComparisonValue>
+        <RangeMin />
+        <RangeMax />
+      </Comparer>
+    </Processor>
+  </Component>
+</Root>

@@ -1,0 +1,21 @@
+<Root type="Loggel.Processors.Comparer" id="9">
+  <Component>
+    <Name>ActiveCondition</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="equal">7</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Comparer>
+        <ExternalValueSourceId>0</ExternalValueSourceId>
+        <ComparisonValueSourceId />
+        <RangeMinSourceId />
+        <RangeMaxSourceId />
+        <ComparisonValue>-1</ComparisonValue>
+        <RangeMin />
+        <RangeMax />
+      </Comparer>
+    </Processor>
+  </Component>
+</Root>

@@ -1,0 +1,14 @@
+<Root type="Loggel.Processors.Maths" id="1">
+  <Component>
+    <Name>Add</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection />
+      <Maths>
+        <Operator>+</Operator>
+        <Value2>1</Value2>
+      </Maths>
+    </Processor>
+  </Component>
+</Root>
