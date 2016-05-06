@@ -113,6 +113,8 @@ namespace Loggel_Test
       List<Circuit> circuits;
       CircuitBuilder.Load( @"..\..\Resources\", out circuits );
 
+      m_valueManipulator = null;
+
       foreach( Circuit c in circuits )
       {
         if( c.Name == "TestCircuit" )

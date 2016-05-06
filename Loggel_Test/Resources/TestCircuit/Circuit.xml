@@ -4,6 +4,7 @@
     <Description>
     </Description>
     <Circuit>
+      <ValueType>System.Double</ValueType>
       <InitialValue>0</InitialValue>
       <EntryProcessorId>4</EntryProcessorId>
     </Circuit>

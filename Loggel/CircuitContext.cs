@@ -133,5 +133,21 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+
+    // Converts values in string form into the type of this circuit. This is
+    // typically used when restoring processors from xml.
+
+    public dynamic ConvertToCircuitValueType( string valueToConvert )
+    {
+      //valueToConvert = ( valueToConvert.Length == 0 ? "0" : valueToConvert );
+      if( valueToConvert.Length == 0 )
+      {
+        return null;
+      }
+
+      return Convert.ChangeType( valueToConvert, Value.GetType() );
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

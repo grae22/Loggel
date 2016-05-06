@@ -50,8 +50,9 @@ namespace Loggel
         uint componentId = uint.Parse( rootElement.Attributes[ "id" ].Value );
 
         Circuit circuit = ComponentFactory.CreateCircuit( componentId );
+        componentXml.Add( circuit, rootElement );
 
-        circuits.Add( circuit );    // TODO: Remove?
+        circuits.Add( circuit );
 
         // Load the rest of the circuit's components, each has its own xml file.
         string[] filenames =

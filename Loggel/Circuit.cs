@@ -1,3 +1,4 @@
+using System;
 using System.Xml;
 
 namespace Loggel
@@ -77,6 +78,10 @@ namespace Loggel
       XmlElement circuitElement = ownerDoc.CreateElement( "Circuit" );
       parent.AppendChild( circuitElement );
       
+      XmlElement valueTypeElement = ownerDoc.CreateElement( "ValueType" );
+      valueTypeElement.InnerText = Context.Value.GetType().FullName;
+      circuitElement.AppendChild( valueTypeElement );
+
       XmlElement initialValueElement = ownerDoc.CreateElement( "InitialValue" );
       initialValueElement.InnerText = InitialValue.ToString();
       circuitElement.AppendChild( initialValueElement );
@@ -99,7 +104,16 @@ namespace Loggel
 
       // Circuit.
       XmlElement circuitElement = parent[ "Circuit" ];
-      InitialValue = circuitElement[ "InitialValue" ].InnerText;
+
+      // Value type.
+      string valueTypeName = circuitElement[ "ValueType" ].InnerText;
+      Type valueType = Type.GetType( valueTypeName );
+
+      Context.Value = Convert.ChangeType( "0", valueType );
+
+      // Initial value.
+      string initialValueAsString = circuitElement[ "InitialValue" ].InnerText;
+      InitialValue = Context.ConvertToCircuitValueType( initialValueAsString );
       Context.Value = InitialValue;
 
       // Entry processor.

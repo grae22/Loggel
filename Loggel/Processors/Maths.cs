@@ -117,7 +117,7 @@ namespace Loggel.Processors
       XmlElement value2Element = mathsElement[ "Value2" ];
       if( value2Element.InnerText.Length > 0 )
       {
-        Value2 = value2Element.InnerText;
+        Value2 = Context.ConvertToCircuitValueType( value2Element.InnerText );
       }
 
       return mathsElement;

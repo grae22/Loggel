@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 using System.Collections.Generic;
 
 namespace Loggel.Processors
@@ -316,16 +317,17 @@ namespace Loggel.Processors
       Processor_NotInRange = GetConnectedProcessor( "notInRange" );
 
       // Comparison value.
+      // TODO: Restoring from xml currently sets all values as 'strings'... fix this.
       XmlElement comparisonValueElement = comparerElement[ "ComparisonValue" ];
-      ComparisonValue = comparisonValueElement.InnerText;
+      ComparisonValue = Context.ConvertToCircuitValueType( comparisonValueElement.InnerText );
 
       // Range min value.
       XmlElement rangeMinValueElement = comparerElement[ "RangeMin" ];
-      RangeMin = rangeMinValueElement.InnerText;
+      RangeMin = Context.ConvertToCircuitValueType( rangeMinValueElement.InnerText );
 
       // Range max value.
       XmlElement rangeMaxValueElement = comparerElement[ "RangeMax" ];
-      RangeMax = rangeMaxValueElement.InnerText;
+      RangeMax = Context.ConvertToCircuitValueType( rangeMaxValueElement.InnerText );
 
       return comparerElement;
     }
