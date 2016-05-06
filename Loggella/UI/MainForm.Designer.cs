@@ -28,12 +28,34 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.components = new System.ComponentModel.Container();
+      this.uiCircuitValues = new System.Windows.Forms.TextBox();
+      this.SuspendLayout();
+      // 
+      // uiCircuitValues
+      // 
+      this.uiCircuitValues.Location = new System.Drawing.Point(28, 33);
+      this.uiCircuitValues.Multiline = true;
+      this.uiCircuitValues.Name = "uiCircuitValues";
+      this.uiCircuitValues.Size = new System.Drawing.Size(225, 151);
+      this.uiCircuitValues.TabIndex = 0;
+      // 
+      // MainForm
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.Text = "Form1";
+      this.ClientSize = new System.Drawing.Size(284, 261);
+      this.Controls.Add(this.uiCircuitValues);
+      this.Name = "MainForm";
+      this.Text = "Loggella";
+      this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+      this.ResumeLayout(false);
+      this.PerformLayout();
+
     }
 
     #endregion
+
+    private System.Windows.Forms.TextBox uiCircuitValues;
   }
 }
 
