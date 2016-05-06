@@ -1,0 +1,12 @@
+<Root id="0">
+  <Component>
+    <Name>Circuit</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <ValueType>System.Int32</ValueType>
+      <InitialValue>0</InitialValue>
+      <EntryProcessorId>1</EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

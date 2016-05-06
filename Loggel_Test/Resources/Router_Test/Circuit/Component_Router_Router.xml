@@ -1,0 +1,14 @@
+<Root type="Loggel.Processors.Router" id="1">
+  <Component>
+    <Name>Router</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="Comparer1">2</ProcessorId>
+        <ProcessorId internalName="Comparer2">3</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Router />
+    </Processor>
+  </Component>
+</Root>

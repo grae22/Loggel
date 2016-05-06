@@ -12,6 +12,8 @@ namespace Loggel_Test
     [TestMethod]
     public void Integer()
     {
+      Circuit.Reset();
+
       // Create a circuit.
       Circuit valueManipulator = ComponentFactory.CreateCircuit( "", 0 );
 

@@ -20,6 +20,8 @@ namespace Loggel_Test
     [TestInitialize]
     public void Initialise()
     {
+      Circuit.Reset();
+
       // Circuit whose value is manipulated.
       m_valueManipulator = ComponentFactory.CreateCircuit( "TestCircuit", 0.0 );
 
@@ -87,7 +89,7 @@ namespace Loggel_Test
     {
       string path =
         Path.GetDirectoryName(
-          Assembly.GetExecutingAssembly().Location ) + @"\Circuit_Test.GetAsXml\";
+          Assembly.GetExecutingAssembly().Location ) + @"\Circuit_Test\";
 
       try
       {
@@ -111,7 +113,7 @@ namespace Loggel_Test
     public void LoadCircuit()
     {
       List<Circuit> circuits;
-      CircuitBuilder.Load( @"..\..\Resources\", out circuits );
+      CircuitBuilder.Load( @"..\..\Resources\Circuit_Test\", out circuits );
 
       m_valueManipulator = null;
 

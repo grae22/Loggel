@@ -43,10 +43,6 @@ namespace Loggel
       XmlElement componentElement = ownerDoc.CreateElement( "Component" );
       parent.AppendChild( componentElement );
       
-      //XmlElement idElement = ownerDoc.CreateElement( "Id" );
-      //idElement.InnerText = Id.ToString();
-      //componentElement.AppendChild( idElement );
-
       XmlElement nameElement = ownerDoc.CreateElement( "Name" );
       nameElement.InnerText = Name;
       componentElement.AppendChild( nameElement );
@@ -67,9 +63,6 @@ namespace Loggel
     public virtual XmlElement RestoreFromXml( XmlElement parent )
     {
       XmlElement componentElement = parent[ "Component" ];
-
-      //XmlElement idElement = componentElement[ "Id" ];
-      //Id = uint.Parse( idElement.InnerText );
 
       XmlElement nameElement = componentElement[ "Name" ];
       Name = nameElement.InnerText;

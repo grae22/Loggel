@@ -18,6 +18,8 @@ namespace Loggel_Test.Processors
     [TestInitialize]
     public void Initialise()
     {
+      Circuit.Reset();
+
       m_circuit = ComponentFactory.CreateCircuit( "", 0 );
 
       Maths maths = m_circuit.Context.CreateComponent<Maths>( "Maths", "" );

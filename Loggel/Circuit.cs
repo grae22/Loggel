@@ -128,5 +128,17 @@ namespace Loggel
     }
 
     //-------------------------------------------------------------------------
+
+    // TODO: This is necessary for unit-tests that generate xml, without this
+    //       we end up with varying component IDs which cause the tests to
+    //       fail. This is a giant hack.
+
+    public static void Reset()
+    {
+      CircuitContext.AllContexts.Clear();
+      ComponentFactory.ResetNextComponentId();
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

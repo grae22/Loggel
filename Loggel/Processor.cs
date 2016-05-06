@@ -41,6 +41,21 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
+    protected string[] GetConnectedProcessorKeys()
+    {
+      string[] keys = new string[ ConnectedProcessors.Count ];
+
+      int i = 0;
+      foreach( string k in ConnectedProcessors.Keys )
+      {
+        keys[ i++ ] = k;
+      }
+
+      return keys;
+    }
+
+    //-------------------------------------------------------------------------
+
     // When a processor's input-socket is live, this will be called to allow
     // the processor to perform logic.
     // The return value should be the next processor whose logic must be

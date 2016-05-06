@@ -26,6 +26,8 @@ namespace Loggel_Test
     [TestInitialize]
     public void Initialise()
     {
+      Circuit.Reset();
+
       m_circuit = ComponentFactory.CreateCircuit( "", 0 );
 
       Maths mathsInRange = m_circuit.Context.CreateComponent<Maths>( "InRange", "" );
