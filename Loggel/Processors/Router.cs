@@ -7,6 +7,10 @@ namespace Loggel.Processors
   {
     //-------------------------------------------------------------------------
 
+    public List<Comparer> Routes { get; private set; } = new List<Comparer>();
+
+    //-------------------------------------------------------------------------
+
     public Router(
       uint id,
       string name,
