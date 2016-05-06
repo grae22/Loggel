@@ -49,7 +49,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void Routing()
+    public void Circuit_Routing()
     {
       // Process circuit:
       // Value is initially 0.0.
@@ -85,7 +85,7 @@ namespace Loggel_Test
     // what we're expecting.
 
     [TestMethod]
-    public void SaveCircuits()
+    public void Circuit_Save()
     {
       string path =
         Path.GetDirectoryName(
@@ -110,7 +110,7 @@ namespace Loggel_Test
     // Test that we can restore a circuit from xml.
 
     [TestMethod]
-    public void LoadCircuit()
+    public void Circuit_Load()
     {
       List<Circuit> circuits;
       CircuitBuilder.Load( @"..\..\Resources\Circuit_Test\", out circuits );
@@ -127,7 +127,7 @@ namespace Loggel_Test
       }
 
       // Run the routing tests.
-      Routing();
+      Circuit_Routing();
 
       // Now dump it back to xml file, reload and test everything's the same.
       //XmlDocument xmlDoc = new XmlDocument();

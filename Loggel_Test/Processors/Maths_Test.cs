@@ -10,7 +10,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void Integer()
+    public void Maths_Integer()
     {
       Circuit.Reset();
 
@@ -66,7 +66,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void Double()
+    public void Maths_Double()
     {
       // Create a circuit.
       Circuit valueManipulator = ComponentFactory.CreateCircuit( "", 0.0 );

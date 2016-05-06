@@ -36,7 +36,7 @@ namespace Loggel_Test.Processors
     // the connected processor for processing.
 
     [TestMethod]
-    public void NoConditions()
+    public void Or_NoConditions()
     {
       m_circuit.Process();
       Assert.AreEqual( 1, m_circuit.Context.Value, "Signal should have passed." );
@@ -45,7 +45,7 @@ namespace Loggel_Test.Processors
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void ConditionsMet()
+    public void Or_ConditionsMet()
     {
       Circuit compareValue1 = ComponentFactory.CreateCircuit( "", 123 );
       Or.Condition condition1 = new Or.Condition();
@@ -68,7 +68,7 @@ namespace Loggel_Test.Processors
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void ConditionsNotMet()
+    public void Or_ConditionsNotMet()
     {
       Circuit compareValue1 = ComponentFactory.CreateCircuit( "", 999 );
       Or.Condition condition1 = new Or.Condition();

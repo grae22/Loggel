@@ -67,7 +67,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void InRange()
+    public void Comparer_InRange()
     {
       // Test in range.
       m_comparer.RangeMin = -1;
@@ -82,7 +82,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void NotInRange()
+    public void Comparer_NotInRange()
     {
       // Test not in range.
       m_comparer.RangeMin = 1;
@@ -97,7 +97,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void Equal()
+    public void Comparer_Equal()
     {
       // 'Range' checks take precedence over other types, so remove them.
       m_comparer.Processor_InRange = null;
@@ -115,7 +115,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void Greater()
+    public void Comparer_Greater()
     {
       // 'Range' checks take precedence over other types, so remove them.
       m_comparer.Processor_InRange = null;
@@ -133,7 +133,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void Lesser()
+    public void Comparer_Lesser()
     {
       // 'Range' checks take precedence over other types, so remove them.
       m_comparer.Processor_InRange = null;
@@ -151,7 +151,7 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
-    public void NotEqual()
+    public void Comparer_NotEqual()
     {
       // 'Range' checks take precedence over other types, so remove them.
       m_comparer.Processor_InRange = null;
