@@ -1,0 +1,14 @@
+<Root type="Loggel.Processors.Router" id="8">
+  <Component>
+    <Name>ChargeOrDischarge</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="HitMaxPressure">9</ProcessorId>
+        <ProcessorId internalName="HitMinPressure">10</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Router />
+    </Processor>
+  </Component>
+</Root>

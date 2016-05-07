@@ -1,0 +1,21 @@
+<Root type="Loggel.Processors.Comparer" id="9">
+  <Component>
+    <Name>HitMaxPressure</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="equal">11</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Comparer>
+        <ExternalValueSourceId>1</ExternalValueSourceId>
+        <ComparisonValueSourceId />
+        <RangeMinSourceId />
+        <RangeMaxSourceId />
+        <ComparisonValue>10</ComparisonValue>
+        <RangeMin></RangeMin>
+        <RangeMax></RangeMax>
+      </Comparer>
+    </Processor>
+  </Component>
+</Root>

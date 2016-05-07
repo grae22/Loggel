@@ -1,18 +1,18 @@
-<Root type="Loggel.Processors.Comparer" id="5">
+<Root type="Loggel.Processors.Comparer" id="15">
   <Component>
-    <Name>EngineOffOrCranking</Name>
+    <Name>IsDischarging</Name>
     <Description>
     </Description>
     <Processor>
       <ConnectedProcessorIdCollection>
-        <ProcessorId internalName="equal">6</ProcessorId>
+        <ProcessorId internalName="equal">16</ProcessorId>
       </ConnectedProcessorIdCollection>
       <Comparer>
-        <ExternalValueSourceId>0</ExternalValueSourceId>
+        <ExternalValueSourceId>7</ExternalValueSourceId>
         <ComparisonValueSourceId />
         <RangeMinSourceId />
         <RangeMaxSourceId />
-        <ComparisonValue>2</ComparisonValue>
+        <ComparisonValue>0</ComparisonValue>
         <RangeMin></RangeMin>
         <RangeMax></RangeMax>
       </Comparer>

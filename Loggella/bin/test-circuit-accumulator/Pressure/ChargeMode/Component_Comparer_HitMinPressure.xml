@@ -1,20 +1,20 @@
-<Root type="Loggel.Processors.Comparer" id="3">
+<Root type="Loggel.Processors.Comparer" id="10">
   <Component>
-    <Name>EngineOffOrCranking</Name>
+    <Name>HitMinPressure</Name>
     <Description>
     </Description>
     <Processor>
       <ConnectedProcessorIdCollection>
-        <ProcessorId internalName="inRange">4</ProcessorId>
+        <ProcessorId internalName="equal">12</ProcessorId>
       </ConnectedProcessorIdCollection>
       <Comparer>
-        <ExternalValueSourceId>0</ExternalValueSourceId>
+        <ExternalValueSourceId>1</ExternalValueSourceId>
         <ComparisonValueSourceId />
         <RangeMinSourceId />
         <RangeMaxSourceId />
-        <ComparisonValue />
-        <RangeMin>0</RangeMin>
-        <RangeMax>1</RangeMax>
+        <ComparisonValue>5</ComparisonValue>
+        <RangeMin></RangeMin>
+        <RangeMax></RangeMax>
       </Comparer>
     </Processor>
   </Component>

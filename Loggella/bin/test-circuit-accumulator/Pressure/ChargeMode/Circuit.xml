@@ -1,0 +1,12 @@
+<Root type="Loggel.Circuit" id="7">
+  <Component>
+    <Name>ChargeOrDischarge</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <ValueType>System.Int16</ValueType>
+      <InitialValue>1</InitialValue>
+      <EntryProcessorId>8</EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

@@ -22,7 +22,7 @@ namespace Loggella
 
       List<Circuit> circuits;
       CircuitBuilder.Load(
-        "./test-circuit-pressure/",
+        "./test-circuit-accumulator/",
         out circuits );
       Circuits = circuits;
 

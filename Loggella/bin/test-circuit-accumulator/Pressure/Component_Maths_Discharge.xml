@@ -1,12 +1,12 @@
-<Root type="Loggel.Processors.Maths" id="6">
+<Root type="Loggel.Processors.Maths" id="4">
   <Component>
-    <Name>ZeroPressure</Name>
+    <Name>Discharge</Name>
     <Description>
     </Description>
     <Processor>
       <ConnectedProcessorIdCollection />
       <Maths>
-        <Operator>+</Operator>
+        <Operator>-</Operator>
         <Value2>1</Value2>
       </Maths>
     </Processor>

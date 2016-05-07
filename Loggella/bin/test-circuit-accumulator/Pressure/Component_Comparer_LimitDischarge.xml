@@ -1,0 +1,21 @@
+<Root type="Loggel.Processors.Comparer" id="16">
+  <Component>
+    <Name>LimitDischarge</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="greater">4</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Comparer>
+        <ExternalValueSourceId>1</ExternalValueSourceId>
+        <ComparisonValueSourceId />
+        <RangeMinSourceId />
+        <RangeMaxSourceId />
+        <ComparisonValue>0</ComparisonValue>
+        <RangeMin></RangeMin>
+        <RangeMax></RangeMax>
+      </Comparer>
+    </Processor>
+  </Component>
+</Root>
