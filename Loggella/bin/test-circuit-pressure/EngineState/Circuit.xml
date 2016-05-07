@@ -1,0 +1,13 @@
+<Root id="0">
+  <Component>
+    <Name>EngineState</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <ValueType>System.Int16</ValueType>
+      <InitialValue>2</InitialValue>
+      <EntryProcessorId>
+      </EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

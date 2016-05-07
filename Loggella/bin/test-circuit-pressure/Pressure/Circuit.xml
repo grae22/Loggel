@@ -1,0 +1,12 @@
+<Root id="1">
+  <Component>
+    <Name>Pressure</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <ValueType>System.Double</ValueType>
+      <InitialValue>0</InitialValue>
+      <EntryProcessorId>2</EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

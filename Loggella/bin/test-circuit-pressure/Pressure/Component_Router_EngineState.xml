@@ -1,0 +1,14 @@
+<Root type="Loggel.Processors.Router" id="2">
+  <Component>
+    <Name>EngineState</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection>
+        <ProcessorId internalName="OffOrCranking">3</ProcessorId>
+        <ProcessorId internalName="Running">5</ProcessorId>
+      </ConnectedProcessorIdCollection>
+      <Router />
+    </Processor>
+  </Component>
+</Root>
