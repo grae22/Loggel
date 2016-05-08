@@ -1,6 +1,6 @@
 <Root type="Loggel.Processors.Comparer" id="5">
   <Component>
-    <Name>EngineOffOrCranking</Name>
+    <Name>EngineRunning</Name>
     <Description>
     </Description>
     <Processor>

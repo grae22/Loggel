@@ -26,7 +26,7 @@ namespace Loggella.UI
       uiName.Text = CircuitComponent.Name;
       uiType.Text = CircuitComponent.GetType().Name;
 
-      BackColor = CircuitComponent.HasProcessed ? Color.Red : Color.White;
+      BackColor = CircuitComponent.HasProcessed ? Color.Green : Color.White;
     }
 
     //-------------------------------------------------------------------------

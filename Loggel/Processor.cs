@@ -9,7 +9,7 @@ namespace Loggel
 
     // Processors connected to this processor, mapped id to processor.
     // This is only used when loading from xml.
-    private Dictionary<string, Processor> ConnectedProcessors { get; set; } =
+    public Dictionary<string, Processor> ConnectedProcessors { get; private set; } =
       new Dictionary<string, Processor>();
 
     //-------------------------------------------------------------------------

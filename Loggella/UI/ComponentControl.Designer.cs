@@ -57,7 +57,7 @@
       this.Controls.Add(this.uiType);
       this.Controls.Add(this.uiName);
       this.Name = "ComponentControl";
-      this.Size = new System.Drawing.Size(99, 41);
+      this.Size = new System.Drawing.Size(136, 41);
       this.Paint += new System.Windows.Forms.PaintEventHandler(this.ComponentControl_Paint);
       this.ResumeLayout(false);
       this.PerformLayout();

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
+using System.Drawing;
 using Loggel;
 
 namespace Loggella.UI
@@ -26,13 +27,16 @@ namespace Loggella.UI
         out circuits );
       Circuits = circuits;
 
+      Point point = new Point( 0, 10 );
       foreach( Circuit circuit in Circuits )
       {
-        foreach( Component component in circuit.Context.Components.Values )
-        {
-          ComponentControl c = new ComponentControl( component );
-          uiComponentsLayout.Controls.Add( c );
-        }
+        PlaceComponent( circuit, point );
+
+        //foreach( Component component in circuit.Context.Components.Values )
+        //{
+        //  ComponentControl c = new ComponentControl( component );
+        //  uiComponentsLayout.Controls.Add( c );
+        //}
       }
 
       _runner = new Thread( new ThreadStart( Run ) );
@@ -94,18 +98,39 @@ namespace Loggella.UI
           Environment.NewLine;
       }
 
-      //foreach( Control c in uiComponents.Controls )
-      //{
-      //  c.Invalidate();
-      //}
       Invalidate( true );
     }
 
     //-------------------------------------------------------------------------
 
-    private void MainForm_Paint( object sender, PaintEventArgs e )
+    private void PlaceComponent(
+      Component component,
+      Point currentPoint )
     {
+      currentPoint.X += 200;
 
+      if( component is Circuit == false )
+      {
+        ComponentControl c = new ComponentControl( component );
+        c.Location = currentPoint;
+        uiComponents.Controls.Add( c );
+      }
+      else
+      {
+        component = ( component as Circuit ).EntryProcessor;
+      }
+
+      if( component is Processor )
+      {
+        foreach( Processor processor in ( component as Processor ).ConnectedProcessors.Values )
+        {
+          PlaceComponent(
+            processor,
+            currentPoint );
+
+          currentPoint.Y += 50;
+        }
+      }
     }
 
     //-------------------------------------------------------------------------
