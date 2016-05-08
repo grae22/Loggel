@@ -30,6 +30,7 @@
     {
       this.uiName = new System.Windows.Forms.Label();
       this.uiType = new System.Windows.Forms.Label();
+      this.uiValueInput = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
       // 
       // uiName
@@ -50,10 +51,20 @@
       this.uiType.TabIndex = 1;
       this.uiType.Text = "Type";
       // 
+      // uiValueInput
+      // 
+      this.uiValueInput.Location = new System.Drawing.Point(98, 21);
+      this.uiValueInput.Name = "uiValueInput";
+      this.uiValueInput.Size = new System.Drawing.Size(38, 20);
+      this.uiValueInput.TabIndex = 2;
+      this.uiValueInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+      this.uiValueInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.uiValueInput_KeyPress);
+      // 
       // ComponentControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.Controls.Add(this.uiValueInput);
       this.Controls.Add(this.uiType);
       this.Controls.Add(this.uiName);
       this.Name = "ComponentControl";
@@ -68,5 +79,6 @@
 
     private System.Windows.Forms.Label uiName;
     private System.Windows.Forms.Label uiType;
+    private System.Windows.Forms.TextBox uiValueInput;
   }
 }

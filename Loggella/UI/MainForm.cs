@@ -11,9 +11,12 @@ namespace Loggella.UI
   {
     //-------------------------------------------------------------------------
 
-    private List<Circuit> Circuits { get; set; } = new List<Circuit>();
+    private const int c_componentWidth = 150;
+    private const int c_componentHeight = 50;
 
-    private Thread _runner;
+    private List<Circuit> Circuits { get; set; } = new List<Circuit>();
+    private Thread Runner { get; set; }
+    private bool IsRunning { get; set; } = false;
 
     //-------------------------------------------------------------------------
 
@@ -28,9 +31,14 @@ namespace Loggella.UI
       Circuits = circuits;
 
       Point point = new Point( 0, 10 );
+
       foreach( Circuit circuit in Circuits )
       {
-        PlaceComponent( circuit, point );
+        point.X = 0;
+
+        PlaceComponent( circuit, ref point );
+
+        point.Y += 50;
 
         //foreach( Component component in circuit.Context.Components.Values )
         //{
@@ -39,8 +47,8 @@ namespace Loggella.UI
         //}
       }
 
-      _runner = new Thread( new ThreadStart( Run ) );
-      _runner.Start();
+      Runner = new Thread( new ThreadStart( Run ) );
+      Runner.Start();
     }
 
     //-------------------------------------------------------------------------
@@ -50,10 +58,15 @@ namespace Loggella.UI
       UpdateCircuitValuesDelegate updateValuesDelegate =
         new UpdateCircuitValuesDelegate( UpdateCircuitValues );
 
-      while( _runner.IsAlive )
+      while( Runner.IsAlive )
       {
         try
         {
+          if( IsRunning == false )
+          {
+            continue;
+          }
+
           foreach( Circuit circuit in Circuits )
           {
             foreach( Component component in circuit.Context.Components.Values )
@@ -79,8 +92,8 @@ namespace Loggella.UI
 
     private void MainForm_FormClosed( object sender, FormClosedEventArgs e )
     {
-      _runner.Abort();
-      _runner.Join();
+      Runner.Abort();
+      Runner.Join();
     }
 
     //-------------------------------------------------------------------------
@@ -89,15 +102,6 @@ namespace Loggella.UI
 
     private void UpdateCircuitValues()
     {
-      uiCircuitValues.Text = "";
-
-      foreach( Circuit circuit in Circuits )
-      {
-        uiCircuitValues.Text +=
-          circuit.Name + ": " + circuit.Context.Value +
-          Environment.NewLine;
-      }
-
       Invalidate( true );
     }
 
@@ -105,31 +109,59 @@ namespace Loggella.UI
 
     private void PlaceComponent(
       Component component,
-      Point currentPoint )
+      ref Point currentPoint )
     {
-      currentPoint.X += 200;
+      ComponentControl c = new ComponentControl( component );
+      c.Location = currentPoint;
+      uiComponents.Controls.Add( c );
 
-      if( component is Circuit == false )
+      if( component is Circuit &&
+          ( component as Circuit ).EntryProcessor != null )
       {
-        ComponentControl c = new ComponentControl( component );
-        c.Location = currentPoint;
-        uiComponents.Controls.Add( c );
-      }
-      else
-      {
-        component = ( component as Circuit ).EntryProcessor;
-      }
+        currentPoint.X += c_componentWidth;
 
-      if( component is Processor )
+        PlaceComponent(
+          ( component as Circuit ).EntryProcessor,
+          ref currentPoint );
+
+        currentPoint.X -= c_componentWidth;
+      }
+      else if( component is Processor )
       {
+        currentPoint.X += c_componentWidth;
+
+        int connectedProcessorCount = ( component as Processor ).ConnectedProcessors.Count;
+        int i = 0;
+
         foreach( Processor processor in ( component as Processor ).ConnectedProcessors.Values )
         {
           PlaceComponent(
             processor,
-            currentPoint );
+            ref currentPoint );
 
-          currentPoint.Y += 50;
+          if( i++ < connectedProcessorCount - 1 )
+          {
+            currentPoint.Y += c_componentHeight;
+          }
         }
+      }
+
+      currentPoint.X -= c_componentWidth;
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void uiPlayPause_Click( object sender, EventArgs e )
+    {
+      IsRunning = !IsRunning;
+
+      if( IsRunning )
+      {
+        uiPlayPause.Text = "Pause";
+      }
+      else
+      {
+        uiPlayPause.Text = "Play";
       }
     }
 
