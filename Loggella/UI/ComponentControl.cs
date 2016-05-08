@@ -52,6 +52,8 @@ namespace Loggella.UI
         ( CircuitComponent as Circuit ).Context.Value =
           ( CircuitComponent as Circuit ).Context.ConvertToCircuitValueType(
             uiValueInput.Text );
+
+        uiValueInput.SelectAll();
       }
     }
 

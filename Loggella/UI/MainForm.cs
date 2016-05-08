@@ -39,12 +39,6 @@ namespace Loggella.UI
         PlaceComponent( circuit, ref point );
 
         point.Y += 50;
-
-        //foreach( Component component in circuit.Context.Components.Values )
-        //{
-        //  ComponentControl c = new ComponentControl( component );
-        //  uiComponentsLayout.Controls.Add( c );
-        //}
       }
 
       Runner = new Thread( new ThreadStart( Run ) );
