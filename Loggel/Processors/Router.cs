@@ -1,4 +1,11 @@
-﻿using System.Xml;
+﻿//-----------------------------------------------------------------------------
+/*
+  A router is, essentially, a collection of comparers - the relevent processor
+  from first comparer which has a met condition will be selected to run next.
+*/
+//-----------------------------------------------------------------------------
+
+using System.Xml;
 using System.Collections.Generic;
 
 namespace Loggel.Processors
@@ -24,21 +31,26 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public override Processor Process()
+    override public Component Process()
     {
-      Processor nextProcessor = null;
+      Component nextComponent = null;
 
+      // Must call base class.
+      base.Process();
+
+      // Run each route's processor until one passes, then
+      // we return the next processor which should be run.
       foreach( Comparer route in Routes )
       {
-        nextProcessor = route.Process();
+        nextComponent = route.Process();
 
-        if( nextProcessor != null )
+        if( nextComponent != null )
         {
           break;
         }
       }
 
-      return nextProcessor;
+      return nextComponent;
     }
 
     //-------------------------------------------------------------------------

@@ -41,10 +41,13 @@ namespace Loggel.Processors
     // If all the conditions are met then we can return the connected
     // processor (if there is one) as the next processor to be processed.
 
-    public override Processor Process()
+    override public Component Process()
     {
       Processor nextProcessor = null;
       bool anyConditionsMet = false;
+
+      // Must call base class.
+      base.Process();
 
       // We let the signal pass through if there are no conditions.
       if( Conditions.Count == 0 )

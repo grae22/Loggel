@@ -18,6 +18,9 @@ namespace Loggel
     // Circuit-context to which this component belongs.
     protected CircuitContext Context { get; private set; }
 
+    // Flag signifying component has processed during last processing cycle.
+    public bool HasProcessed { get; set; } = false;
+
     //-------------------------------------------------------------------------
 
     public Component( uint id,
@@ -29,6 +32,15 @@ namespace Loggel
       Name = name;
       Description = description;
       Context = circuitContext;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public virtual Component Process()
+    {
+      HasProcessed = true;
+
+      return null;
     }
 
     //-------------------------------------------------------------------------

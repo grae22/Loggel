@@ -6,13 +6,14 @@
     <Processor>
       <ConnectedProcessorIdCollection>
         <ProcessorId internalName="equal">11</ProcessorId>
+        <ProcessorId internalName="greater">11</ProcessorId>
       </ConnectedProcessorIdCollection>
       <Comparer>
         <ExternalValueSourceId>1</ExternalValueSourceId>
         <ComparisonValueSourceId />
         <RangeMinSourceId />
         <RangeMaxSourceId />
-        <ComparisonValue>10</ComparisonValue>
+        <ComparisonValue>20</ComparisonValue>
         <RangeMin></RangeMin>
         <RangeMax></RangeMax>
       </Comparer>

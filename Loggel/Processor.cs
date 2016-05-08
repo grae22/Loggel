@@ -56,16 +56,6 @@ namespace Loggel
 
     //-------------------------------------------------------------------------
 
-    // When a processor's input-socket is live, this will be called to allow
-    // the processor to perform logic.
-    // The return value should be the next processor whose logic must be
-    // performed. A return value of null indicates processing is complete for
-    // this circuit pass.
-
-    public abstract Processor Process();
-
-    //-------------------------------------------------------------------------
-
     // Persist this instance as XML.
 
     public XmlElement GetAsXml(

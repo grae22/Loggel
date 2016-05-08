@@ -67,12 +67,17 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public override Processor Process()
+    override public Component Process()
     {
+      // Must call base class.
+      base.Process();
+
+      // Run update methods.
       UpdateComparisonValue();
       UpdateRangeMin();
       UpdateRangeMax();
 
+      // Identify and return the next processor to run (if any).
       return IdentifyOutputSocketToProcess();
     }
     

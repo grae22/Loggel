@@ -7,7 +7,7 @@
       <ConnectedProcessorIdCollection />
       <Maths>
         <Operator>+</Operator>
-        <Value2>1</Value2>
+        <Value2>2</Value2>
       </Maths>
     </Processor>
   </Component>

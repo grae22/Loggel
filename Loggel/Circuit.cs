@@ -52,23 +52,29 @@ namespace Loggel
     // let it process. We keep calling the returned processor's Process()
     // method until there is no next processor (i.e. null is returned).
 
-    public void Process()
+    override public Component Process()
     {
+      // Must call base class.
+      base.Process();
+
       // Each processor will return the next processor to process, continue
       // until there isn't one.
-      Processor processorToProcess = EntryProcessor;
+      Component componentToProcess = EntryProcessor;
 
-      while( processorToProcess != null )
+      while( componentToProcess != null )
       {
-        processorToProcess = processorToProcess.Process();
+        componentToProcess = componentToProcess.Process();
       }
+
+      // Circuits don't return a next component to proces..
+      return null;
     }
 
     //-------------------------------------------------------------------------
 
     // Persist this instance as XML.
 
-    public override XmlElement GetAsXml( XmlElement parent )
+    override public XmlElement GetAsXml( XmlElement parent )
     {
       // Must call base method.
       parent = base.GetAsXml( parent );
@@ -97,7 +103,7 @@ namespace Loggel
 
     // Restore this instance from xml.
 
-    public override XmlElement RestoreFromXml( XmlElement parent )
+    override public XmlElement RestoreFromXml( XmlElement parent )
     {
       // Must call base method.
       parent = base.RestoreFromXml( parent );

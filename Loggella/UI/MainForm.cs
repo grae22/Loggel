@@ -79,6 +79,15 @@ namespace Loggella
           circuit.Name + ": " + circuit.Context.Value +
           Environment.NewLine;
       }
+
+//      Invalidate();
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void MainForm_Paint( object sender, PaintEventArgs e )
+    {
+
     }
 
     //-------------------------------------------------------------------------

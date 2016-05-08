@@ -26,8 +26,11 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public override Processor Process()
+    override public Component Process()
     {
+      // Must call base class.
+      base.Process();
+
       // Perform operation on circuit value.
       switch( Operator )
       {

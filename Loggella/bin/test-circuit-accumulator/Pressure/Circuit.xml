@@ -4,7 +4,7 @@
     <Description>
     </Description>
     <Circuit>
-      <ValueType>System.Double</ValueType>
+      <ValueType>System.Byte</ValueType>
       <InitialValue>0</InitialValue>
       <EntryProcessorId>2</EntryProcessorId>
     </Circuit>

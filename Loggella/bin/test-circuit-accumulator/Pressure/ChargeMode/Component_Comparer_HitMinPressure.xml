@@ -6,6 +6,7 @@
     <Processor>
       <ConnectedProcessorIdCollection>
         <ProcessorId internalName="equal">12</ProcessorId>
+        <ProcessorId internalName="lesser">12</ProcessorId>
       </ConnectedProcessorIdCollection>
       <Comparer>
         <ExternalValueSourceId>1</ExternalValueSourceId>
