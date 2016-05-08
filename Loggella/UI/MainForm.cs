@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Loggel;
 
-namespace Loggella
+namespace Loggella.UI
 {
   public partial class MainForm : Form
   {
@@ -26,6 +26,15 @@ namespace Loggella
         out circuits );
       Circuits = circuits;
 
+      foreach( Circuit circuit in Circuits )
+      {
+        foreach( Component component in circuit.Context.Components.Values )
+        {
+          ComponentControl c = new ComponentControl( component );
+          uiComponentsLayout.Controls.Add( c );
+        }
+      }
+
       _runner = new Thread( new ThreadStart( Run ) );
       _runner.Start();
     }
@@ -43,6 +52,11 @@ namespace Loggella
         {
           foreach( Circuit circuit in Circuits )
           {
+            foreach( Component component in circuit.Context.Components.Values )
+            {
+              component.HasProcessed = false;
+            }
+
             circuit.Process();
           }
 
@@ -80,7 +94,11 @@ namespace Loggella
           Environment.NewLine;
       }
 
-//      Invalidate();
+      //foreach( Control c in uiComponents.Controls )
+      //{
+      //  c.Invalidate();
+      //}
+      Invalidate( true );
     }
 
     //-------------------------------------------------------------------------
