@@ -1,9 +1,7 @@
-﻿//-----------------------------------------------------------------------------
-/*
-  A router is, essentially, a collection of comparers - the relevent processor
-  from first comparer which has a met condition will be selected to run next.
+﻿/*
+ * A router is, essentially, a collection of comparers - the relevent processor
+ * from first comparer which has a met condition will be selected to run next.  
 */
-//-----------------------------------------------------------------------------
 
 using System.Xml;
 using System.Collections.Generic;

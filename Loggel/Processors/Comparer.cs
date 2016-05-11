@@ -1,5 +1,4 @@
-﻿//-----------------------------------------------------------------------------
-/*
+﻿/*
   * This class determines which (if any) connected processor will become
   * live by comparing the circuit value against a comparison value (which
   * may be dynamic if a circuit is provided for this purpose).
@@ -9,7 +8,6 @@
   *   x In-range: Inclusive.
   *   x Not in-range: Exclusive.
 */
-//-----------------------------------------------------------------------------
 
 using System.Xml;
 using System.Collections.Generic;
