@@ -41,7 +41,8 @@
     <Compile Include="CircuitContext.cs" />
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Helpers\ValueComparison.cs" />
-    <Compile Include="Nang\NangCircuitBuilder.cs" />
+    <Compile Include="Nang\NangValueState.cs" />
+    <Compile Include="Nang\NangValue.cs" />
     <Compile Include="Processors\Or.cs" />
     <Compile Include="Processors\And.cs" />
     <Compile Include="Component.cs" />

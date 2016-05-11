@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Nang\NangValue_Test.cs" />
     <Compile Include="Processors\Router_Test.cs" />
     <Compile Include="Processors\Or_Test.cs" />
     <Compile Include="Processors\Maths_Test.cs" />
