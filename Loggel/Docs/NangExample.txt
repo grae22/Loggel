@@ -8,8 +8,8 @@ Max: 35.0
 Initial value: 0.0
 Definition:
   The value will depend on the 'Engine State'.
-    When the 'Engine' is 'off' or 'cranking' the value will change instantly to 0 Bar.
-    When the 'Engine' is 'running' the value will depend on the 'Selected Gear'.
+    When the 'Engine State' is 'off' or 'cranking' the value will change instantly to 0 Bar.
+    When the 'Engine State' is 'running' the value will depend on the 'Selected Gear'.
       When the 'Selected Gear' is 'F1', 'F2', 'R1' or 'R2' the value will change linearly with the 'Engine RPM' such that it is between '12' and '35' Bar when the 'Engine RPM' is between '800' and '2500' RPM.
       When the 'Selected Gear' is 'N' the value will change linearly with the 'Engine RPM' such that it is between '12' and '19' Bar when the 'Engine RPM' is between '800' and '2500' RPM.
       When the 'Selected Gear' changes from 'F1' to 'F2' or from 'R1' to 'R2' will change instantly to '26' Bar.
