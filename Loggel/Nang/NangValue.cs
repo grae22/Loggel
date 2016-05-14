@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Loggel.Nang
 {
-  internal class NangValue
+  internal abstract class NangValue
   {
     //-------------------------------------------------------------------------
 
@@ -19,11 +19,39 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    public NangValue()
+    {
+
+    }
+
+    //-------------------------------------------------------------------------
+
     public NangValue( XmlElement xml )
     {
       Name = xml[ "Name" ].InnerText;
       ValueType = GetValueTypeFromString( xml[ "ValueType" ].InnerText );
       Unit = xml[ "Unit" ].InnerText;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public virtual void GetAsXml( out XmlElement xml )
+    {
+      XmlDocument doc = new XmlDocument();
+      xml = doc.CreateElement( "NangValue" );
+      doc.AppendChild( xml );
+
+      XmlElement nameXml = doc.CreateElement( "Name" );
+      xml.AppendChild( nameXml );
+      nameXml.InnerText = Name;
+
+      XmlElement valueTypeXml = doc.CreateElement( "ValueType" );
+      xml.AppendChild( valueTypeXml );
+      valueTypeXml.InnerText = GetValueTypeAsString( ValueType );
+
+      XmlElement unitXml = doc.CreateElement( "Unit" );
+      xml.AppendChild( unitXml );
+      unitXml.InnerText = Unit;
     }
 
     //-------------------------------------------------------------------------

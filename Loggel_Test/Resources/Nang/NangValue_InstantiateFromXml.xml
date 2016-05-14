@@ -2,4 +2,8 @@
   <Name>Test Name</Name>
   <ValueType>state</ValueType>
   <Unit>Test Unit</Unit>
+  <StateCollection>
+    <State>State 1</State>
+    <State>State 2</State>
+  </StateCollection>
 </NangValue>

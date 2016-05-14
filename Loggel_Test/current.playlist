@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="Loggel_Test.NangValue_Test.NangValue_InstantiateFromXml" /><Add Test="Loggel_Test.NangValue_Test.NangValueState_InstantiateFromXml" /><Add Test="Loggel_Test.NangValue_Test.NangValueState_WriteAsXml" /></Playlist>
