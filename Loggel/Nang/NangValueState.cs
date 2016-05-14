@@ -1,6 +1,5 @@
 ﻿using System.Xml;
 using System.Collections.Generic;
-using System;
 
 namespace Loggel.Nang
 {
@@ -61,6 +60,7 @@ namespace Loggel.Nang
 
     override public void SetValue( dynamic value )
     {
+      // Set value from string?
       if( value.GetType() == typeof( string ) )
       {
         for( int i = 0; i < StateNames.Count; i++ )
@@ -72,9 +72,15 @@ namespace Loggel.Nang
           }
         }
       }
+      // From int?
       else if( value.GetType() == typeof( int ) )
       {
         ActiveStateIndex = value;
+      }
+      else
+      {
+        // TODO: Handle this.
+        System.Diagnostics.Debug.Assert( false );
       }
     }
 

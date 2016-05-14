@@ -10,7 +10,7 @@ namespace Loggel.Nang
     public enum NangValueType
     {
       STATE = 0,
-      VALUE
+      DECIMAL
     }
 
     public string Name { get; set; } = "";
@@ -72,8 +72,8 @@ namespace Loggel.Nang
         case NangValueType.STATE:
           return "state";
 
-        case NangValueType.VALUE:
-          return "value";
+        case NangValueType.DECIMAL:
+          return "decimal";
 
         default:
           System.Diagnostics.Debug.Assert( false );
@@ -91,9 +91,9 @@ namespace Loggel.Nang
       {
         return NangValueType.STATE;
       }
-      else if( s == "value" )
+      else if( s == "decimal" )
       {
-        return NangValueType.VALUE;
+        return NangValueType.DECIMAL;
       }
 
       throw new ArgumentException( "Unknown Nang value type '" + s + "'." );

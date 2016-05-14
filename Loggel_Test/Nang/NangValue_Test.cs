@@ -22,10 +22,12 @@ namespace Loggel_Test
     public void NangValueState_InstantiateFromXml()
     {
       XmlDocument doc = new XmlDocument();
-      doc.Load( "../../Resources/Nang/NangValue_InstantiateFromXml.xml" );
+      doc.Load( "../../Resources/Nang/NangValueState_InstantiateFromXml.xml" );
       XmlElement element = doc[ "NangValue" ];
 
       NangValue testOb = new NangValueState( element );
+
+      Assert.AreEqual( "State 2", testOb.GetValue() );
     }
 
     //-------------------------------------------------------------------------
@@ -52,11 +54,56 @@ namespace Loggel_Test
       // Load the reference & test object from file.
       string reference =
         File.ReadAllText( 
-          "../../Resources/Nang/NangValue_InstantiateFromXml.xml" );
+          "../../Resources/Nang/NangValueState_InstantiateFromXml.xml" );
 
       string content =
         File.ReadAllText( 
           "NangValueState_WriteAsXml.xml" );
+
+      Assert.AreEqual( reference, content );
+    }
+
+    //-------------------------------------------------------------------------
+
+    [TestMethod]
+    public void NangValueDecimal_InstantiateFromXml()
+    {
+      XmlDocument doc = new XmlDocument();
+      doc.Load( "../../Resources/Nang/NangValueDecimal_InstantiateFromXml.xml" );
+      XmlElement element = doc[ "NangValue" ];
+
+      NangValue testOb = new NangValueDecimal( element );
+
+      Assert.AreEqual( 1.23f, testOb.GetValue() );
+    }
+
+    //-------------------------------------------------------------------------
+
+    [TestMethod]
+    public void NangValueDecimal_WriteAsXml()
+    {
+      // Create a test object.
+      NangValueDecimal testOb = new NangValueDecimal();
+      testOb.Name = "Test Name";
+      testOb.ValueType = NangValue.NangValueType.DECIMAL;
+      testOb.Unit = "Test Unit";
+      testOb.SetValue( 1.23f );
+
+      // Write the test object as xml to file.
+      XmlElement xml;
+      testOb.GetAsXml( out xml );
+      XmlDocument doc = new XmlDocument();
+      doc.AppendChild( doc.ImportNode( xml, true ) );
+      doc.Save( "NangValueDecimal_WriteAsXml.xml" );
+
+      // Load the reference & test object from file.
+      string reference =
+        File.ReadAllText( 
+          "../../Resources/Nang/NangValueDecimal_InstantiateFromXml.xml" );
+
+      string content =
+        File.ReadAllText( 
+          "NangValueDecimal_WriteAsXml.xml" );
 
       Assert.AreEqual( reference, content );
     }
