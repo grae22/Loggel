@@ -2,6 +2,7 @@
   <Name>Test Name</Name>
   <ValueType>state</ValueType>
   <Unit>Test Unit</Unit>
+  <Value>State 2</Value>
   <StateCollection>
     <State>State 1</State>
     <State>State 2</State>

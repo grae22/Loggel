@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using System.Collections.Generic;
+using System;
 
 namespace Loggel.Nang
 {
@@ -8,6 +9,8 @@ namespace Loggel.Nang
     //-------------------------------------------------------------------------
 
     public List<string> StateNames { get; private set; } = new List<string>();
+
+    private int ActiveStateIndex { get; set; } = 0;
 
     //-------------------------------------------------------------------------
 
@@ -23,10 +26,55 @@ namespace Loggel.Nang
     base( xml )
     {
       // States.
-      foreach(
-        XmlElement stateXml in xml[ "StateCollection" ].SelectNodes( "State" ) )
+      foreach( XmlElement stateXml in xml[ "StateCollection" ].SelectNodes( "State" ) )
       {
         StateNames.Add( stateXml.InnerText );
+      }
+
+      // Value.
+      ActiveStateIndex = -1;
+      string valueString = xml[ "Value" ].InnerText;
+
+      for( int i = 0; i < StateNames.Count; i++ )
+      {
+        if( StateNames[ i ] == valueString )
+        {
+          ActiveStateIndex = i;
+          break;
+        }
+      }
+
+      if( ActiveStateIndex < 0 )
+      {
+        ActiveStateIndex = 0;
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
+    override public dynamic GetValue()
+    {
+      return StateNames[ ActiveStateIndex ];
+    }
+
+    //-------------------------------------------------------------------------
+
+    override public void SetValue( dynamic value )
+    {
+      if( value.GetType() == typeof( string ) )
+      {
+        for( int i = 0; i < StateNames.Count; i++ )
+        {
+          if( StateNames[ i ] == value )
+          {
+            ActiveStateIndex = i;
+            break;
+          }
+        }
+      }
+      else if( value.GetType() == typeof( int ) )
+      {
+        ActiveStateIndex = value;
       }
     }
 

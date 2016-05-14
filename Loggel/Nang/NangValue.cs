@@ -35,6 +35,11 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    public abstract dynamic GetValue();
+    public abstract void SetValue( dynamic value );
+
+    //-------------------------------------------------------------------------
+
     public virtual void GetAsXml( out XmlElement xml )
     {
       XmlDocument doc = new XmlDocument();
@@ -52,6 +57,10 @@ namespace Loggel.Nang
       XmlElement unitXml = doc.CreateElement( "Unit" );
       xml.AppendChild( unitXml );
       unitXml.InnerText = Unit;
+
+      XmlElement valueXml = doc.CreateElement( "Value" );
+      xml.AppendChild( valueXml );
+      valueXml.InnerText = GetValue().ToString();
     }
 
     //-------------------------------------------------------------------------

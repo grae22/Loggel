@@ -40,6 +40,7 @@ namespace Loggel_Test
       testOb.Unit = "Test Unit";
       testOb.StateNames.Add( "State 1" );
       testOb.StateNames.Add( "State 2" );
+      testOb.SetValue( "State 2" );
 
       // Write the test object as xml to file.
       XmlElement xml;
