@@ -19,6 +19,18 @@ namespace Loggel_Test
     //-------------------------------------------------------------------------
 
     [TestMethod]
+    public void NangValue_Create()
+    {
+      NangValue ob = NangValue.Create( NangValue.NangValueType.STATE );
+      Assert.AreEqual( typeof( NangValueState ), ob.GetType() );
+
+      ob = NangValue.Create( NangValue.NangValueType.DECIMAL );
+      Assert.AreEqual( typeof( NangValueDecimal ), ob.GetType() );
+    }
+
+    //-------------------------------------------------------------------------
+
+    [TestMethod]
     public void NangValueState_InstantiateFromXml()
     {
       XmlDocument doc = new XmlDocument();

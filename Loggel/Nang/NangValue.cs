@@ -7,6 +7,25 @@ namespace Loggel.Nang
   {
     //-------------------------------------------------------------------------
 
+    public static NangValue Create( NangValueType type )
+    {
+      switch( type )
+      {
+        case NangValueType.STATE:
+          return new NangValueState();
+
+        case NangValueType.DECIMAL:
+          return new NangValueDecimal();
+
+        default:
+          // TODO
+          System.Diagnostics.Debug.Assert( false );
+          return null;
+      }
+    }
+
+    //=========================================================================
+
     public enum NangValueType
     {
       STATE = 0,

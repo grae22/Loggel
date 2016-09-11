@@ -41,6 +41,8 @@
     <Compile Include="CircuitContext.cs" />
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Helpers\ValueComparison.cs" />
+    <Compile Include="Nang\NangCondition.cs" />
+    <Compile Include="Nang\NangStory.cs" />
     <Compile Include="Nang\NangValueDecimal.cs" />
     <Compile Include="Nang\NangValueState.cs" />
     <Compile Include="Nang\NangValue.cs" />
