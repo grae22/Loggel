@@ -7,11 +7,19 @@ namespace Loggel.Nang
   {
     //-------------------------------------------------------------------------
 
+    // Name of this condition.
+    public string Name { get; private set; }
+
     // The story whose value is used to test the condition.
     public NangStory ReferenceStory { get; set; }
 
     // The value that will be compared with the reference story's value.
     public dynamic ComparisonValue { get; set; }
+
+    // The values that will be compared with the reference story's value
+    // when using range comparisons.
+    public dynamic ComparisonValueRangeMin { get; set; }
+    public dynamic ComparisonValueRangeMax { get; set; }
 
     // Type of comparison to be used.
     public enum ComparisonType
@@ -55,6 +63,13 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    public NangCondition( string name )
+    {
+      Name = name;
+    }
+
+    //-------------------------------------------------------------------------
+
     // Tests the condition and returns the result.
 
     public Processor BuildCircuit( CircuitContext context )
@@ -80,6 +95,8 @@ namespace Loggel.Nang
       // We're comparing the reference story's value with our comparison value.
       Comparer.ExternalValueSource = ReferenceStory.StoryCircuit.Context;
       Comparer.ComparisonValue = ComparisonValue;
+      Comparer.RangeMin = ComparisonValueRangeMin;
+      Comparer.RangeMax = ComparisonValueRangeMax;
 
       BuildActions( context );
 
@@ -99,18 +116,20 @@ namespace Loggel.Nang
       // Create processors to perform actions.
       Processor processorWhenTrue =
         CreateActionProcessor(
+          Name + "_True",
           ActionWhenTrue,
           ActionValueWhenTrue,
           context );
 
       Processor processorWhenFalse =
         CreateActionProcessor(
+          Name + "_False",
           ActionWhenFalse,
           ActionValueWhenFalse,
           context );
 
       // Clear all routes and re-map.
-      Comparer.ClearConnectedProcessors();
+      Comparer.SetAllProcessors( null );
 
       switch( Comparison )
       {
@@ -119,6 +138,46 @@ namespace Loggel.Nang
 
         case ComparisonType.EQUAL:
           Comparer.Processor_Equal = processorWhenTrue;
+          Comparer.Processor_NotEqual = processorWhenFalse;
+          break;
+
+        case ComparisonType.NOT_EQUAL:
+          Comparer.Processor_NotEqual = processorWhenTrue;
+          Comparer.Processor_Equal = processorWhenFalse;
+          break;
+
+        case ComparisonType.GREATER_OR_EQUAL:
+          Comparer.Processor_Greater = processorWhenTrue;
+          Comparer.Processor_Equal = processorWhenTrue;
+          Comparer.Processor_Lesser = processorWhenFalse;
+          break;
+
+        case ComparisonType.GREATER:
+          Comparer.Processor_Greater = processorWhenTrue;
+          Comparer.Processor_Equal = processorWhenFalse;
+          Comparer.Processor_Lesser = processorWhenFalse;
+          break;
+
+        case ComparisonType.LESSER_OR_EQUAL:
+          Comparer.Processor_Lesser = processorWhenTrue;
+          Comparer.Processor_Equal = processorWhenTrue;
+          Comparer.Processor_Greater = processorWhenFalse;
+          break;
+
+        case ComparisonType.LESSER:
+          Comparer.Processor_Lesser = processorWhenTrue;
+          Comparer.Processor_Equal = processorWhenFalse;
+          Comparer.Processor_Greater = processorWhenFalse;
+          break;
+
+        case ComparisonType.IN_RANGE:
+          Comparer.Processor_InRange = processorWhenTrue;
+          Comparer.Processor_NotInRange = processorWhenFalse;
+          break;
+
+        case ComparisonType.NOT_IN_RANGE:
+          Comparer.Processor_NotInRange = processorWhenTrue;
+          Comparer.Processor_InRange = processorWhenFalse;
           break;
       }
     }
@@ -126,6 +185,7 @@ namespace Loggel.Nang
     //-------------------------------------------------------------------------
 
     private static Processor CreateActionProcessor(
+      string name,
       ActionType action,
       dynamic actionValue,
       CircuitContext context )
@@ -136,7 +196,7 @@ namespace Loggel.Nang
       }
 
       // Create the processor.
-      Maths processor = context.CreateComponent<Maths>( "Maths", "" );
+      Maths processor = context.CreateComponent<Maths>( name, "" );
 
       // Set its operation type.
       switch( action )

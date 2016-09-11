@@ -23,7 +23,7 @@ namespace Loggel_Test
       bool threwException = false;
 
       // Should throw exception if no reference story has been specified.
-      NangCondition condition = new NangCondition();
+      NangCondition condition = new NangCondition( "" );
 
       try
       {

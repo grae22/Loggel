@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using Loggel.Nang;
 
 namespace Loggel_Test
@@ -47,11 +48,22 @@ namespace Loggel_Test
       story.Condition.ComparisonValue = "off";
       story.Condition.ActionWhenTrue = NangCondition.ActionType.ADD;
       story.Condition.ActionValueWhenTrue = 1.23;
+      story.Condition.ActionWhenFalse = NangCondition.ActionType.SUBTRACT;
+      story.Condition.ActionValueWhenFalse = 1.0;
       story.BuildCircuit();
 
       story.StoryCircuit.Process();
 
       Assert.AreEqual( 1.23, story.StoryCircuit.Context.Value );
+
+      // Reference story value changes to 'on'.
+      refStory.StoryCircuit.Context.Value = "on";
+      story.StoryCircuit.Process();
+
+      Assert.AreEqual(
+        0.23,
+        story.StoryCircuit.Context.Value,
+        0.001 );
     }
   }
 }

@@ -7,12 +7,47 @@ namespace Loggel
   {
     //-------------------------------------------------------------------------
 
+    // Static collection of all contexts.
     public static Dictionary<uint, CircuitContext> AllContexts { get; private set; } = new Dictionary<uint, CircuitContext>();
 
-    public dynamic Value { get; set; }
+    // All components in this circuit.
     public Dictionary<uint, Component> Components { get; private set; } = new Dictionary<uint, Component>();
 
+    // The circuit.
     private Circuit Circuit { get; set; }
+
+    //-------------------------------------------------------------------------
+
+    // This stores the value of the circuit.
+
+    private dynamic _value;
+    private bool? _valueIsNumeric = null;
+
+    public dynamic Value
+    {
+      get
+      {
+        return _value;
+      }
+
+      set
+      {
+        _value = value;
+
+        if( _valueIsNumeric == null )
+        {
+          _valueIsNumeric = !( _value.GetType() == typeof( string ) );
+        }
+      }
+    }
+
+    public bool ValueIsNumeric
+    {
+      get
+      {
+        return ( _valueIsNumeric == true );
+      }
+    }
 
     //-------------------------------------------------------------------------
 

@@ -35,7 +35,7 @@ namespace Loggel.Nang
 
         if( Condition == null )
         {
-          Condition = new NangCondition();
+          Condition = new NangCondition( Name + "_Condition" );
         }
 
         Condition.ReferenceStory = value;

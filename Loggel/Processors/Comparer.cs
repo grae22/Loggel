@@ -164,13 +164,15 @@ namespace Loggel.Processors
         nextProcessor = Processor_Equal;
       }
       // Greater.
-      else if( context.Value > ComparisonValue &&
+      else if( context.ValueIsNumeric &&
+               context.Value > ComparisonValue &&
                Processor_Greater != null )
       {
         nextProcessor = Processor_Greater;
       }
       // Lesser.
-      else if( context.Value < ComparisonValue &&
+      else if( context.ValueIsNumeric &&
+               context.Value < ComparisonValue &&
                Processor_Lesser != null )
       {
         nextProcessor = Processor_Lesser;
@@ -336,14 +338,14 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
-    public void ClearConnectedProcessors()
+    public void SetAllProcessors( Processor p )
     {
-      Processor_Equal = null;
-      Processor_NotEqual = null;
-      Processor_Greater = null;
-      Processor_Lesser = null;
-      Processor_InRange = null;
-      Processor_NotInRange = null;
+      Processor_Equal = p;
+      Processor_NotEqual = p;
+      Processor_Greater = p;
+      Processor_Lesser = p;
+      Processor_InRange = p;
+      Processor_NotInRange = p;
     }
 
     //-------------------------------------------------------------------------
