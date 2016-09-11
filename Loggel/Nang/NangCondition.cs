@@ -13,9 +13,10 @@ namespace Loggel.Nang
     // The value that will be compared with the reference story's value.
     public dynamic ComparisonValue { get; set; }
 
-    // Conditions.
-    public enum Type
+    // Type of comparison to be used.
+    public enum ComparisonType
     {
+      NOTHING,
       EQUAL,
       NOT_EQUAL,
       GREATER_OR_EQUAL,
@@ -26,11 +27,31 @@ namespace Loggel.Nang
       NOT_IN_RANGE
     }
 
-    // A nested condition that will be tested when this condition is true.
-    public NangCondition SubConditionWhenTrue { get; set; }
+    public ComparisonType Comparison { get; set; } = ComparisonType.NOTHING;
 
-    // A nested condition that will be tested when this condition is false.
+    // Action that will be applied to the story's value when
+    // the condition is true/false.
+    public enum ActionType
+    {
+      NONE,
+      SET,
+      ADD,
+      SUBTRACT
+    }
+
+    public ActionType ActionWhenTrue { get; set; } = ActionType.NONE;
+    public ActionType ActionWhenFalse { get; set; } = ActionType.NONE;
+
+    // Values to be used when performing the actions.
+    public dynamic ActionValueWhenTrue { get; set; }
+    public dynamic ActionValueWhenFalse { get; set; }
+
+    // Nested conditions that will be tested when this condition is true/false.
+    public NangCondition SubConditionWhenTrue { get; set; }
     public NangCondition SubConditionWhenFalse { get; set; }
+
+    // Comparer that will perform the conditional logic.
+    private Comparer Comparer { get; set; }
 
     //-------------------------------------------------------------------------
 
@@ -51,16 +72,106 @@ namespace Loggel.Nang
       }
 
       //-- Create a comparer which will perform the condition logic.
-      Comparer comparer =
+      Comparer =
         context.CreateComponent<Comparer>(
           "Condition",
           "" );
 
       // We're comparing the reference story's value with our comparison value.
-      comparer.ExternalValueSource = ReferenceStory.StoryCircuit.Context;
-      comparer.ComparisonValue = ComparisonValue;
+      Comparer.ExternalValueSource = ReferenceStory.StoryCircuit.Context;
+      Comparer.ComparisonValue = ComparisonValue;
 
-      return comparer;
+      BuildActions( context );
+
+      return Comparer;
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void BuildActions( CircuitContext context )
+    {
+      // Must have a comparer.
+      if( Comparer == null )
+      {
+        throw new Exception( "Comparer is null." );
+      }
+
+      // Create processors to perform actions.
+      Processor processorWhenTrue =
+        CreateActionProcessor(
+          ActionWhenTrue,
+          ActionValueWhenTrue,
+          context );
+
+      Processor processorWhenFalse =
+        CreateActionProcessor(
+          ActionWhenFalse,
+          ActionValueWhenFalse,
+          context );
+
+      // Clear all routes and re-map.
+      Comparer.ClearConnectedProcessors();
+
+      switch( Comparison )
+      {
+        case ComparisonType.NOTHING:
+          break;
+
+        case ComparisonType.EQUAL:
+          Comparer.Processor_Equal = processorWhenTrue;
+          break;
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
+    private static Processor CreateActionProcessor(
+      ActionType action,
+      dynamic actionValue,
+      CircuitContext context )
+    {
+      if( action == ActionType.NONE )
+      {
+        return null;
+      }
+
+      // Create the processor.
+      Maths processor = context.CreateComponent<Maths>( "Maths", "" );
+
+      // Set its operation type.
+      switch( action )
+      {
+        case ActionType.NONE:
+          break;
+
+        case ActionType.SET:
+          processor.Operator = '=';
+          break;
+
+        case ActionType.ADD:
+          processor.Operator = '+';
+          break;
+
+        case ActionType.SUBTRACT:
+          processor.Operator = '-';
+          break;
+
+        default:
+          // TODO
+          System.Diagnostics.Debug.Assert( false );
+          break;
+      }
+
+      // Set its value2.
+      if( actionValue == null )
+      {
+        throw new Exception( "Action value is null." );
+      }
+
+      processor.Value2 = actionValue;
+
+      // Return the new processor.
+      return processor;
     }
 
     //-------------------------------------------------------------------------

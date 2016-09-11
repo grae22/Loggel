@@ -54,7 +54,7 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    public void BuildCircuit()
+    public Circuit BuildCircuit()
     {
       if( Name == null || Name.Length == 0 )
       {
@@ -71,6 +71,8 @@ namespace Loggel.Nang
         StoryCircuit.EntryProcessor =
           Condition.BuildCircuit( StoryCircuit.Context );
       }
+
+      return StoryCircuit;
     }
 
     //-------------------------------------------------------------------------

@@ -335,5 +335,17 @@ namespace Loggel.Processors
     }
 
     //-------------------------------------------------------------------------
+
+    public void ClearConnectedProcessors()
+    {
+      Processor_Equal = null;
+      Processor_NotEqual = null;
+      Processor_Greater = null;
+      Processor_Lesser = null;
+      Processor_InRange = null;
+      Processor_NotInRange = null;
+    }
+
+    //-------------------------------------------------------------------------
   }
 }
