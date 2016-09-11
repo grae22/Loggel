@@ -86,6 +86,16 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    public void SetStateNames( string[] names )
+    {
+      foreach( string s in names )
+      {
+        StateNames.Add( s );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     public override void GetAsXml( out XmlElement xml )
     {
       // Must call base.

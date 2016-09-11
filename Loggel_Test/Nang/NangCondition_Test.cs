@@ -28,7 +28,7 @@ namespace Loggel_Test
       try
       {
         threwException = false;
-        condition.BuildCircuit();
+        condition.BuildCircuit( null );
       }
       catch( Exception )
       {
@@ -41,8 +41,12 @@ namespace Loggel_Test
       try
       {
         threwException = false;
-        condition.ReferenceStory = new NangStory( "", NangValue.NangValueType.DECIMAL );
-        condition.BuildCircuit();
+
+        NangStory refStory =
+          new NangStory( "", NangValue.NangValueType.DECIMAL );
+
+        condition.ReferenceStory = refStory;
+        condition.BuildCircuit( null );
       }
       catch( Exception )
       {
@@ -56,13 +60,13 @@ namespace Loggel_Test
 
     // Test condition with no sub-conditions.
 
-    [TestMethod]
-    public void NangCondition_SimpleTest()
-    {
-      NangCondition condition = new NangCondition();
-      condition.ReferenceStory = new NangStory( "", NangValue.NangValueType.DECIMAL );
-      condition.ComparisonValue = 1.23;
-    }
+    //[TestMethod]
+    //public void NangCondition_SimpleTest()
+    //{
+    //  NangCondition condition = new NangCondition();
+    //  condition.ReferenceStory = new NangStory( "", NangValue.NangValueType.DECIMAL );
+    //  condition.ComparisonValue = 1.23;
+    //}
 
     //-------------------------------------------------------------------------
   }

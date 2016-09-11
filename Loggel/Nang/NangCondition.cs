@@ -1,4 +1,5 @@
 ﻿using System;
+using Loggel.Processors;
 
 namespace Loggel.Nang
 {
@@ -35,7 +36,7 @@ namespace Loggel.Nang
 
     // Tests the condition and returns the result.
 
-    public void BuildCircuit()
+    public Processor BuildCircuit( CircuitContext context )
     {
       // No reference story?
       if( ReferenceStory == null )
@@ -48,6 +49,18 @@ namespace Loggel.Nang
       {
         throw new Exception( "Condition has no comparison value." );
       }
+
+      //-- Create a comparer which will perform the condition logic.
+      Comparer comparer =
+        context.CreateComponent<Comparer>(
+          "Condition",
+          "" );
+
+      // We're comparing the reference story's value with our comparison value.
+      comparer.ExternalValueSource = ReferenceStory.StoryCircuit.Context;
+      comparer.ComparisonValue = ComparisonValue;
+
+      return comparer;
     }
 
     //-------------------------------------------------------------------------

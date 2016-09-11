@@ -8,9 +8,41 @@ namespace Loggel.Nang
 
     public string Name { get; set; }
     public NangValue Value { get; private set; }
-    public NangCondition Condition { get; private set; } = new NangCondition();
+    public NangCondition Condition { get; private set; }
+    public Circuit StoryCircuit { get; private set; }
 
     //-------------------------------------------------------------------------
+
+    public NangStory ReferenceStory
+    {
+      get
+      {
+        if( Condition != null )
+        {
+          return Condition.ReferenceStory;
+        }
+        
+        return null;
+      }
+
+      set
+      {
+        if( Condition != null &&
+            Condition.ReferenceStory == ReferenceStory )
+        {
+          return;
+        }
+
+        if( Condition == null )
+        {
+          Condition = new NangCondition();
+        }
+
+        Condition.ReferenceStory = value;
+      }
+    }
+
+    //=========================================================================
 
     public NangStory(
       string name,
@@ -29,11 +61,16 @@ namespace Loggel.Nang
         throw new Exception( "Story has no name." );
       }
 
-      ComponentFactory.CreateCircuit(
-        Name,
-        Value.GetValue() );
+      StoryCircuit =
+        ComponentFactory.CreateCircuit(
+          Name,
+          Value.GetValue() );
 
-      Condition.BuildCircuit();
+      if( Condition != null )
+      {
+        StoryCircuit.EntryProcessor =
+          Condition.BuildCircuit( StoryCircuit.Context );
+      }
     }
 
     //-------------------------------------------------------------------------

@@ -6,6 +6,7 @@ Design notes
 ------------
 
 x Nang - "natural language".
+x Nang - this code has been written to allow 'live' modifications.
 
 ToDo
 ----
