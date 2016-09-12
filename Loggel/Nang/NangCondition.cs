@@ -70,7 +70,7 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    // Tests the condition and returns the result.
+    // Creates the Loggel components required by this condition.
 
     public Processor BuildCircuit( CircuitContext context )
     {
