@@ -1,0 +1,14 @@
+<Root type="Loggel.Processors.Maths" id="3">
+  <Component>
+    <Name>Simple_Condition_True</Name>
+    <Description>
+    </Description>
+    <Processor>
+      <ConnectedProcessorIdCollection />
+      <Maths>
+        <Operator>+</Operator>
+        <Value2>1.23</Value2>
+      </Maths>
+    </Processor>
+  </Component>
+</Root>

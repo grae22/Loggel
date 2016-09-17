@@ -174,7 +174,6 @@ namespace Loggel
 
     public dynamic ConvertToCircuitValueType( string valueToConvert )
     {
-      //valueToConvert = ( valueToConvert.Length == 0 ? "0" : valueToConvert );
       if( valueToConvert.Length == 0 )
       {
         return null;

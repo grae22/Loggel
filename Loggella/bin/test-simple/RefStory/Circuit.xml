@@ -1,0 +1,13 @@
+<Root id="0">
+  <Component>
+    <Name>RefStory</Name>
+    <Description>
+    </Description>
+    <Circuit>
+      <ValueType>System.String</ValueType>
+      <InitialValue>off</InitialValue>
+      <EntryProcessorId>
+      </EntryProcessorId>
+    </Circuit>
+  </Component>
+</Root>

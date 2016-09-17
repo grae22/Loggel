@@ -26,7 +26,8 @@ namespace Loggella.UI
 
       List<Circuit> circuits;
       CircuitBuilder.Load(
-        "./test-circuit-accumulator/",
+        //"./test-circuit-accumulator/",
+        "./test-simple/",
         out circuits );
       Circuits = circuits;
 

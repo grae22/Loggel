@@ -19,8 +19,7 @@ namespace Loggel_Test
     [TestMethod]
     public void NangStory_Instantiate()
     {
-      NangStory story =
-        new NangStory( "", NangValue.NangValueType.DECIMAL );
+      NangStory story = new NangStory( "", NangValue.NangValueType.DECIMAL );
 
       Assert.AreEqual( 0.0, story.Value.GetValue() );
     }

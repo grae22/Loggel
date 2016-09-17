@@ -321,17 +321,19 @@ namespace Loggel.Processors
       Processor_NotInRange = GetConnectedProcessor( "notInRange" );
 
       // Comparison value.
+      CircuitContext comparisonContext = ( ExternalValueSource == null ? Context : ExternalValueSource );
+
       // TODO: Restoring from xml currently sets all values as 'strings'... fix this.
       XmlElement comparisonValueElement = comparerElement[ "ComparisonValue" ];
-      ComparisonValue = Context.ConvertToCircuitValueType( comparisonValueElement.InnerText );
+      ComparisonValue = comparisonContext.ConvertToCircuitValueType( comparisonValueElement.InnerText );
 
       // Range min value.
       XmlElement rangeMinValueElement = comparerElement[ "RangeMin" ];
-      RangeMin = Context.ConvertToCircuitValueType( rangeMinValueElement.InnerText );
+      RangeMin = comparisonContext.ConvertToCircuitValueType( rangeMinValueElement.InnerText );
 
       // Range max value.
       XmlElement rangeMaxValueElement = comparerElement[ "RangeMax" ];
-      RangeMax = Context.ConvertToCircuitValueType( rangeMaxValueElement.InnerText );
+      RangeMax = comparisonContext.ConvertToCircuitValueType( rangeMaxValueElement.InnerText );
 
       return comparerElement;
     }
