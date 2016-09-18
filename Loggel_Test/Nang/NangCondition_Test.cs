@@ -43,7 +43,7 @@ namespace Loggel_Test
         threwException = false;
 
         NangStory refStory =
-          new NangStory( "", NangValue.NangValueType.DECIMAL );
+          new NangStory( "", IValue.Type.DECIMAL );
 
         condition.ReferenceStory = refStory;
         condition.BuildCircuit( null );

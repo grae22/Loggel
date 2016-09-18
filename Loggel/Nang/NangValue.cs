@@ -3,18 +3,29 @@ using System.Xml;
 
 namespace Loggel.Nang
 {
-  internal abstract class NangValue
+  public abstract class IValue
+  {
+    public enum Type
+    {
+      STATE = 0,
+      DECIMAL
+    }
+  }
+
+  //===========================================================================
+
+  internal abstract class NangValue : IValue
   {
     //-------------------------------------------------------------------------
 
-    public static NangValue Create( NangValueType type )
+    public static NangValue Create( Type type )
     {
       switch( type )
       {
-        case NangValueType.STATE:
+        case Type.STATE:
           return new NangValueState();
 
-        case NangValueType.DECIMAL:
+        case Type.DECIMAL:
           return new NangValueDecimal();
 
         default:
@@ -26,14 +37,8 @@ namespace Loggel.Nang
 
     //=========================================================================
 
-    public enum NangValueType
-    {
-      STATE = 0,
-      DECIMAL
-    }
-
     public string Name { get; set; } = "";
-    public NangValueType ValueType { get; set; } = NangValueType.STATE;
+    public Type ValueType { get; set; } = Type.STATE;
     public string Unit { get; set; } = "";
 
     //-------------------------------------------------------------------------
@@ -84,14 +89,14 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    public static string GetValueTypeAsString( NangValueType valueType )
+    public static string GetValueTypeAsString( Type valueType )
     {
       switch( valueType )
       {
-        case NangValueType.STATE:
+        case Type.STATE:
           return "state";
 
-        case NangValueType.DECIMAL:
+        case Type.DECIMAL:
           return "decimal";
 
         default:
@@ -102,17 +107,17 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    public static NangValueType GetValueTypeFromString( string s )
+    public static Type GetValueTypeFromString( string s )
     {
       s = s.ToLower();
 
       if( s == "state" )
       {
-        return NangValueType.STATE;
+        return Type.STATE;
       }
       else if( s == "decimal" )
       {
-        return NangValueType.DECIMAL;
+        return Type.DECIMAL;
       }
 
       throw new ArgumentException( "Unknown Nang value type '" + s + "'." );

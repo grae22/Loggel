@@ -14,7 +14,7 @@ namespace Loggel.Nang
 
     public IStory CreateStory( string name )
     {
-      NangStory story = new NangStory( name, NangValue.NangValueType.DECIMAL );
+      NangStory story = new NangStory( name, IValue.Type.DECIMAL );
 
       story.BuildCircuit();
 

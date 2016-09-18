@@ -21,10 +21,10 @@ namespace Loggel_Test
     [TestMethod]
     public void NangValue_Create()
     {
-      NangValue ob = NangValue.Create( NangValue.NangValueType.STATE );
+      NangValue ob = NangValue.Create( IValue.Type.STATE );
       Assert.AreEqual( typeof( NangValueState ), ob.GetType() );
 
-      ob = NangValue.Create( NangValue.NangValueType.DECIMAL );
+      ob = NangValue.Create( IValue.Type.DECIMAL );
       Assert.AreEqual( typeof( NangValueDecimal ), ob.GetType() );
     }
 
@@ -50,7 +50,7 @@ namespace Loggel_Test
       // Create a test object.
       NangValueState testOb = new NangValueState();
       testOb.Name = "Test Name";
-      testOb.ValueType = NangValue.NangValueType.STATE;
+      testOb.ValueType = IValue.Type.STATE;
       testOb.Unit = "Test Unit";
       testOb.StateNames.Add( "State 1" );
       testOb.StateNames.Add( "State 2" );
@@ -97,7 +97,7 @@ namespace Loggel_Test
       // Create a test object.
       NangValueDecimal testOb = new NangValueDecimal();
       testOb.Name = "Test Name";
-      testOb.ValueType = NangValue.NangValueType.DECIMAL;
+      testOb.ValueType = IValue.Type.DECIMAL;
       testOb.Unit = "Test Unit";
       testOb.SetValue( 1.23f );
 

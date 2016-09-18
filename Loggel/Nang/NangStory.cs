@@ -5,6 +5,7 @@ namespace Loggel.Nang
   public abstract class IStory
   {
     public abstract string GetName();
+    public abstract IValue.Type GetValueType();
   }
 
   //===========================================================================
@@ -23,6 +24,13 @@ namespace Loggel.Nang
     override public string GetName()
     {
       return Name;
+    }
+
+    //-------------------------------------------------------------------------
+
+    override public IValue.Type GetValueType()
+    {
+      return Value.ValueType;
     }
 
     //-------------------------------------------------------------------------
@@ -60,7 +68,7 @@ namespace Loggel.Nang
 
     public NangStory(
       string name,
-      NangValue.NangValueType valueType )
+      IValue.Type valueType )
     {
       Name = name;
       Value = NangValue.Create( valueType );
