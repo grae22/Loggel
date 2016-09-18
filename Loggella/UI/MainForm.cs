@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Drawing;
 using Loggel;
+using Loggel.Nang;
 
 namespace Loggella.UI
 {
@@ -16,7 +17,9 @@ namespace Loggella.UI
 
     private List<Circuit> Circuits { get; set; } = new List<Circuit>();
     private Thread Runner { get; set; }
+    private bool IsAlive { get; set; } = true;
     private bool IsRunning { get; set; } = false;
+    private NangCircuit Circuit { get; set; } = new NangCircuit();
 
     //-------------------------------------------------------------------------
 
@@ -24,23 +27,14 @@ namespace Loggella.UI
     {
       InitializeComponent();
 
-      List<Circuit> circuits;
-      CircuitBuilder.Load(
-        //"./test-circuit-accumulator/",
-        "./test-simple/",
-        out circuits );
-      Circuits = circuits;
+      //List<Circuit> circuits;
+      //CircuitBuilder.Load(
+      //  "./test-circuit-accumulator/",
+      //  "./test-simple/",
+      //  out circuits );
+      //Circuits = circuits;
 
-      Point point = new Point( 0, 10 );
-
-      foreach( Circuit circuit in Circuits )
-      {
-        point.X = 0;
-
-        PlaceComponent( circuit, ref point );
-
-        point.Y += 50;
-      }
+      UpdateDetailedViewUI();
 
       Runner = new Thread( new ThreadStart( Run ) );
       Runner.Start();
@@ -53,7 +47,7 @@ namespace Loggella.UI
       UpdateCircuitValuesDelegate updateValuesDelegate =
         new UpdateCircuitValuesDelegate( UpdateCircuitValues );
 
-      while( Runner.IsAlive )
+      while( IsAlive )
       {
         try
         {
@@ -87,7 +81,7 @@ namespace Loggella.UI
 
     private void MainForm_FormClosed( object sender, FormClosedEventArgs e )
     {
-      Runner.Abort();
+      IsAlive = false;
       Runner.Join();
     }
 
@@ -98,6 +92,22 @@ namespace Loggella.UI
     private void UpdateCircuitValues()
     {
       Invalidate( true );
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void UpdateDetailedViewUI()
+    {
+      Point point = new Point( 0, 10 );
+
+      foreach( Circuit circuit in Circuits )
+      {
+        point.X = 0;
+
+        PlaceComponent( circuit, ref point );
+
+        point.Y += 50;
+      }
     }
 
     //-------------------------------------------------------------------------
@@ -158,6 +168,15 @@ namespace Loggella.UI
       {
         uiPlayPause.Text = "Play";
       }
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void uiAddStory_Click( object sender, EventArgs e )
+    {
+      IStory story = Circuit.CreateStory( "New Story" );
+
+      UpdateDetailedViewUI();
     }
 
     //-------------------------------------------------------------------------

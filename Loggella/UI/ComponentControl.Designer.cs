@@ -64,11 +64,12 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.Controls.Add(this.uiValueInput);
       this.Controls.Add(this.uiType);
       this.Controls.Add(this.uiName);
       this.Name = "ComponentControl";
-      this.Size = new System.Drawing.Size(136, 41);
+      this.Size = new System.Drawing.Size(134, 39);
       this.Paint += new System.Windows.Forms.PaintEventHandler(this.ComponentControl_Paint);
       this.ResumeLayout(false);
       this.PerformLayout();

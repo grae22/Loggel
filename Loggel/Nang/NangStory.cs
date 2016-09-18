@@ -2,7 +2,14 @@
 
 namespace Loggel.Nang
 {
-  internal class NangStory
+  public abstract class IStory
+  {
+    public abstract string GetName();
+  }
+
+  //===========================================================================
+
+  internal class NangStory : IStory
   {
     //-------------------------------------------------------------------------
 
@@ -10,6 +17,13 @@ namespace Loggel.Nang
     public NangValue Value { get; private set; }
     public NangCondition Condition { get; private set; }
     public Circuit StoryCircuit { get; private set; }
+
+    //-------------------------------------------------------------------------
+
+    override public string GetName()
+    {
+      return Name;
+    }
 
     //-------------------------------------------------------------------------
 
