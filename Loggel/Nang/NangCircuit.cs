@@ -24,5 +24,34 @@ namespace Loggel.Nang
     }
 
     //-------------------------------------------------------------------------
+
+    public void GetStories( out List< IStory > stories )
+    {
+      stories = new List< IStory >();
+
+      foreach( IStory s in Stories.Values )
+      {
+        stories.Add( s );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
+    public bool RenameStory( IStory story, string name )
+    {
+      if( Stories.ContainsKey( name ) )
+      {
+        return false;
+      }
+
+      Stories.Remove( story.GetName() );
+
+      ((NangStory)story).Name = name;
+      Stories.Add( name, (NangStory)story );
+
+      return true;
+    }
+
+    //-------------------------------------------------------------------------
   }
 }

@@ -6,6 +6,7 @@ namespace Loggel.Nang
   {
     public abstract string GetName();
     public abstract IValue.Type GetValueType();
+    public abstract dynamic GetValue();
   }
 
   //===========================================================================
@@ -31,6 +32,13 @@ namespace Loggel.Nang
     override public IValue.Type GetValueType()
     {
       return Value.ValueType;
+    }
+
+    //-------------------------------------------------------------------------
+
+    override public dynamic GetValue()
+    {
+      return Value.GetValue();
     }
 
     //-------------------------------------------------------------------------

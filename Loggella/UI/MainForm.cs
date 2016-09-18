@@ -33,8 +33,7 @@ namespace Loggella.UI
       //  "./test-simple/",
       //  out circuits );
       //Circuits = circuits;
-
-      UpdateDetailedViewUI();
+      //UpdateDetailedViewUI();
 
       Runner = new Thread( new ThreadStart( Run ) );
       Runner.Start();
@@ -96,6 +95,23 @@ namespace Loggella.UI
 
     //-------------------------------------------------------------------------
 
+    private void UpdateStoryView()
+    {
+      uiStories.Controls.Clear();
+
+      List< IStory > stories;
+      Circuit.GetStories( out stories );
+
+      foreach( IStory s in stories )
+      {
+        StoryControl sc = new StoryControl( Circuit, s );
+        sc.RefreshUi();
+        uiStories.Controls.Add( sc );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     private void UpdateDetailedViewUI()
     {
       Point point = new Point( 0, 10 );
@@ -104,7 +120,7 @@ namespace Loggella.UI
       {
         point.X = 0;
 
-        PlaceComponent( circuit, ref point );
+        PlaceDetailViewComponent( circuit, ref point );
 
         point.Y += 50;
       }
@@ -112,7 +128,7 @@ namespace Loggella.UI
 
     //-------------------------------------------------------------------------
 
-    private void PlaceComponent(
+    private void PlaceDetailViewComponent(
       Component component,
       ref Point currentPoint )
     {
@@ -125,7 +141,7 @@ namespace Loggella.UI
       {
         currentPoint.X += c_componentWidth;
 
-        PlaceComponent(
+        PlaceDetailViewComponent(
           ( component as Circuit ).EntryProcessor,
           ref currentPoint );
 
@@ -140,7 +156,7 @@ namespace Loggella.UI
 
         foreach( Processor processor in ( component as Processor ).ConnectedProcessors.Values )
         {
-          PlaceComponent(
+          PlaceDetailViewComponent(
             processor,
             ref currentPoint );
 
@@ -176,6 +192,7 @@ namespace Loggella.UI
     {
       IStory story = Circuit.CreateStory( "New Story" );
 
+      UpdateStoryView();
       UpdateDetailedViewUI();
     }
 

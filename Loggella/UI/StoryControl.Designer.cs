@@ -51,6 +51,7 @@
       this.uiName.Name = "uiName";
       this.uiName.Size = new System.Drawing.Size(193, 20);
       this.uiName.TabIndex = 1;
+      this.uiName.TextChanged += new System.EventHandler(this.uiName_TextChanged);
       // 
       // label2
       // 

@@ -34,7 +34,9 @@
       this.tabPage2 = new System.Windows.Forms.TabPage();
       this.uiComponents = new System.Windows.Forms.GroupBox();
       this.uiAddStory = new System.Windows.Forms.Button();
+      this.uiStories = new System.Windows.Forms.FlowLayoutPanel();
       this.tabControl1.SuspendLayout();
+      this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -63,6 +65,7 @@
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.uiStories);
       this.tabPage1.Location = new System.Drawing.Point(4, 22);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -101,6 +104,15 @@
       this.uiAddStory.UseVisualStyleBackColor = true;
       this.uiAddStory.Click += new System.EventHandler(this.uiAddStory_Click);
       // 
+      // uiStories
+      // 
+      this.uiStories.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uiStories.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+      this.uiStories.Location = new System.Drawing.Point(3, 3);
+      this.uiStories.Name = "uiStories";
+      this.uiStories.Size = new System.Drawing.Size(764, 546);
+      this.uiStories.TabIndex = 0;
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,6 +125,7 @@
       this.Text = "Loggella";
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
       this.tabControl1.ResumeLayout(false);
+      this.tabPage1.ResumeLayout(false);
       this.tabPage2.ResumeLayout(false);
       this.ResumeLayout(false);
 
@@ -125,6 +138,7 @@
     private System.Windows.Forms.TabPage tabPage2;
     private System.Windows.Forms.GroupBox uiComponents;
     private System.Windows.Forms.Button uiAddStory;
+    private System.Windows.Forms.FlowLayoutPanel uiStories;
   }
 }
 
