@@ -90,13 +90,47 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    public void SetReferenceStory( IStory story, IStory referenceStory )
+    public ICondition CreateStoryCondition( IStory story )
     {
       NangStory nangStory = (NangStory)story;
-      NangStory nangRefStory = (NangStory)referenceStory;
-      
-      nangStory.ReferenceStory = nangRefStory;
-      nangStory.BuildCircuit();
+
+      NangCondition condition =
+        nangStory.CreateCondition(
+          null,
+          ICondition.ComparisonType.NOTHING,
+          0,
+          ICondition.ActionType.NONE,
+          0,
+          ICondition.ActionType.NONE,
+          0 );
+     
+      return condition;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void SetConditionValues(
+      ICondition condition,
+      IStory story,
+      IStory referenceStory,
+      ICondition.ComparisonType comparisonType,
+      dynamic comparisonValue,
+      ICondition.ActionType actionWhenTrue,
+      dynamic actionValueWhenTrue,
+      ICondition.ActionType actionWhenFalse,
+      dynamic actionValueWhenFalse )
+    {
+      NangCondition nangCondition = (NangCondition)condition;
+
+      nangCondition.ReferenceStory = (NangStory)referenceStory;
+      nangCondition.Comparison = comparisonType;
+      nangCondition.ComparisonValue = comparisonValue;
+      nangCondition.ActionWhenTrue = actionWhenTrue;
+      nangCondition.ActionValueWhenTrue = actionValueWhenTrue;
+      nangCondition.ActionWhenFalse = actionWhenFalse;
+      nangCondition.ActionValueWhenFalse = actionValueWhenFalse;
+
+      ((NangStory)story).BuildCircuit();
     }
 
     //-------------------------------------------------------------------------

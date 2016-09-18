@@ -83,6 +83,7 @@
       this.uiCondition.Name = "uiCondition";
       this.uiCondition.Size = new System.Drawing.Size(44, 21);
       this.uiCondition.TabIndex = 3;
+      this.uiCondition.SelectedIndexChanged += new System.EventHandler(this.uiCondition_SelectedIndexChanged);
       // 
       // label3
       // 

@@ -38,13 +38,14 @@ namespace Loggel_Test
       // Test story with initial value 0, value will be incremented
       // by 1.23 when ref story state is 'off'.
       NangStory story = new NangStory( "Simple", IValue.Type.DECIMAL );
-      story.ReferenceStory = refStory;
-      story.Condition.Comparison = NangCondition.ComparisonType.EQUAL;
-      story.Condition.ComparisonValue = "off";
-      story.Condition.ActionWhenTrue = NangCondition.ActionType.ADD;
-      story.Condition.ActionValueWhenTrue = 1.23;
-      story.Condition.ActionWhenFalse = NangCondition.ActionType.SUBTRACT;
-      story.Condition.ActionValueWhenFalse = 1.0;
+      story.CreateCondition(
+        refStory,
+        NangCondition.ComparisonType.EQUAL,
+        "off",
+        NangCondition.ActionType.ADD,
+        1.23,
+        NangCondition.ActionType.SUBTRACT,
+        1.0 );
       story.BuildCircuit();
 
       story.StoryCircuit.Process();

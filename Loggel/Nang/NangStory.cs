@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Loggel.Processors;
 
 namespace Loggel.Nang
 {
@@ -20,7 +22,7 @@ namespace Loggel.Nang
 
     public string Name { get; set; }
     public NangValue Value { get; private set; }
-    public NangCondition Condition { get; private set; }
+    public List< NangCondition > Conditions { get; private set; } = new List< NangCondition >();
     public Circuit StoryCircuit { get; private set; }
 
     //-------------------------------------------------------------------------
@@ -48,38 +50,7 @@ namespace Loggel.Nang
 
     override public IStory GetReferenceStory()
     {
-      return ReferenceStory;
-    }
-
-    //-------------------------------------------------------------------------
-
-    public NangStory ReferenceStory
-    {
-      get
-      {
-        if( Condition != null )
-        {
-          return Condition.ReferenceStory;
-        }
-        
-        return null;
-      }
-
-      set
-      {
-        if( Condition != null &&
-            Condition.ReferenceStory == ReferenceStory )
-        {
-          return;
-        }
-
-        if( Condition == null )
-        {
-          Condition = new NangCondition( Name + "_Condition" );
-        }
-
-        Condition.ReferenceStory = value;
-      }
+      return null;//ReferenceStory;
     }
 
     //=========================================================================
@@ -105,10 +76,15 @@ namespace Loggel.Nang
           Name,
           Value.GetValue() );
 
-      if( Condition != null )
+      Router router =
+        StoryCircuit.Context.CreateComponent< Router >(
+          Name + "_Router", "" );
+
+      StoryCircuit.EntryProcessor = router;
+
+      foreach( NangCondition condition in Conditions )
       {
-        StoryCircuit.EntryProcessor =
-          Condition.BuildCircuit( StoryCircuit.Context );
+        router.Routes.Add( condition.BuildCircuit( StoryCircuit.Context ) );
       }
 
       return StoryCircuit;
@@ -119,6 +95,33 @@ namespace Loggel.Nang
     public void ChangeType( IValue.Type type )
     {
       Value = NangValue.Create( type );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public NangCondition CreateCondition(
+      NangStory referenceStory,
+      ICondition.ComparisonType comparisonType,
+      dynamic comparisonValue,
+      ICondition.ActionType actionWhenTrue,
+      dynamic actionValueWhenTrue,
+      ICondition.ActionType actionWhenFalse,
+      dynamic actionValueWhenFalse )
+    {
+      NangCondition condition =
+        new NangCondition( Name + '_' + referenceStory?.Name );
+
+      condition.ReferenceStory = referenceStory;
+      condition.Comparison = comparisonType;
+      condition.ComparisonValue = comparisonValue;
+      condition.ActionWhenTrue = actionWhenTrue;
+      condition.ActionValueWhenTrue = actionValueWhenTrue;
+      condition.ActionWhenFalse = actionWhenFalse;
+      condition.ActionValueWhenFalse = actionValueWhenFalse;
+
+      Conditions.Add( condition );
+
+      return condition;
     }
 
     //-------------------------------------------------------------------------

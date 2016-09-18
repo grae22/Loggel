@@ -3,7 +3,35 @@ using Loggel.Processors;
 
 namespace Loggel.Nang
 {
-  internal class NangCondition
+  //===========================================================================
+
+  public abstract class ICondition
+  {
+    public enum ComparisonType
+    {
+      NOTHING,
+      EQUAL,
+      NOT_EQUAL,
+      GREATER_OR_EQUAL,
+      GREATER,
+      LESSER_OR_EQUAL,
+      LESSER,
+      IN_RANGE,
+      NOT_IN_RANGE
+    }
+
+    public enum ActionType
+    {
+      NONE,
+      SET,
+      ADD,
+      SUBTRACT
+    }
+  }
+
+  //===========================================================================
+
+  internal class NangCondition : ICondition
   {
     //-------------------------------------------------------------------------
 
@@ -22,31 +50,10 @@ namespace Loggel.Nang
     public dynamic ComparisonValueRangeMax { get; set; }
 
     // Type of comparison to be used.
-    public enum ComparisonType
-    {
-      NOTHING,
-      EQUAL,
-      NOT_EQUAL,
-      GREATER_OR_EQUAL,
-      GREATER,
-      LESSER_OR_EQUAL,
-      LESSER,
-      IN_RANGE,
-      NOT_IN_RANGE
-    }
-
     public ComparisonType Comparison { get; set; } = ComparisonType.NOTHING;
 
     // Action that will be applied to the story's value when
     // the condition is true/false.
-    public enum ActionType
-    {
-      NONE,
-      SET,
-      ADD,
-      SUBTRACT
-    }
-
     public ActionType ActionWhenTrue { get; set; } = ActionType.NONE;
     public ActionType ActionWhenFalse { get; set; } = ActionType.NONE;
 
@@ -72,7 +79,7 @@ namespace Loggel.Nang
 
     // Creates the Loggel components required by this condition.
 
-    public Processor BuildCircuit( CircuitContext context )
+    public Comparer BuildCircuit( CircuitContext context )
     {
       // No reference story?
       if( ReferenceStory == null )
