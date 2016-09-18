@@ -3,6 +3,8 @@ using System.Xml;
 
 namespace Loggel.Nang
 {
+  //===========================================================================
+
   public abstract class IValue
   {
     public enum Type

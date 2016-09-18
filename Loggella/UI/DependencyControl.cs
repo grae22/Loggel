@@ -20,6 +20,8 @@ namespace Loggella.UI
       Story = story;
 
       InitializeComponent();
+
+      uiStories.Text = story.GetReferenceStory()?.GetName();
     }
 
     //-------------------------------------------------------------------------
@@ -35,6 +37,22 @@ namespace Loggella.UI
       {
         uiStories.Items.Add( s.GetName() );
       }
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void uiStories_SelectedIndexChanged( object sender, System.EventArgs e )
+    {
+      ApplyDependencyToStory();
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void ApplyDependencyToStory()
+    {
+      IStory refStory = Circuit.GetStory( uiStories.Text );
+
+      Circuit.SetReferenceStory( Story, refStory );
     }
 
     //-------------------------------------------------------------------------

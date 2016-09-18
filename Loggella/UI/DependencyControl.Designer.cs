@@ -34,6 +34,9 @@
       this.uiCondition = new System.Windows.Forms.ComboBox();
       this.label3 = new System.Windows.Forms.Label();
       this.uiCompisonValue = new System.Windows.Forms.ComboBox();
+      this.label4 = new System.Windows.Forms.Label();
+      this.uiAction = new System.Windows.Forms.ComboBox();
+      this.uiActionValue = new System.Windows.Forms.ComboBox();
       this.SuspendLayout();
       // 
       // label1
@@ -54,6 +57,7 @@
       this.uiStories.Size = new System.Drawing.Size(172, 21);
       this.uiStories.TabIndex = 1;
       this.uiStories.DropDown += new System.EventHandler(this.uiStories_DropDown);
+      this.uiStories.SelectedIndexChanged += new System.EventHandler(this.uiStories_SelectedIndexChanged);
       // 
       // label2
       // 
@@ -92,22 +96,48 @@
       // uiCompisonValue
       // 
       this.uiCompisonValue.FormattingEnabled = true;
-      this.uiCompisonValue.Items.AddRange(new object[] {
-            "=",
-            "!=",
-            ">",
-            ">=",
-            "<",
-            "<="});
       this.uiCompisonValue.Location = new System.Drawing.Point(313, 8);
       this.uiCompisonValue.Name = "uiCompisonValue";
       this.uiCompisonValue.Size = new System.Drawing.Size(69, 21);
       this.uiCompisonValue.TabIndex = 5;
       // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(388, 11);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(68, 13);
+      this.label4.TabIndex = 6;
+      this.label4.Text = "the value will";
+      // 
+      // uiAction
+      // 
+      this.uiAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.uiAction.FormattingEnabled = true;
+      this.uiAction.Items.AddRange(new object[] {
+            "be",
+            "increase by",
+            "decrease by"});
+      this.uiAction.Location = new System.Drawing.Point(462, 8);
+      this.uiAction.Name = "uiAction";
+      this.uiAction.Size = new System.Drawing.Size(65, 21);
+      this.uiAction.TabIndex = 7;
+      // 
+      // uiActionValue
+      // 
+      this.uiActionValue.FormattingEnabled = true;
+      this.uiActionValue.Location = new System.Drawing.Point(533, 8);
+      this.uiActionValue.Name = "uiActionValue";
+      this.uiActionValue.Size = new System.Drawing.Size(69, 21);
+      this.uiActionValue.TabIndex = 8;
+      // 
       // DependencyControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.Controls.Add(this.uiActionValue);
+      this.Controls.Add(this.uiAction);
+      this.Controls.Add(this.label4);
       this.Controls.Add(this.uiCompisonValue);
       this.Controls.Add(this.label3);
       this.Controls.Add(this.uiCondition);
@@ -115,7 +145,7 @@
       this.Controls.Add(this.uiStories);
       this.Controls.Add(this.label1);
       this.Name = "DependencyControl";
-      this.Size = new System.Drawing.Size(596, 37);
+      this.Size = new System.Drawing.Size(612, 37);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -129,5 +159,8 @@
     private System.Windows.Forms.ComboBox uiCondition;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.ComboBox uiCompisonValue;
+    private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.ComboBox uiAction;
+    private System.Windows.Forms.ComboBox uiActionValue;
   }
 }

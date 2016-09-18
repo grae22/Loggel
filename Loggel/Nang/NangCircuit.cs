@@ -78,13 +78,25 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    public void ChangeStoryValueType( IStory story,
-                                      IValue.Type type,
-                                      dynamic value )
+    public void ChangeStoryValueType(
+      IStory story,
+      IValue.Type type,
+      dynamic value )
     {
       NangStory nangStory = (NangStory)story;
       nangStory.ChangeType( type );
       nangStory.Value.SetValue( value );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void SetReferenceStory( IStory story, IStory referenceStory )
+    {
+      NangStory nangStory = (NangStory)story;
+      NangStory nangRefStory = (NangStory)referenceStory;
+      
+      nangStory.ReferenceStory = nangRefStory;
+      nangStory.BuildCircuit();
     }
 
     //-------------------------------------------------------------------------

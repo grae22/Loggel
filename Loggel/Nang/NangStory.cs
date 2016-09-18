@@ -2,11 +2,14 @@
 
 namespace Loggel.Nang
 {
+  //===========================================================================
+
   public abstract class IStory
   {
     public abstract string GetName();
     public abstract IValue.Type GetValueType();
     public abstract dynamic GetValue();
+    public abstract IStory GetReferenceStory();
   }
 
   //===========================================================================
@@ -43,6 +46,13 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    override public IStory GetReferenceStory()
+    {
+      return ReferenceStory;
+    }
+
+    //-------------------------------------------------------------------------
+
     public NangStory ReferenceStory
     {
       get
@@ -74,9 +84,7 @@ namespace Loggel.Nang
 
     //=========================================================================
 
-    public NangStory(
-      string name,
-      IValue.Type valueType )
+    public NangStory( string name, IValue.Type valueType )
     {
       Name = name;
       
