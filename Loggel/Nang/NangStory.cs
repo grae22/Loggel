@@ -79,7 +79,8 @@ namespace Loggel.Nang
       IValue.Type valueType )
     {
       Name = name;
-      Value = NangValue.Create( valueType );
+      
+      ChangeType( valueType );
     }
 
     //-------------------------------------------------------------------------
@@ -103,6 +104,13 @@ namespace Loggel.Nang
       }
 
       return StoryCircuit;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void ChangeType( IValue.Type type )
+    {
+      Value = NangValue.Create( type );
     }
 
     //-------------------------------------------------------------------------

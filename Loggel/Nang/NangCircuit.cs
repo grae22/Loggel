@@ -37,6 +37,30 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    public IStory GetStory( string name )
+    {
+      if( Stories.ContainsKey( name ) )
+      {
+        return Stories[ name ];
+      }
+
+      return null;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void GetCircuits( out List< Circuit > circuits )
+    {
+      circuits = new List< Circuit >();
+
+      foreach( NangStory story in Stories.Values )
+      {
+        circuits.Add( story.StoryCircuit );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     public bool RenameStory( IStory story, string name )
     {
       if( Stories.ContainsKey( name ) )
@@ -50,6 +74,27 @@ namespace Loggel.Nang
       Stories.Add( name, (NangStory)story );
 
       return true;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void ChangeStoryValueType( IStory story,
+                                      IValue.Type type,
+                                      dynamic value )
+    {
+      NangStory nangStory = (NangStory)story;
+      nangStory.ChangeType( type );
+      nangStory.Value.SetValue( value );
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void RunCircuit()
+    {
+      foreach( NangStory story in Stories.Values )
+      {
+        story.StoryCircuit.Process();
+      }
     }
 
     //-------------------------------------------------------------------------

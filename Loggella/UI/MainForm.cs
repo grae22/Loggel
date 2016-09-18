@@ -15,7 +15,6 @@ namespace Loggella.UI
     private const int c_componentWidth = 150;
     private const int c_componentHeight = 50;
 
-    private List<Circuit> Circuits { get; set; } = new List<Circuit>();
     private Thread Runner { get; set; }
     private bool IsAlive { get; set; } = true;
     private bool IsRunning { get; set; } = false;
@@ -26,14 +25,6 @@ namespace Loggella.UI
     public MainForm()
     {
       InitializeComponent();
-
-      //List<Circuit> circuits;
-      //CircuitBuilder.Load(
-      //  "./test-circuit-accumulator/",
-      //  "./test-simple/",
-      //  out circuits );
-      //Circuits = circuits;
-      //UpdateDetailedViewUI();
 
       Runner = new Thread( new ThreadStart( Run ) );
       Runner.Start();
@@ -55,15 +46,7 @@ namespace Loggella.UI
             continue;
           }
 
-          foreach( Circuit circuit in Circuits )
-          {
-            foreach( Component component in circuit.Context.Components.Values )
-            {
-              component.HasProcessed = false;
-            }
-
-            circuit.Process();
-          }
+          Circuit.RunCircuit();
 
           Invoke( updateValuesDelegate );
 
@@ -116,7 +99,10 @@ namespace Loggella.UI
     {
       Point point = new Point( 0, 10 );
 
-      foreach( Circuit circuit in Circuits )
+      List< Circuit > circuits;
+      Circuit.GetCircuits( out circuits );
+
+      foreach( Circuit circuit in circuits )
       {
         point.X = 0;
 
@@ -190,7 +176,20 @@ namespace Loggella.UI
 
     private void uiAddStory_Click( object sender, EventArgs e )
     {
-      IStory story = Circuit.CreateStory( "New Story" );
+      // Make a name (followed by number if name already exists).
+      List< IStory > stories;
+      Circuit.GetStories( out stories );
+      string name = "New Story";
+      int i = 0;
+
+      while( Circuit.GetStory( name ) != null )
+      {
+        i++;
+        name = "New Story " + i.ToString();
+      }
+
+      // Create the story & update the UI.
+      Circuit.CreateStory( name );
 
       UpdateStoryView();
       UpdateDetailedViewUI();

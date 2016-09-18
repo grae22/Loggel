@@ -28,9 +28,18 @@ namespace Loggella.UI
 
     public void RefreshUi()
     {
+      // Remove event handlers.
+      uiName.TextChanged -= uiName_TextChanged;
+      uiType.SelectedIndexChanged -= uiType_SelectedIndexChanged;
+
+      // Apply values.
       uiName.Text = Story.GetName();
       uiType.Text = Story.GetValueType() == IValue.Type.DECIMAL ? "Value" : "State";
       uiInitialValue.Text = Story.GetValue().ToString();
+
+      // Add back event handlers.
+      uiName.TextChanged += uiName_TextChanged;
+      uiType.SelectedIndexChanged += uiType_SelectedIndexChanged;
     }
 
     //-------------------------------------------------------------------------
@@ -50,6 +59,28 @@ namespace Loggella.UI
       {
         uiName.ForeColor = Color.Red;
       }
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void uiType_SelectedIndexChanged( object sender, System.EventArgs e )
+    {
+      if( uiType.Text == "Value" )
+      {
+        Circuit.ChangeStoryValueType( Story, IValue.Type.DECIMAL, 0 );
+      }
+      else
+      {
+        Circuit.ChangeStoryValueType( Story, IValue.Type.STATE, "" );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void uiAddDependency_Click( object sender, System.EventArgs e )
+    {
+      DependencyControl dep = new DependencyControl( Circuit, Story );
+      uiDependencies.Controls.Add( dep );
     }
 
     //-------------------------------------------------------------------------

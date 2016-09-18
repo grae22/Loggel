@@ -34,6 +34,8 @@
       this.uiType = new System.Windows.Forms.ComboBox();
       this.label3 = new System.Windows.Forms.Label();
       this.uiInitialValue = new System.Windows.Forms.ComboBox();
+      this.uiDependencies = new System.Windows.Forms.FlowLayoutPanel();
+      this.uiAddDependency = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // label1
@@ -73,6 +75,7 @@
       this.uiType.Name = "uiType";
       this.uiType.Size = new System.Drawing.Size(70, 21);
       this.uiType.TabIndex = 3;
+      this.uiType.SelectedIndexChanged += new System.EventHandler(this.uiType_SelectedIndexChanged);
       // 
       // label3
       // 
@@ -94,11 +97,38 @@
       this.uiInitialValue.Size = new System.Drawing.Size(81, 21);
       this.uiInitialValue.TabIndex = 5;
       // 
+      // uiDependencies
+      // 
+      this.uiDependencies.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.uiDependencies.AutoSize = true;
+      this.uiDependencies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.uiDependencies.Location = new System.Drawing.Point(44, 33);
+      this.uiDependencies.Name = "uiDependencies";
+      this.uiDependencies.Size = new System.Drawing.Size(100, 2);
+      this.uiDependencies.TabIndex = 6;
+      // 
+      // uiAddDependency
+      // 
+      this.uiAddDependency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.uiAddDependency.Location = new System.Drawing.Point(44, 39);
+      this.uiAddDependency.Name = "uiAddDependency";
+      this.uiAddDependency.Size = new System.Drawing.Size(111, 23);
+      this.uiAddDependency.TabIndex = 7;
+      this.uiAddDependency.Text = "Add Dependency";
+      this.uiAddDependency.UseVisualStyleBackColor = true;
+      this.uiAddDependency.Click += new System.EventHandler(this.uiAddDependency_Click);
+      // 
       // StoryControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.AutoScroll = true;
+      this.AutoSize = true;
       this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.Controls.Add(this.uiAddDependency);
+      this.Controls.Add(this.uiDependencies);
       this.Controls.Add(this.uiInitialValue);
       this.Controls.Add(this.label3);
       this.Controls.Add(this.uiType);
@@ -106,7 +136,7 @@
       this.Controls.Add(this.uiName);
       this.Controls.Add(this.label1);
       this.Name = "StoryControl";
-      this.Size = new System.Drawing.Size(542, 36);
+      this.Size = new System.Drawing.Size(542, 67);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -120,5 +150,7 @@
     private System.Windows.Forms.ComboBox uiType;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.ComboBox uiInitialValue;
+    private System.Windows.Forms.FlowLayoutPanel uiDependencies;
+    private System.Windows.Forms.Button uiAddDependency;
   }
 }

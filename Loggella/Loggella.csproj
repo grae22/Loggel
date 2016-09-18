@@ -48,6 +48,12 @@
     <Compile Include="UI\ComponentControl.Designer.cs">
       <DependentUpon>ComponentControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\DependencyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\DependencyControl.Designer.cs">
+      <DependentUpon>DependencyControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     </Compile>
     <EmbeddedResource Include="UI\ComponentControl.resx">
       <DependentUpon>ComponentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DependencyControl.resx">
+      <DependentUpon>DependencyControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

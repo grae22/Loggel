@@ -106,6 +106,7 @@
       // 
       // uiStories
       // 
+      this.uiStories.AutoScroll = true;
       this.uiStories.Dock = System.Windows.Forms.DockStyle.Fill;
       this.uiStories.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
       this.uiStories.Location = new System.Drawing.Point(3, 3);
