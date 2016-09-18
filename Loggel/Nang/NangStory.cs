@@ -11,7 +11,7 @@ namespace Loggel.Nang
     public abstract string GetName();
     public abstract IValue.Type GetValueType();
     public abstract dynamic GetValue();
-    public abstract IStory GetReferenceStory();
+    public abstract void GetConditions( out List< ICondition > conditions );
   }
 
   //===========================================================================
@@ -48,9 +48,14 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    override public IStory GetReferenceStory()
+    override public void GetConditions( out List< ICondition > conditions )
     {
-      return null;//ReferenceStory;
+      conditions = new List< ICondition >();
+
+      foreach( ICondition condition in Conditions )
+      {
+        conditions.Add( condition );
+      }
     }
 
     //=========================================================================
@@ -71,16 +76,24 @@ namespace Loggel.Nang
         throw new Exception( "Story has no name." );
       }
 
-      StoryCircuit =
-        ComponentFactory.CreateCircuit(
-          Name,
-          Value.GetValue() );
+      Router router = null;
 
-      Router router =
-        StoryCircuit.Context.CreateComponent< Router >(
-          Name + "_Router", "" );
+      if( StoryCircuit == null )
+      {
+        StoryCircuit =
+          ComponentFactory.CreateCircuit(
+            Name,
+            Value.GetValue() );
 
-      StoryCircuit.EntryProcessor = router;
+        router =
+          StoryCircuit.Context.CreateComponent< Router >(
+            Name + "_Router", "" );
+
+        StoryCircuit.EntryProcessor = router;
+      }
+
+      router = (Router)StoryCircuit.EntryProcessor;
+      router.Routes.Clear();
 
       foreach( NangCondition condition in Conditions )
       {

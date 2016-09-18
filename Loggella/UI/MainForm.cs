@@ -80,16 +80,33 @@ namespace Loggella.UI
 
     private void UpdateStoryView()
     {
-      uiStories.Controls.Clear();
-
       List< IStory > stories;
       Circuit.GetStories( out stories );
 
       foreach( IStory s in stories )
       {
-        StoryControl sc = new StoryControl( Circuit, s );
-        sc.RefreshUi();
-        uiStories.Controls.Add( sc );
+        // Try find a control for this story.
+        bool foundStoryControl = false;
+
+        foreach( Control c in uiStories.Controls )
+        {
+          StoryControl storyControl = (StoryControl)c;
+
+          if( storyControl != null &&
+              storyControl.Story == s )
+          {
+            foundStoryControl = true;
+            break;
+          }
+        }
+
+        // Add a new control if story doesn't have one yet.
+        if( foundStoryControl == false )
+        {
+          StoryControl sc = new StoryControl( Circuit, s );
+          sc.RefreshUi();
+          uiStories.Controls.Add( sc );
+        }
       }
     }
 
@@ -137,10 +154,13 @@ namespace Loggella.UI
       {
         currentPoint.X += c_componentWidth;
 
-        int connectedProcessorCount = ( component as Processor ).ConnectedProcessors.Count;
+        List< Processor > processors;
+        ( component as Processor ).GetConnectedProcessors( out processors );
+
+        int connectedProcessorCount = processors.Count;
         int i = 0;
 
-        foreach( Processor processor in ( component as Processor ).ConnectedProcessors.Values )
+        foreach( Processor processor in processors )
         {
           PlaceDetailViewComponent(
             processor,

@@ -27,6 +27,8 @@ namespace Loggel.Nang
       ADD,
       SUBTRACT
     }
+
+    public abstract IStory GetReferenceStory();
   }
 
   //===========================================================================
@@ -70,6 +72,13 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    override public IStory GetReferenceStory()
+    {
+      return ReferenceStory;
+    }
+
+    //-------------------------------------------------------------------------
+
     public NangCondition( string name )
     {
       Name = name;
@@ -94,10 +103,13 @@ namespace Loggel.Nang
       }
 
       //-- Create a comparer which will perform the condition logic.
-      Comparer =
-        context.CreateComponent<Comparer>(
-          "Condition",
-          "" );
+      if( Comparer == null )
+      {
+        Comparer =
+          context.CreateComponent<Comparer>(
+            "Condition",
+            "" );
+      }
 
       // We're comparing the reference story's value with our comparison value.
       Comparer.ExternalValueSource = ReferenceStory.StoryCircuit.Context;

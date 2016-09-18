@@ -75,6 +75,14 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
+    public override void GetConnectedProcessors( out List< Processor > processors )
+    {
+      processors = new List< Processor >();
+      processors.Add( ConnectedProcessor );
+    }
+
+    //-------------------------------------------------------------------------
+
     // Persist this instance as XML.
 
     public override XmlElement GetAsXml( XmlElement parent )

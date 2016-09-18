@@ -25,6 +25,11 @@ namespace Loggella.UI
 
     private void ComponentControl_Paint( object sender, PaintEventArgs e )
     {
+      if( CircuitComponent == null )
+      {
+        return;
+      }
+
       uiType.Text = CircuitComponent.GetType().Name;
 
       if( CircuitComponent is Circuit )

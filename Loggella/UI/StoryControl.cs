@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using System.Collections.Generic;
 using Loggel.Nang;
 
 namespace Loggella.UI
@@ -20,6 +21,14 @@ namespace Loggella.UI
       Story = story;
 
       InitializeComponent();
+
+      List< ICondition > conditions;
+      story.GetConditions( out conditions );
+      foreach( ICondition c in conditions )
+      {
+        DependencyControl dep = new DependencyControl( c, Circuit, Story );
+        uiDependencies.Controls.Add( dep );
+      }
 
       RefreshUi();
     }
@@ -79,7 +88,9 @@ namespace Loggella.UI
 
     private void uiAddDependency_Click( object sender, System.EventArgs e )
     {
-      DependencyControl dep = new DependencyControl( Circuit, Story );
+      ICondition condition = Circuit.CreateStoryCondition( Story );
+
+      DependencyControl dep = new DependencyControl( condition, Circuit, Story );
       uiDependencies.Controls.Add( dep );
     }
 

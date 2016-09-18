@@ -8,27 +8,32 @@ namespace Loggella.UI
   {
     //-------------------------------------------------------------------------
 
-    public IStory Story { get; private set; }
+    public ICondition Condition { get; private set; }
 
     private NangCircuit Circuit { get; set; }
-    private ICondition Condition { get; set; }
+    private IStory Story { get; set; }
 
     //-------------------------------------------------------------------------
 
-    public DependencyControl( NangCircuit circuit, IStory story )
+    public DependencyControl( 
+      ICondition condition,
+      NangCircuit circuit,
+      IStory story )
     {
+      Condition = condition;
       Circuit = circuit;
       Story = story;
 
-      Condition = Circuit.CreateStoryCondition( Story );
-
       InitializeComponent();
 
+      // Remove handlers before setting control values.
       uiStories.DropDown -= uiStories_DropDown;
       uiCondition.SelectedIndexChanged -= uiCondition_SelectedIndexChanged;
 
-      uiStories.Text = story.GetReferenceStory()?.GetName();
+      // Set values.
+      uiStories.Text = Condition.GetReferenceStory()?.GetName();
 
+      // Add back handlers.
       uiStories.DropDown += uiStories_DropDown;
       uiCondition.SelectedIndexChanged += uiCondition_SelectedIndexChanged;
     }

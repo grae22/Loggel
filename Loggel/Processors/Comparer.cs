@@ -188,6 +188,43 @@ namespace Loggel.Processors
 
     //-------------------------------------------------------------------------
 
+    public override void GetConnectedProcessors( out List< Processor > processors )
+    {
+      processors = new List< Processor >();
+
+      if( Processor_Equal != null )
+      {
+        processors.Add( Processor_Equal );
+      }
+
+      if( Processor_NotEqual != null )
+      {
+        processors.Add( Processor_NotEqual );
+      }
+
+      if( Processor_Greater != null )
+      {
+        processors.Add( Processor_Greater );
+      }
+
+      if( Processor_Lesser != null )
+      {
+        processors.Add( Processor_Lesser );
+      }
+
+      if( Processor_InRange != null )
+      {
+        processors.Add( Processor_InRange );
+      }
+
+      if( Processor_NotInRange != null )
+      {
+        processors.Add( Processor_NotInRange );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     // Persist this instance as XML.
 
     public override XmlElement GetAsXml( XmlElement parent )
