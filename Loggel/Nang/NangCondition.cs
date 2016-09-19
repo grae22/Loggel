@@ -97,13 +97,15 @@ namespace Loggel.Nang
       // No reference story?
       if( ReferenceStory == null )
       {
-        throw new Exception( "Condition has no reference story." );
+        return null;
+        //throw new Exception( "Condition has no reference story." );
       }
 
       // No comparison value?
       if( ComparisonValue == null )
       {
-        throw new Exception( "Condition has no comparison value." );
+        return null;
+        //throw new Exception( "Condition has no comparison value." );
       }
 
       //-- Create a comparer which will perform the condition logic.
@@ -124,6 +126,19 @@ namespace Loggel.Nang
 
       BuildActions( context );
 
+      // Sub conditions.
+      if( SubConditionWhenTrue != null )
+      {
+        ProcessorWhenTrue =
+          SubConditionWhenTrue.BuildCircuit( context );
+      }
+
+      if( SubConditionWhenFalse != null )
+      {
+        ProcessorWhenFalse =
+          SubConditionWhenFalse.BuildCircuit( context );
+      }
+
       return Comparer;
     }
 
@@ -140,12 +155,19 @@ namespace Loggel.Nang
       // Create processors to perform actions.
       if( ProcessorWhenTrue == null )
       {
-      ProcessorWhenTrue =
-        CreateActionProcessor(
-          Name + "_True",
+        ProcessorWhenTrue =
+          CreateActionProcessor(
+            Name + "_True",
+            ActionWhenTrue,
+            ActionValueWhenTrue,
+            context );
+      }
+      else if( ProcessorWhenTrue is Maths )
+      {
+        SetActionProcessorValues(
+          (Maths)ProcessorWhenTrue,
           ActionWhenTrue,
-          ActionValueWhenTrue,
-          context );
+          ActionValueWhenTrue );
       }
 
       if( ProcessorWhenFalse == null )
@@ -156,6 +178,13 @@ namespace Loggel.Nang
             ActionWhenFalse,
             ActionValueWhenFalse,
             context );
+      }
+      else if( ProcessorWhenFalse is Maths )
+      {
+        SetActionProcessorValues(
+          (Maths)ProcessorWhenFalse,
+          ActionWhenFalse,
+          ActionValueWhenFalse );
       }
 
       // Clear all routes and re-map.
@@ -228,6 +257,23 @@ namespace Loggel.Nang
       // Create the processor.
       Maths processor = context.CreateComponent<Maths>( name, "", true );
 
+      // Set the values.
+      SetActionProcessorValues(
+        processor,
+        action,
+        actionValue );
+
+      // Return the new processor.
+      return processor;
+    }
+
+    //-------------------------------------------------------------------------
+
+    private static void SetActionProcessorValues(
+      Maths processor,
+      ActionType action,
+      dynamic actionValue )
+    {
       // Set its operation type.
       switch( action )
       {
@@ -259,9 +305,34 @@ namespace Loggel.Nang
       }
 
       processor.Value2 = actionValue;
+    }
 
-      // Return the new processor.
-      return processor;
+    //-------------------------------------------------------------------------
+
+    public NangCondition CreateSubCondition(
+      NangStory referenceStory,
+      ComparisonType comparisonType,
+      dynamic comparisonValue,
+      ActionType actionWhenTrue,
+      dynamic actionValueWhenTrue,
+      ActionType actionWhenFalse,
+      dynamic actionValueWhenFalse )
+    {
+      if( SubConditionWhenTrue == null )
+      {
+        SubConditionWhenTrue =
+          new NangCondition( Name + '_' + referenceStory?.Name );
+      }
+
+      SubConditionWhenTrue.ReferenceStory = referenceStory;
+      SubConditionWhenTrue.Comparison = comparisonType;
+      SubConditionWhenTrue.ComparisonValue = comparisonValue;
+      SubConditionWhenTrue.ActionWhenTrue = actionWhenTrue;
+      SubConditionWhenTrue.ActionValueWhenTrue = actionValueWhenTrue;
+      SubConditionWhenTrue.ActionWhenFalse = actionWhenFalse;
+      SubConditionWhenTrue.ActionValueWhenFalse = actionValueWhenFalse;
+
+      return SubConditionWhenTrue;
     }
 
     //-------------------------------------------------------------------------

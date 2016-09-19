@@ -97,7 +97,13 @@ namespace Loggel.Nang
 
       foreach( NangCondition condition in Conditions )
       {
-        router.Routes.Add( condition.BuildCircuit( StoryCircuit.Context ) );
+        Comparer comparer =
+          condition.BuildCircuit( StoryCircuit.Context );
+
+        if( comparer != null )
+        {
+          router.Routes.Add( comparer );
+        }
       }
 
       return StoryCircuit;

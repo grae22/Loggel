@@ -109,7 +109,52 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
-    public void SetConditionValues(
+    public void SetStoryConditionValues(
+      ICondition condition,
+      IStory story,
+      IStory referenceStory,
+      ICondition.ComparisonType comparisonType,
+      dynamic comparisonValue,
+      ICondition.ActionType actionWhenTrue,
+      dynamic actionValueWhenTrue,
+      ICondition.ActionType actionWhenFalse,
+      dynamic actionValueWhenFalse )
+    {
+      NangCondition nangCondition = (NangCondition)condition;
+
+      nangCondition.ReferenceStory = (NangStory)referenceStory;
+      nangCondition.Comparison = comparisonType;
+      nangCondition.ComparisonValue = comparisonValue;
+      nangCondition.ActionWhenTrue = actionWhenTrue;
+      nangCondition.ActionValueWhenTrue = actionValueWhenTrue;
+      nangCondition.ActionWhenFalse = actionWhenFalse;
+      nangCondition.ActionValueWhenFalse = actionValueWhenFalse;
+
+      ((NangStory)story).BuildCircuit();
+    }
+
+    //-------------------------------------------------------------------------
+
+    public ICondition CreateSubCondition( ICondition condition )
+    {
+      NangCondition nangCondition = (NangCondition)condition;
+
+      NangCondition subCondition =
+        nangCondition.CreateSubCondition(
+          null,
+          ICondition.ComparisonType.NOTHING,
+          0,
+          ICondition.ActionType.NONE,
+          0,
+          ICondition.ActionType.NONE,
+          0 );
+     
+      return subCondition;
+    }
+
+    //-------------------------------------------------------------------------
+
+    public void SetSubConditionValues(
       ICondition condition,
       IStory story,
       IStory referenceStory,
@@ -137,6 +182,14 @@ namespace Loggel.Nang
 
     public void RunCircuit()
     {
+      foreach( NangStory story in Stories.Values )
+      {
+        foreach( Component component in story.StoryCircuit.Context.Components.Values )
+        {
+          component.HasProcessed = false;
+        }
+      }
+
       foreach( NangStory story in Stories.Values )
       {
         story.StoryCircuit.Process();

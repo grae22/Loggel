@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using Loggel.Nang;
 
@@ -12,6 +13,32 @@ namespace Loggella.UI
 
     private NangCircuit Circuit { get; set; }
     private IStory Story { get; set; }
+    private DependencyControl SubDependency { get; set; }
+
+    //-------------------------------------------------------------------------
+
+    List< EventHandler > DepedencyChangedHandlers = new List<EventHandler>();
+
+    public event EventHandler DependencyChanged
+    {
+      add
+      {
+        DepedencyChangedHandlers.Add( value );
+      }
+
+      remove
+      {
+        DepedencyChangedHandlers.Remove( value );
+      }
+    }
+
+    private void OnDependencyChanged()
+    {
+      foreach( EventHandler handler in DepedencyChangedHandlers )
+      {
+        handler( this, EventArgs.Empty );
+      }
+    }
 
     //-------------------------------------------------------------------------
 
@@ -66,6 +93,39 @@ namespace Loggella.UI
     //-------------------------------------------------------------------------
 
     private void uiCondition_SelectedIndexChanged( object sender, System.EventArgs e )
+    {
+      ApplyDependencyToStory();
+    }
+
+    //-------------------------------------------------------------------------
+
+
+    private void uiCompisonValue_TextUpdate( object sender, System.EventArgs e )
+    {
+      ApplyDependencyToStory();
+    }
+
+    //-------------------------------------------------------------------------
+
+
+    private void uiAction_SelectedIndexChanged( object sender, System.EventArgs e )
+    {
+      if( uiAction.Text == "depends on" )
+      {
+        ICondition condition = Circuit.CreateSubCondition( Condition );
+
+        DependencyControl dep = new DependencyControl( condition, Circuit, Story );
+        dep.DependencyChanged += OnSubDependencyChanged;
+        uiDependencies.Controls.Add( dep );
+      }
+
+      ApplyDependencyToStory();
+    }
+
+    //-------------------------------------------------------------------------
+
+
+    private void uiActionValue_TextUpdate( object sender, System.EventArgs e )
     {
       ApplyDependencyToStory();
     }
@@ -139,18 +199,18 @@ namespace Loggella.UI
       }
       else
       {
-        return;
+        //return;
       }
 
       float actionValueWhenTrue;
 
       if( float.TryParse( uiActionValue.Text, out actionValueWhenTrue ) == false )
       {
-        return;
+        //return;
       }
 
       // Apply.
-      Circuit.SetConditionValues(
+      Circuit.SetStoryConditionValues(
         Condition,
         Story,
         refStory,
@@ -160,6 +220,16 @@ namespace Loggella.UI
         actionValueWhenTrue,
         ICondition.ActionType.NONE,
         null );
+
+      // Raise event.
+      OnDependencyChanged();
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void OnSubDependencyChanged( object sender, EventArgs args )
+    {
+      OnDependencyChanged();
     }
 
     //-------------------------------------------------------------------------

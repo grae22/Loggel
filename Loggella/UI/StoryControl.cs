@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
 using Loggel.Nang;
@@ -15,6 +16,31 @@ namespace Loggella.UI
 
     //-------------------------------------------------------------------------
 
+    List< EventHandler > StoryChangedHandlers = new List< EventHandler >();
+
+    public event EventHandler StoryChanged
+    {
+      add
+      {
+        StoryChangedHandlers.Add( value );
+      }
+
+      remove
+      {
+        StoryChangedHandlers.Remove( value );
+      }
+    }
+
+    private void OnStoryChanged()
+    {
+      foreach( EventHandler handler in StoryChangedHandlers )
+      {
+        handler( this, EventArgs.Empty );
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     public StoryControl( NangCircuit circuit, IStory story )
     {
       Circuit = circuit;
@@ -27,6 +53,7 @@ namespace Loggella.UI
       foreach( ICondition c in conditions )
       {
         DependencyControl dep = new DependencyControl( c, Circuit, Story );
+        dep.DependencyChanged += OnDependencyChanged;
         uiDependencies.Controls.Add( dep );
       }
 
@@ -91,7 +118,15 @@ namespace Loggella.UI
       ICondition condition = Circuit.CreateStoryCondition( Story );
 
       DependencyControl dep = new DependencyControl( condition, Circuit, Story );
+      dep.DependencyChanged += OnDependencyChanged;
       uiDependencies.Controls.Add( dep );
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void OnDependencyChanged( object sender, EventArgs args )
+    {
+      OnStoryChanged();
     }
 
     //-------------------------------------------------------------------------

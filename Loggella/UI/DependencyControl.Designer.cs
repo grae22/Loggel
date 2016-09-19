@@ -37,6 +37,7 @@
       this.label4 = new System.Windows.Forms.Label();
       this.uiAction = new System.Windows.Forms.ComboBox();
       this.uiActionValue = new System.Windows.Forms.ComboBox();
+      this.uiDependencies = new System.Windows.Forms.FlowLayoutPanel();
       this.SuspendLayout();
       // 
       // label1
@@ -101,6 +102,7 @@
       this.uiCompisonValue.Name = "uiCompisonValue";
       this.uiCompisonValue.Size = new System.Drawing.Size(69, 21);
       this.uiCompisonValue.TabIndex = 5;
+      this.uiCompisonValue.TextUpdate += new System.EventHandler(this.uiCompisonValue_TextUpdate);
       // 
       // label4
       // 
@@ -118,11 +120,13 @@
       this.uiAction.Items.AddRange(new object[] {
             "be",
             "increase by",
-            "decrease by"});
+            "decrease by",
+            "depends on"});
       this.uiAction.Location = new System.Drawing.Point(462, 8);
       this.uiAction.Name = "uiAction";
       this.uiAction.Size = new System.Drawing.Size(65, 21);
       this.uiAction.TabIndex = 7;
+      this.uiAction.SelectedIndexChanged += new System.EventHandler(this.uiAction_SelectedIndexChanged);
       // 
       // uiActionValue
       // 
@@ -131,11 +135,22 @@
       this.uiActionValue.Name = "uiActionValue";
       this.uiActionValue.Size = new System.Drawing.Size(69, 21);
       this.uiActionValue.TabIndex = 8;
+      this.uiActionValue.TextUpdate += new System.EventHandler(this.uiActionValue_TextUpdate);
+      // 
+      // uiDependencies
+      // 
+      this.uiDependencies.AutoSize = true;
+      this.uiDependencies.Location = new System.Drawing.Point(43, 35);
+      this.uiDependencies.Name = "uiDependencies";
+      this.uiDependencies.Size = new System.Drawing.Size(200, 10);
+      this.uiDependencies.TabIndex = 9;
       // 
       // DependencyControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.AutoSize = true;
+      this.Controls.Add(this.uiDependencies);
       this.Controls.Add(this.uiActionValue);
       this.Controls.Add(this.uiAction);
       this.Controls.Add(this.label4);
@@ -146,7 +161,7 @@
       this.Controls.Add(this.uiStories);
       this.Controls.Add(this.label1);
       this.Name = "DependencyControl";
-      this.Size = new System.Drawing.Size(612, 37);
+      this.Size = new System.Drawing.Size(612, 49);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -163,5 +178,6 @@
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.ComboBox uiAction;
     private System.Windows.Forms.ComboBox uiActionValue;
+    private System.Windows.Forms.FlowLayoutPanel uiDependencies;
   }
 }

@@ -105,6 +105,7 @@ namespace Loggella.UI
         {
           StoryControl sc = new StoryControl( Circuit, s );
           sc.RefreshUi();
+          sc.StoryChanged += OnStoryChanged;
           uiStories.Controls.Add( sc );
         }
       }
@@ -114,6 +115,8 @@ namespace Loggella.UI
 
     private void UpdateDetailedViewUI()
     {
+      uiComponents.Controls.Clear();
+
       Point point = new Point( 0, 10 );
 
       List< Circuit > circuits;
@@ -212,6 +215,13 @@ namespace Loggella.UI
       Circuit.CreateStory( name );
 
       UpdateStoryView();
+      UpdateDetailedViewUI();
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void OnStoryChanged( object sender, EventArgs args )
+    {
       UpdateDetailedViewUI();
     }
 
