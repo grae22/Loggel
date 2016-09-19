@@ -91,7 +91,8 @@ namespace Loggel
 
     public T CreateComponent<T>(
       string name,
-      string description ) where T : Component
+      string description,
+      bool appendNumberIfNameExists = false ) where T : Component
     {
       T component = null;
 
@@ -102,12 +103,31 @@ namespace Loggel
       }
 
       // Check name isn't already used.
-      foreach( Component c in Components.Values )
+      bool checkingName = true;
+      int number = 1;
+
+      while( checkingName )
       {
-        if( c.Name == name )
+        bool nameAlreadyExists = false;
+
+        foreach( Component c in Components.Values )
         {
-          throw new ArgumentException( "The name '" + name + "' is already in use." );
+          if( c.Name == name )
+          {
+            if( appendNumberIfNameExists == false )
+            {
+              throw new ArgumentException( "The name '" + name + "' is already in use." );
+            }
+
+            // Append a number to the name and start again.
+            nameAlreadyExists = true;
+            name += number.ToString();
+            number++;
+            break;
+          }
         }
+
+        checkingName = nameAlreadyExists;
       }
 
       // Create it?

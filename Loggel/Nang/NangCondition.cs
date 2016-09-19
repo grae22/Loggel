@@ -70,6 +70,10 @@ namespace Loggel.Nang
     // Comparer that will perform the conditional logic.
     private Comparer Comparer { get; set; }
 
+    // Processors.
+    private Processor ProcessorWhenTrue { get; set; }
+    private Processor ProcessorWhenFalse { get; set; }
+
     //-------------------------------------------------------------------------
 
     override public IStory GetReferenceStory()
@@ -107,8 +111,9 @@ namespace Loggel.Nang
       {
         Comparer =
           context.CreateComponent<Comparer>(
-            "Condition",
-            "" );
+            "Condition_" + ReferenceStory.Name,
+            "",
+            true );
       }
 
       // We're comparing the reference story's value with our comparison value.
@@ -133,19 +138,25 @@ namespace Loggel.Nang
       }
 
       // Create processors to perform actions.
-      Processor processorWhenTrue =
+      if( ProcessorWhenTrue == null )
+      {
+      ProcessorWhenTrue =
         CreateActionProcessor(
           Name + "_True",
           ActionWhenTrue,
           ActionValueWhenTrue,
           context );
+      }
 
-      Processor processorWhenFalse =
-        CreateActionProcessor(
-          Name + "_False",
-          ActionWhenFalse,
-          ActionValueWhenFalse,
-          context );
+      if( ProcessorWhenFalse == null )
+      {
+        ProcessorWhenFalse =
+          CreateActionProcessor(
+            Name + "_False",
+            ActionWhenFalse,
+            ActionValueWhenFalse,
+            context );
+      }
 
       // Clear all routes and re-map.
       Comparer.SetAllProcessors( null );
@@ -156,47 +167,47 @@ namespace Loggel.Nang
           break;
 
         case ComparisonType.EQUAL:
-          Comparer.Processor_Equal = processorWhenTrue;
-          Comparer.Processor_NotEqual = processorWhenFalse;
+          Comparer.Processor_Equal = ProcessorWhenTrue;
+          Comparer.Processor_NotEqual = ProcessorWhenFalse;
           break;
 
         case ComparisonType.NOT_EQUAL:
-          Comparer.Processor_NotEqual = processorWhenTrue;
-          Comparer.Processor_Equal = processorWhenFalse;
+          Comparer.Processor_NotEqual = ProcessorWhenTrue;
+          Comparer.Processor_Equal = ProcessorWhenFalse;
           break;
 
         case ComparisonType.GREATER_OR_EQUAL:
-          Comparer.Processor_Greater = processorWhenTrue;
-          Comparer.Processor_Equal = processorWhenTrue;
-          Comparer.Processor_Lesser = processorWhenFalse;
+          Comparer.Processor_Greater = ProcessorWhenTrue;
+          Comparer.Processor_Equal = ProcessorWhenTrue;
+          Comparer.Processor_Lesser = ProcessorWhenFalse;
           break;
 
         case ComparisonType.GREATER:
-          Comparer.Processor_Greater = processorWhenTrue;
-          Comparer.Processor_Equal = processorWhenFalse;
-          Comparer.Processor_Lesser = processorWhenFalse;
+          Comparer.Processor_Greater = ProcessorWhenTrue;
+          Comparer.Processor_Equal = ProcessorWhenFalse;
+          Comparer.Processor_Lesser = ProcessorWhenFalse;
           break;
 
         case ComparisonType.LESSER_OR_EQUAL:
-          Comparer.Processor_Lesser = processorWhenTrue;
-          Comparer.Processor_Equal = processorWhenTrue;
-          Comparer.Processor_Greater = processorWhenFalse;
+          Comparer.Processor_Lesser = ProcessorWhenTrue;
+          Comparer.Processor_Equal = ProcessorWhenTrue;
+          Comparer.Processor_Greater = ProcessorWhenFalse;
           break;
 
         case ComparisonType.LESSER:
-          Comparer.Processor_Lesser = processorWhenTrue;
-          Comparer.Processor_Equal = processorWhenFalse;
-          Comparer.Processor_Greater = processorWhenFalse;
+          Comparer.Processor_Lesser = ProcessorWhenTrue;
+          Comparer.Processor_Equal = ProcessorWhenFalse;
+          Comparer.Processor_Greater = ProcessorWhenFalse;
           break;
 
         case ComparisonType.IN_RANGE:
-          Comparer.Processor_InRange = processorWhenTrue;
-          Comparer.Processor_NotInRange = processorWhenFalse;
+          Comparer.Processor_InRange = ProcessorWhenTrue;
+          Comparer.Processor_NotInRange = ProcessorWhenFalse;
           break;
 
         case ComparisonType.NOT_IN_RANGE:
-          Comparer.Processor_NotInRange = processorWhenTrue;
-          Comparer.Processor_InRange = processorWhenFalse;
+          Comparer.Processor_NotInRange = ProcessorWhenTrue;
+          Comparer.Processor_InRange = ProcessorWhenFalse;
           break;
       }
     }
@@ -215,7 +226,7 @@ namespace Loggel.Nang
       }
 
       // Create the processor.
-      Maths processor = context.CreateComponent<Maths>( name, "" );
+      Maths processor = context.CreateComponent<Maths>( name, "", true );
 
       // Set its operation type.
       switch( action )
