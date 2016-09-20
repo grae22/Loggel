@@ -70,7 +70,7 @@ namespace Loggel.Nang
 
       Stories.Remove( story.GetName() );
 
-      ((NangStory)story).Name = name;
+      ((NangStory)story).SetName( name );
       Stories.Add( name, (NangStory)story );
 
       return true;
@@ -100,8 +100,6 @@ namespace Loggel.Nang
           ICondition.ComparisonType.NOTHING,
           0,
           ICondition.ActionType.NONE,
-          0,
-          ICondition.ActionType.NONE,
           0 );
      
       return condition;
@@ -115,20 +113,16 @@ namespace Loggel.Nang
       IStory referenceStory,
       ICondition.ComparisonType comparisonType,
       dynamic comparisonValue,
-      ICondition.ActionType actionWhenTrue,
-      dynamic actionValueWhenTrue,
-      ICondition.ActionType actionWhenFalse,
-      dynamic actionValueWhenFalse )
+      ICondition.ActionType action,
+      dynamic actionValue )
     {
       NangCondition nangCondition = (NangCondition)condition;
 
       nangCondition.ReferenceStory = (NangStory)referenceStory;
       nangCondition.Comparison = comparisonType;
       nangCondition.ComparisonValue = comparisonValue;
-      nangCondition.ActionWhenTrue = actionWhenTrue;
-      nangCondition.ActionValueWhenTrue = actionValueWhenTrue;
-      nangCondition.ActionWhenFalse = actionWhenFalse;
-      nangCondition.ActionValueWhenFalse = actionValueWhenFalse;
+      nangCondition.Action = action;
+      nangCondition.ActionValue = actionValue;
 
       ((NangStory)story).BuildCircuit();
     }
@@ -145,8 +139,6 @@ namespace Loggel.Nang
           ICondition.ComparisonType.NOTHING,
           0,
           ICondition.ActionType.NONE,
-          0,
-          ICondition.ActionType.NONE,
           0 );
      
       return subCondition;
@@ -160,20 +152,16 @@ namespace Loggel.Nang
       IStory referenceStory,
       ICondition.ComparisonType comparisonType,
       dynamic comparisonValue,
-      ICondition.ActionType actionWhenTrue,
-      dynamic actionValueWhenTrue,
-      ICondition.ActionType actionWhenFalse,
-      dynamic actionValueWhenFalse )
+      ICondition.ActionType action,
+      dynamic actionValue )
     {
       NangCondition nangCondition = (NangCondition)condition;
 
       nangCondition.ReferenceStory = (NangStory)referenceStory;
       nangCondition.Comparison = comparisonType;
       nangCondition.ComparisonValue = comparisonValue;
-      nangCondition.ActionWhenTrue = actionWhenTrue;
-      nangCondition.ActionValueWhenTrue = actionValueWhenTrue;
-      nangCondition.ActionWhenFalse = actionWhenFalse;
-      nangCondition.ActionValueWhenFalse = actionValueWhenFalse;
+      nangCondition.Action = action;
+      nangCondition.ActionValue = actionValue;
 
       ((NangStory)story).BuildCircuit();
     }

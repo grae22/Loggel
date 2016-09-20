@@ -20,7 +20,7 @@ namespace Loggel.Nang
   {
     //-------------------------------------------------------------------------
 
-    public string Name { get; set; }
+    public string Name { get; private set; }
     public NangValue Value { get; private set; }
     public List< NangCondition > Conditions { get; private set; } = new List< NangCondition >();
     public Circuit StoryCircuit { get; private set; }
@@ -111,6 +111,18 @@ namespace Loggel.Nang
 
     //-------------------------------------------------------------------------
 
+    public void SetName( string name )
+    {
+      Name = name;
+
+      if( StoryCircuit != null )
+      {
+        StoryCircuit.Name = name;
+      }
+    }
+
+    //-------------------------------------------------------------------------
+
     public void ChangeType( IValue.Type type )
     {
       Value = NangValue.Create( type );
@@ -122,10 +134,8 @@ namespace Loggel.Nang
       NangStory referenceStory,
       ICondition.ComparisonType comparisonType,
       dynamic comparisonValue,
-      ICondition.ActionType actionWhenTrue,
-      dynamic actionValueWhenTrue,
-      ICondition.ActionType actionWhenFalse,
-      dynamic actionValueWhenFalse )
+      ICondition.ActionType action,
+      dynamic actionValue )
     {
       NangCondition condition =
         new NangCondition( Name + '_' + referenceStory?.Name );
@@ -133,10 +143,8 @@ namespace Loggel.Nang
       condition.ReferenceStory = referenceStory;
       condition.Comparison = comparisonType;
       condition.ComparisonValue = comparisonValue;
-      condition.ActionWhenTrue = actionWhenTrue;
-      condition.ActionValueWhenTrue = actionValueWhenTrue;
-      condition.ActionWhenFalse = actionWhenFalse;
-      condition.ActionValueWhenFalse = actionValueWhenFalse;
+      condition.Action = action;
+      condition.ActionValue = actionValue;
 
       Conditions.Add( condition );
 

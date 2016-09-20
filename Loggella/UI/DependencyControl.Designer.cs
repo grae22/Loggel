@@ -38,6 +38,7 @@
       this.uiAction = new System.Windows.Forms.ComboBox();
       this.uiActionValue = new System.Windows.Forms.ComboBox();
       this.uiDependencies = new System.Windows.Forms.FlowLayoutPanel();
+      this.uiAddSubDependency = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // label1
@@ -140,16 +141,30 @@
       // uiDependencies
       // 
       this.uiDependencies.AutoSize = true;
+      this.uiDependencies.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
       this.uiDependencies.Location = new System.Drawing.Point(43, 35);
       this.uiDependencies.Name = "uiDependencies";
       this.uiDependencies.Size = new System.Drawing.Size(200, 10);
       this.uiDependencies.TabIndex = 9;
+      // 
+      // uiAddSubDependency
+      // 
+      this.uiAddSubDependency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.uiAddSubDependency.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.uiAddSubDependency.Location = new System.Drawing.Point(6, 31);
+      this.uiAddSubDependency.Name = "uiAddSubDependency";
+      this.uiAddSubDependency.Size = new System.Drawing.Size(31, 17);
+      this.uiAddSubDependency.TabIndex = 10;
+      this.uiAddSubDependency.Text = "+";
+      this.uiAddSubDependency.UseVisualStyleBackColor = true;
+      this.uiAddSubDependency.Click += new System.EventHandler(this.uiAddSubDependency_Click);
       // 
       // DependencyControl
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.AutoSize = true;
+      this.Controls.Add(this.uiAddSubDependency);
       this.Controls.Add(this.uiDependencies);
       this.Controls.Add(this.uiActionValue);
       this.Controls.Add(this.uiAction);
@@ -161,7 +176,7 @@
       this.Controls.Add(this.uiStories);
       this.Controls.Add(this.label1);
       this.Name = "DependencyControl";
-      this.Size = new System.Drawing.Size(612, 49);
+      this.Size = new System.Drawing.Size(612, 48);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -179,5 +194,6 @@
     private System.Windows.Forms.ComboBox uiAction;
     private System.Windows.Forms.ComboBox uiActionValue;
     private System.Windows.Forms.FlowLayoutPanel uiDependencies;
+    private System.Windows.Forms.Button uiAddSubDependency;
   }
 }

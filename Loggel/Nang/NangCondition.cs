@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Loggel.Processors;
 
 namespace Loggel.Nang
@@ -54,25 +55,23 @@ namespace Loggel.Nang
     // Type of comparison to be used.
     public ComparisonType Comparison { get; set; } = ComparisonType.NOTHING;
 
-    // Action that will be applied to the story's value when
-    // the condition is true/false.
-    public ActionType ActionWhenTrue { get; set; } = ActionType.NONE;
-    public ActionType ActionWhenFalse { get; set; } = ActionType.NONE;
+    // Action that will be applied to the story's value.
+    public ActionType Action { get; set; } = ActionType.NONE;
 
-    // Values to be used when performing the actions.
-    public dynamic ActionValueWhenTrue { get; set; }
-    public dynamic ActionValueWhenFalse { get; set; }
+    // Value to be used when performing the action.
+    public dynamic ActionValue { get; set; }
 
-    // Nested conditions that will be tested when this condition is true/false.
-    public NangCondition SubConditionWhenTrue { get; set; }
-    public NangCondition SubConditionWhenFalse { get; set; }
+    // Processor for action.
+    private Processor ActionProcessor { get; set; }
 
     // Comparer that will perform the conditional logic.
     private Comparer Comparer { get; set; }
 
-    // Processors.
-    private Processor ProcessorWhenTrue { get; set; }
-    private Processor ProcessorWhenFalse { get; set; }
+    // Nested conditions that will be tested when this condition is true.
+    public List< NangCondition > SubConditions { get; set; } = new List< NangCondition >();
+
+    // Router to connect sub-conditions.
+    private Router SubConditionRouter { get; set; }
 
     //-------------------------------------------------------------------------
 
@@ -124,20 +123,32 @@ namespace Loggel.Nang
       Comparer.RangeMin = ComparisonValueRangeMin;
       Comparer.RangeMax = ComparisonValueRangeMax;
 
-      BuildActions( context );
-
       // Sub conditions.
-      if( SubConditionWhenTrue != null )
+      if( SubConditionRouter != null )
       {
-        ProcessorWhenTrue =
-          SubConditionWhenTrue.BuildCircuit( context );
+        SubConditionRouter.Routes.Clear();
       }
 
-      if( SubConditionWhenFalse != null )
+      foreach( NangCondition subCondition in SubConditions )
       {
-        ProcessorWhenFalse =
-          SubConditionWhenFalse.BuildCircuit( context );
+        if( SubConditionRouter == null )
+        {
+          SubConditionRouter =
+            context.CreateComponent< Router >(
+              "SubConditionRouter_" + Name,
+              "" );
+        }
+
+        Comparer comparer = subCondition.BuildCircuit( context );
+
+        if( comparer != null )
+        {
+          SubConditionRouter.Routes.Add( comparer );
+        }
       }
+
+      // Build actions.
+      BuildActions( context );
 
       return Comparer;
     }
@@ -153,38 +164,28 @@ namespace Loggel.Nang
       }
 
       // Create processors to perform actions.
-      if( ProcessorWhenTrue == null )
+      if( SubConditionRouter == null )
       {
-        ProcessorWhenTrue =
-          CreateActionProcessor(
-            Name + "_True",
-            ActionWhenTrue,
-            ActionValueWhenTrue,
-            context );
+        if( ActionProcessor == null )
+        {
+          ActionProcessor =
+            CreateActionProcessor(
+              Name + "_Action",
+              Action,
+              ActionValue,
+              context );
+        }
+        else if( ActionProcessor is Maths )
+        {
+          SetActionProcessorValues(
+            (Maths)ActionProcessor,
+            Action,
+            ActionValue );
+        }
       }
-      else if( ProcessorWhenTrue is Maths )
+      else
       {
-        SetActionProcessorValues(
-          (Maths)ProcessorWhenTrue,
-          ActionWhenTrue,
-          ActionValueWhenTrue );
-      }
-
-      if( ProcessorWhenFalse == null )
-      {
-        ProcessorWhenFalse =
-          CreateActionProcessor(
-            Name + "_False",
-            ActionWhenFalse,
-            ActionValueWhenFalse,
-            context );
-      }
-      else if( ProcessorWhenFalse is Maths )
-      {
-        SetActionProcessorValues(
-          (Maths)ProcessorWhenFalse,
-          ActionWhenFalse,
-          ActionValueWhenFalse );
+        ActionProcessor = SubConditionRouter;
       }
 
       // Clear all routes and re-map.
@@ -196,47 +197,41 @@ namespace Loggel.Nang
           break;
 
         case ComparisonType.EQUAL:
-          Comparer.Processor_Equal = ProcessorWhenTrue;
-          Comparer.Processor_NotEqual = ProcessorWhenFalse;
+          Comparer.Processor_Equal = ActionProcessor;
           break;
 
         case ComparisonType.NOT_EQUAL:
-          Comparer.Processor_NotEqual = ProcessorWhenTrue;
-          Comparer.Processor_Equal = ProcessorWhenFalse;
+          Comparer.Processor_NotEqual = ActionProcessor;
           break;
 
         case ComparisonType.GREATER_OR_EQUAL:
-          Comparer.Processor_Greater = ProcessorWhenTrue;
-          Comparer.Processor_Equal = ProcessorWhenTrue;
-          Comparer.Processor_Lesser = ProcessorWhenFalse;
+          Comparer.Processor_Greater = ActionProcessor;
+          Comparer.Processor_Equal = ActionProcessor;
           break;
 
         case ComparisonType.GREATER:
-          Comparer.Processor_Greater = ProcessorWhenTrue;
-          Comparer.Processor_Equal = ProcessorWhenFalse;
-          Comparer.Processor_Lesser = ProcessorWhenFalse;
+          Comparer.Processor_Greater = ActionProcessor;
           break;
 
         case ComparisonType.LESSER_OR_EQUAL:
-          Comparer.Processor_Lesser = ProcessorWhenTrue;
-          Comparer.Processor_Equal = ProcessorWhenTrue;
-          Comparer.Processor_Greater = ProcessorWhenFalse;
+          Comparer.Processor_Lesser = ActionProcessor;
+          Comparer.Processor_Equal = ActionProcessor;
           break;
 
         case ComparisonType.LESSER:
-          Comparer.Processor_Lesser = ProcessorWhenTrue;
-          Comparer.Processor_Equal = ProcessorWhenFalse;
-          Comparer.Processor_Greater = ProcessorWhenFalse;
+          Comparer.Processor_Lesser = ActionProcessor;
           break;
 
         case ComparisonType.IN_RANGE:
-          Comparer.Processor_InRange = ProcessorWhenTrue;
-          Comparer.Processor_NotInRange = ProcessorWhenFalse;
+          Comparer.Processor_InRange = ActionProcessor;
           break;
 
         case ComparisonType.NOT_IN_RANGE:
-          Comparer.Processor_NotInRange = ProcessorWhenTrue;
-          Comparer.Processor_InRange = ProcessorWhenFalse;
+          Comparer.Processor_NotInRange = ActionProcessor;
+          break;
+
+        default:
+          System.Diagnostics.Debug.Assert( false );
           break;
       }
     }
@@ -255,7 +250,7 @@ namespace Loggel.Nang
       }
 
       // Create the processor.
-      Maths processor = context.CreateComponent<Maths>( name, "", true );
+      Maths processor = context.CreateComponent< Maths >( name, "", true );
 
       // Set the values.
       SetActionProcessorValues(
@@ -313,26 +308,21 @@ namespace Loggel.Nang
       NangStory referenceStory,
       ComparisonType comparisonType,
       dynamic comparisonValue,
-      ActionType actionWhenTrue,
-      dynamic actionValueWhenTrue,
-      ActionType actionWhenFalse,
-      dynamic actionValueWhenFalse )
+      ActionType action,
+      dynamic actionValue )
     {
-      if( SubConditionWhenTrue == null )
-      {
-        SubConditionWhenTrue =
-          new NangCondition( Name + '_' + referenceStory?.Name );
-      }
+      NangCondition condition =
+        new NangCondition( Name + '_' + referenceStory?.Name );
 
-      SubConditionWhenTrue.ReferenceStory = referenceStory;
-      SubConditionWhenTrue.Comparison = comparisonType;
-      SubConditionWhenTrue.ComparisonValue = comparisonValue;
-      SubConditionWhenTrue.ActionWhenTrue = actionWhenTrue;
-      SubConditionWhenTrue.ActionValueWhenTrue = actionValueWhenTrue;
-      SubConditionWhenTrue.ActionWhenFalse = actionWhenFalse;
-      SubConditionWhenTrue.ActionValueWhenFalse = actionValueWhenFalse;
+      condition.ReferenceStory = referenceStory;
+      condition.Comparison = comparisonType;
+      condition.ComparisonValue = comparisonValue;
+      condition.Action = action;
+      condition.ActionValue = actionValue;
 
-      return SubConditionWhenTrue;
+      SubConditions.Add( condition );
+
+      return condition;
     }
 
     //-------------------------------------------------------------------------

@@ -222,6 +222,7 @@ namespace Loggella.UI
 
     private void OnStoryChanged( object sender, EventArgs args )
     {
+      UpdateStoryView();
       UpdateDetailedViewUI();
     }
 

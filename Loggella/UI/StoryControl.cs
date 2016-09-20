@@ -52,7 +52,7 @@ namespace Loggella.UI
       story.GetConditions( out conditions );
       foreach( ICondition c in conditions )
       {
-        DependencyControl dep = new DependencyControl( c, Circuit, Story );
+        DependencyControl dep = new DependencyControl( c, null, Circuit, Story );
         dep.DependencyChanged += OnDependencyChanged;
         uiDependencies.Controls.Add( dep );
       }
@@ -117,7 +117,7 @@ namespace Loggella.UI
     {
       ICondition condition = Circuit.CreateStoryCondition( Story );
 
-      DependencyControl dep = new DependencyControl( condition, Circuit, Story );
+      DependencyControl dep = new DependencyControl( condition, null, Circuit, Story );
       dep.DependencyChanged += OnDependencyChanged;
       uiDependencies.Controls.Add( dep );
     }

@@ -43,23 +43,12 @@ namespace Loggel_Test
         NangCondition.ComparisonType.EQUAL,
         "off",
         NangCondition.ActionType.ADD,
-        1.23,
-        NangCondition.ActionType.SUBTRACT,
-        1.0 );
+        1.23 );
       story.BuildCircuit();
 
       story.StoryCircuit.Process();
 
       Assert.AreEqual( 1.23, story.StoryCircuit.Context.Value );
-
-      // Reference story value changes to 'on'.
-      refStory.StoryCircuit.Context.Value = "on";
-      story.StoryCircuit.Process();
-
-      Assert.AreEqual(
-        0.23,
-        story.StoryCircuit.Context.Value,
-        0.001 );
     }
 
     //-------------------------------------------------------------------------

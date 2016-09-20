@@ -10,6 +10,7 @@ namespace Loggella.UI
     //-------------------------------------------------------------------------
 
     public ICondition Condition { get; private set; }
+    public ICondition ParentCondition { get; private set; }
 
     private NangCircuit Circuit { get; set; }
     private IStory Story { get; set; }
@@ -44,14 +45,18 @@ namespace Loggella.UI
 
     public DependencyControl( 
       ICondition condition,
+      ICondition parentCondition,
       NangCircuit circuit,
       IStory story )
     {
       Condition = condition;
+      ParentCondition = parentCondition;
       Circuit = circuit;
       Story = story;
 
       InitializeComponent();
+
+      uiAddSubDependency.Hide();
 
       // Remove handlers before setting control values.
       uiStories.DropDown -= uiStories_DropDown;
@@ -76,10 +81,7 @@ namespace Loggella.UI
 
       foreach( IStory s in stories )
       {
-        if( s != Story )
-        {
-          uiStories.Items.Add( s.GetName() );
-        }
+        uiStories.Items.Add( s.GetName() );
       }
     }
 
@@ -110,13 +112,11 @@ namespace Loggella.UI
 
     private void uiAction_SelectedIndexChanged( object sender, System.EventArgs e )
     {
-      if( uiAction.Text == "depends on" )
+      if( uiAction.Text == "depends on" &&
+          uiDependencies.Controls.Count == 0 )
       {
-        ICondition condition = Circuit.CreateSubCondition( Condition );
-
-        DependencyControl dep = new DependencyControl( condition, Circuit, Story );
-        dep.DependencyChanged += OnSubDependencyChanged;
-        uiDependencies.Controls.Add( dep );
+        uiAddSubDependency.Show();
+        uiAddSubDependency_Click( null, null );
       }
 
       ApplyDependencyToStory();
@@ -183,28 +183,28 @@ namespace Loggella.UI
       }
 
       // Action when true.
-      ICondition.ActionType actionWhenTrue = ICondition.ActionType.NONE;
+      ICondition.ActionType action = ICondition.ActionType.NONE;
 
       if( uiAction.Text == "be" )
       {
-        actionWhenTrue = ICondition.ActionType.SET;
+        action = ICondition.ActionType.SET;
       }
       else if( uiAction.Text == "increase by" )
       {
-        actionWhenTrue = ICondition.ActionType.ADD;
+        action = ICondition.ActionType.ADD;
       }
       else if( uiAction.Text == "decrease by" )
       {
-        actionWhenTrue = ICondition.ActionType.SUBTRACT;
+        action = ICondition.ActionType.SUBTRACT;
       }
       else
       {
         //return;
       }
 
-      float actionValueWhenTrue;
+      float actionValue;
 
-      if( float.TryParse( uiActionValue.Text, out actionValueWhenTrue ) == false )
+      if( float.TryParse( uiActionValue.Text, out actionValue ) == false )
       {
         //return;
       }
@@ -216,10 +216,8 @@ namespace Loggella.UI
         refStory,
         comparisonType,
         comparisonValue,
-        actionWhenTrue,
-        actionValueWhenTrue,
-        ICondition.ActionType.NONE,
-        null );
+        action,
+        actionValue );
 
       // Raise event.
       OnDependencyChanged();
@@ -230,6 +228,17 @@ namespace Loggella.UI
     private void OnSubDependencyChanged( object sender, EventArgs args )
     {
       OnDependencyChanged();
+    }
+
+    //-------------------------------------------------------------------------
+
+    private void uiAddSubDependency_Click( object sender, EventArgs e )
+    {
+      ICondition condition = Circuit.CreateSubCondition( Condition );
+
+      DependencyControl dep = new DependencyControl( condition, Condition, Circuit, Story );
+      dep.DependencyChanged += OnSubDependencyChanged;
+      uiDependencies.Controls.Add( dep );
     }
 
     //-------------------------------------------------------------------------
